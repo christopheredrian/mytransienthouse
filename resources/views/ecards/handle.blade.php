@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
-    <title>E-Card</title>
+    <title>Greetings🎄🎇</title>
     <link href="https://fonts.googleapis.com/css?family=Gochi+Hand&display=swap" rel="stylesheet">
     <style>
 
