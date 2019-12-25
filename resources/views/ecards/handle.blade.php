@@ -4,7 +4,7 @@
     <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
     <title>Greetings🎄🎇</title>
     <link href="https://fonts.googleapis.com/css?family=Gochi+Hand&display=swap" rel="stylesheet">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <style>
 
         .container {
@@ -12,18 +12,13 @@
             font-size: 1.3em;
             line-height: 1.8em;
         }
-
-        img {
-            width: 100%;
-            height: 100%;
-        }
     </style>
 </head>
 <body>
 
 
 <div class="container">
-    <div style="width: 60%; margin: 15vh auto">
+    <div style="width: 60%; margin: 10vh auto">
         <p>
 
             <span style="display: block; margin-bottom: 30px">{{$ecard->salutation}}</span>
