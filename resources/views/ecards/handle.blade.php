@@ -18,7 +18,7 @@
 
 
 <div class="container">
-    <div style="width: 60%; margin: 10vh auto">
+    <div style="width: 80%; margin: 10vh auto">
         <p>
 
             <span style="display: block; margin-bottom: 30px">{{$ecard->salutation}}</span>
