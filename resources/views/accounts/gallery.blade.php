@@ -34,7 +34,7 @@
             @if(!empty($imagePaths))
                 @foreach($imagePaths as $imagePath)
                     <a href="{{$imagePath}}">
-                        <img class="img img-thumbnail" style="width: 250px" src="{{$imagePath}}" alt="Image {{$directory}}">
+                        <img class="img img-thumbnail" style="width: 13vw" src="{{$imagePath}}" alt="Image {{$directory}}">
                     </a>
                 @endforeach
             @endif
