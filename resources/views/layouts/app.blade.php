@@ -19,6 +19,11 @@
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <link href="{{ asset('css/test.css') }}" rel="stylesheet">
+
+    @yield('styles')
+
+    @yield('scripts')
+
 </head>
 <body>
     <div id="app">
