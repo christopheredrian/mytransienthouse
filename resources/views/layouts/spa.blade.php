@@ -7,7 +7,7 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ config('app.name', 'My Transient House') }}</title>
+    <title>{{ 'My Transient House' }}</title>
     <link rel="stylesheet" href="/css/bootstrap.min.css">
 
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
