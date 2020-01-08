@@ -3,7 +3,9 @@
 namespace App\Exceptions;
 
 use Exception;
+use Illuminate\Auth\AuthenticationException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
+use Illuminate\Validation\ValidationException;
 
 class Handler extends ExceptionHandler
 {
@@ -16,21 +18,22 @@ class Handler extends ExceptionHandler
         //
     ];
 
-    /**
-     * A list of the inputs that are never flashed for validation exceptions.
-     *
-     * @var array
-     */
-    protected $dontFlash = [
-        'password',
-        'password_confirmation',
-    ];
+//    /**
+//     * A list of the inputs that are never flashed for validation exceptions.
+//     *
+//     * @var array
+//     */
+//    protected $dontFlash = [
+//        'password',
+//        'password_confirmation',
+//    ];
 
     /**
      * Report or log an exception.
      *
-     * @param  \Exception  $exception
+     * @param \Exception $exception
      * @return void
+     * @throws
      */
     public function report(Exception $exception)
     {
@@ -40,12 +43,26 @@ class Handler extends ExceptionHandler
     /**
      * Render an exception into an HTTP response.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \Exception  $exception
+     * @param \Illuminate\Http\Request $request
+     * @param \Exception $exception
      * @return \Illuminate\Http\Response
+     *
      */
     public function render($request, Exception $exception)
     {
-        return parent::render($request, $exception);
+        try {
+            // todo: chris -continue 
+            throw $exception;
+        } catch (ValidationException $exception) {
+             response()->setStatusCode($exception->status);
+        } catch (Exception $exception) {
+            return parent::render($request, $exception);
+        }
     }
+
+    protected function unauthenticated($request, AuthenticationException $exception)
+    {
+        return response()->json(['error' => 'Unauthenticated'], 401);
+    }
+
 }

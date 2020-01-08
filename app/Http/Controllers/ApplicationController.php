@@ -26,7 +26,8 @@ class ApplicationController extends Controller
 
     }
 
-    public function index(){
+    public function index()
+    {
         dd($this->account);
     }
 }
