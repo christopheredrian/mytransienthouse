@@ -19,7 +19,7 @@ Route::get('/greetings/{handle}', 'EcardController@handle');
 Route::domain("{account}.{$appDomain}")->group(function () {
     Route::get('/', 'ApplicationController@index');
 });
-Route::get('espiritu', function () {
+Route::get('espr2', function () {
     $directories = array_filter(glob('img/accounts/espiritu/*'), 'is_dir');
 
     $imageMap = [];
