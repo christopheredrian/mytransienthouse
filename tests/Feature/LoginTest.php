@@ -15,6 +15,7 @@ use Tests\TestCase;
 class LoginTest extends TestCase
 {
     /**
+     * @group only
      * @test
      */
     public function emailAndPasswordAreRequired()
@@ -23,7 +24,7 @@ class LoginTest extends TestCase
         $this->post('api/login')
             ->assertStatus(422)
             ->assertJson([
-                'message' => 'The given data was invalid.',
+                'password' => ['The password field is required.']
             ]);
     }
 

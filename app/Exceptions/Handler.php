@@ -18,15 +18,15 @@ class Handler extends ExceptionHandler
         //
     ];
 
-//    /**
-//     * A list of the inputs that are never flashed for validation exceptions.
-//     *
-//     * @var array
-//     */
-//    protected $dontFlash = [
-//        'password',
-//        'password_confirmation',
-//    ];
+    /**
+     * A list of the inputs that are never flashed for validation exceptions.
+     *
+     * @var array
+     */
+    protected $dontFlash = [
+        'password',
+        'password_confirmation',
+    ];
 
     /**
      * Report or log an exception.
@@ -51,10 +51,9 @@ class Handler extends ExceptionHandler
     public function render($request, Exception $exception)
     {
         try {
-            // todo: chris -continue 
             throw $exception;
         } catch (ValidationException $exception) {
-             response()->setStatusCode($exception->status);
+            return response()->json($exception->errors(), 422);
         } catch (Exception $exception) {
             return parent::render($request, $exception);
         }
