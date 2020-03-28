@@ -19,9 +19,10 @@ Route::get('/greetings/{handle}', 'EcardController@handle');
  * React Test endpoints (Check mo to sean)
  * Reference /resources/js/components/AdminApp.js
  */
-Route::get('index', function () {
-    return view('welcome');
-});
+
+Route::get('{url}', function () {
+    return view('admin');
+})->where(['url' => 'admin|admin.*']);
 Route::get('test_data', function () {
 
     $data = [];
