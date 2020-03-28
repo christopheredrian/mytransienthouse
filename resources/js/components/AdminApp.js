@@ -1,4 +1,4 @@
-import React, {Component, useState} from 'react';
+import React, {useState} from 'react';
 import {Button, Row, Col, Container, Card} from 'react-bootstrap';
 import ReactDOM from 'react-dom';
 import axios from 'axios'
@@ -35,7 +35,7 @@ const AdminApp = () => {
 
             })
             .catch(error => {
-                console.error(erro);
+                console.error(error);
                 alert("There was an error while fetcing requests");
             });
 

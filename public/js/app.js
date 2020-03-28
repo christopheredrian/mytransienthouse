@@ -81319,7 +81319,7 @@ var AdminApp = function AdminApp() {
        */
       setTestData(data);
     })["catch"](function (error) {
-      console.error(erro);
+      console.error(error);
       alert("There was an error while fetcing requests");
     });
   };
