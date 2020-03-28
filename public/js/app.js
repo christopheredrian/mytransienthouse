@@ -84404,7 +84404,7 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 
 
-var ROOT_PATH = '/admin';
+var ADMIN_ROOT_PATH = '/admin';
 
 var SideBar = function SideBar() {
   return (
@@ -84422,13 +84422,13 @@ var SideBar = function SideBar() {
     react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", null,
     /*#__PURE__*/
     react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["Link"], {
-      to: "".concat(ROOT_PATH, "/fetch-sample")
+      to: "".concat(ADMIN_ROOT_PATH, "/fetch-sample")
     }, "Fetch Data Example")))),
     /*#__PURE__*/
     react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["Switch"], null,
     /*#__PURE__*/
     react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["Route"], {
-      path: "".concat(ROOT_PATH, "/fetch-sample")
+      path: "".concat(ADMIN_ROOT_PATH, "/fetch-sample")
     },
     /*#__PURE__*/
     react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(FetchDataExample, null)))))
@@ -84493,12 +84493,12 @@ var FetchDataExample = function FetchDataExample() {
       onClick: getTestData
     }, "Get data (via AJAX)")),
     /*#__PURE__*/
-    react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", null, Array.isArray(testData) && testData.length > 0 && testData.map(function (_ref2) {
+    react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_3__["ListGroup"], null, Array.isArray(testData) && testData.length > 0 && testData.map(function (_ref2) {
       var content = _ref2.content,
           id = _ref2.id;
       return (
         /*#__PURE__*/
-        react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {
+        react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_3__["ListGroup"].Item, {
           key: id
         }, content)
       );

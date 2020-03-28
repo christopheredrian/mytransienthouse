@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import axios from 'axios'
+import axios from 'axios';
 
 import {
     BrowserRouter as Router,
@@ -10,10 +10,10 @@ import {
 
 import {
     Button, Row, Col, Container, Card,
-    NavLink
+    ListGroup
 } from 'react-bootstrap';
 
-const ROOT_PATH = '/admin';
+const ADMIN_ROOT_PATH = '/admin';
 
 const SideBar = () => {
     return (
@@ -22,14 +22,14 @@ const SideBar = () => {
                 <div>
                     <nav>
                         <ul>
-                            <Link to={`${ROOT_PATH}/fetch-sample`}>
+                            <Link to={`${ADMIN_ROOT_PATH}/fetch-sample`}>
                                 Fetch Data Example
                             </Link>
                         </ul>
                     </nav>
                 </div>
                 <Switch>
-                    <Route path={`${ROOT_PATH}/fetch-sample`}>
+                    <Route path={`${ADMIN_ROOT_PATH}/fetch-sample`}>
                         <FetchDataExample/>
                     </Route>
                 </Switch>
@@ -83,15 +83,15 @@ const FetchDataExample = () => {
                         <Button size={"sm"} onClick={getTestData}>Get data (via AJAX)</Button>
                     </Card.Text>
 
-                    <ul>
+                    <ListGroup>
                         {
                             Array.isArray(testData) &&
                             (testData.length > 0) &&
                             testData.map(({content, id}) => {
-                                return <li key={id}>{content}</li>
+                                return <ListGroup.Item key={id}>{content}</ListGroup.Item>
                             })
                         }
-                    </ul>
+                    </ListGroup>
                 </Card>
             </Col>
         </Row>
@@ -101,7 +101,7 @@ const FetchDataExample = () => {
 const AdminApp = () => {
 
     return (
-        <Container >
+        <Container>
             <SideBar/>
         </Container>
     );
