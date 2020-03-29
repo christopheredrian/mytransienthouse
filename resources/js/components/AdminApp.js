@@ -13,7 +13,7 @@ import {
     ListGroup
 } from 'react-bootstrap';
 
-import Users from './admin/Users'
+import UserList from './admin/UserList'
 
 const ADMIN_ROOT_PATH = '/admin';
 
@@ -42,7 +42,7 @@ const SideBar = () => {
                         <FetchDataExample />
                     </Route>
                     <Route path={`${ADMIN_ROOT_PATH}/users`}>
-                        <Users />
+                        <UserList />
                     </Route>
                 </Switch>
             </Router>

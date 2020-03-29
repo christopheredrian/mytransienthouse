@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\User;
+use Illuminate\Http\Request;
 
 class UserController extends Controller
 {
@@ -22,6 +23,25 @@ class UserController extends Controller
             }
 
             return $usersData;
+
+    }
+
+    public function add(Request $request)
+    {
+
+        $user = new User();
+        $user->password = Hash::make($request->password);
+        $user->email = $request->email;
+        $user->name = $request->name;
+        $user->role = $request->role;
+
+        if (!$user->save()) {
+            throw new \ErrorException("Was unable to create user");
+        }
+
+        return response()->json([
+            "data" => $user->toArray()
+        ]);
 
     }
 
