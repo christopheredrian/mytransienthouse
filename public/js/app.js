@@ -86911,8 +86911,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_2__);
 /* harmony import */ var _components_MainApp__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./components/MainApp */ "./resources/js/components/MainApp.js");
 /* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
-/* harmony import */ var _actions_users__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./actions/users */ "./resources/js/actions/users.js");
-/* harmony import */ var _store_configureStore__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./store/configureStore */ "./resources/js/store/configureStore.js");
+/* harmony import */ var _store_configureStore__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./store/configureStore */ "./resources/js/store/configureStore.js");
 /**
  * First we will load all of this project's JavaScript dependencies which
  * includes React and other helpers. It's a great starting point while
@@ -86925,10 +86924,10 @@ __webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js");
 
 
 
+ // import {startSetUsers} from './actions/users'
 
 
-
-var store = Object(_store_configureStore__WEBPACK_IMPORTED_MODULE_6__["default"])();
+var store = Object(_store_configureStore__WEBPACK_IMPORTED_MODULE_5__["default"])();
 var jsx =
 /*#__PURE__*/
 react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(react_redux__WEBPACK_IMPORTED_MODULE_4__["Provider"], {
@@ -86942,12 +86941,12 @@ react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(_components_MainApp__
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
 
-store.dispatch(Object(_actions_auth__WEBPACK_IMPORTED_MODULE_0__["initializeUser"])());
-store.dispatch(Object(_actions_users__WEBPACK_IMPORTED_MODULE_5__["startSetUsers"])()).then(function () {
-  if (document.getElementById('app')) {
-    react_dom__WEBPACK_IMPORTED_MODULE_1___default.a.render(jsx, document.getElementById('app'));
-  }
-});
+store.dispatch(Object(_actions_auth__WEBPACK_IMPORTED_MODULE_0__["initializeUser"])()); // store.dispatch(startSetUsers()).then(() => {
+// });
+
+if (document.getElementById('app')) {
+  react_dom__WEBPACK_IMPORTED_MODULE_1___default.a.render(jsx, document.getElementById('app'));
+}
 
 /***/ }),
 
@@ -87043,7 +87042,7 @@ var FetchDataExample = function FetchDataExample() {
     /**
      * Get data from endpoint
      */
-    axios__WEBPACK_IMPORTED_MODULE_1___default.a.get(_config_Endpoints__WEBPACK_IMPORTED_MODULE_3__["default"].TEST_DATA).then(function (_ref) {
+    axios__WEBPACK_IMPORTED_MODULE_1___default.a.post(_config_Endpoints__WEBPACK_IMPORTED_MODULE_3__["default"].TEST_DATA).then(function (_ref) {
       var data = _ref.data;
 
       /**
@@ -87272,12 +87271,43 @@ __webpack_require__.r(__webpack_exports__);
  * @constructor
  */
 
+/**
+ * If set, inject api token to all axios requests
+ * @param apiToken
+ */
+
+var setApiTokenToAxiosDefaults = function setApiTokenToAxiosDefaults(apiToken) {
+  if (apiToken) {
+    axios.interceptors.request.use(function (config) {
+      if (!config.data) {
+        config.data = {};
+      } // assign your variables here
+
+
+      config.data.api_token = apiToken;
+      return config;
+    }, function (error) {
+      // Do something with request error
+      return Promise.reject(error);
+    });
+  }
+};
+
 var MainApp = function MainApp(_ref) {
   var _ref$loggedInUser = _ref.loggedInUser,
       loggedInUser = _ref$loggedInUser === void 0 ? null : _ref$loggedInUser;
   var isLoggedIn = !!(loggedInUser && loggedInUser.id && loggedInUser.api_token);
 
   if (isLoggedIn) {
+    /**
+     * User is logged in.
+     * Rak na!
+     */
+    setApiTokenToAxiosDefaults(loggedInUser.api_token || null);
+    /**
+     * todo: future - return appropriate component here for other roles
+     */
+
     return (
       /*#__PURE__*/
       react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_admin_AdminApp__WEBPACK_IMPORTED_MODULE_3__["default"], null)
@@ -87654,13 +87684,39 @@ __webpack_require__.r(__webpack_exports__);
 
 var composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || redux__WEBPACK_IMPORTED_MODULE_0__["compose"];
 /* harmony default export */ __webpack_exports__["default"] = (function () {
-  console.log("Configuring Store");
-  return Object(redux__WEBPACK_IMPORTED_MODULE_0__["createStore"])(Object(redux__WEBPACK_IMPORTED_MODULE_0__["combineReducers"])({
+  var persistedState = loadState();
+  var store = Object(redux__WEBPACK_IMPORTED_MODULE_0__["createStore"])(Object(redux__WEBPACK_IMPORTED_MODULE_0__["combineReducers"])({
     users: _reducers_users__WEBPACK_IMPORTED_MODULE_2__["default"],
     loggedInUser: _reducers_auth__WEBPACK_IMPORTED_MODULE_3__["default"]
-  }), composeEnhancers(Object(redux__WEBPACK_IMPORTED_MODULE_0__["applyMiddleware"])(redux_thunk__WEBPACK_IMPORTED_MODULE_1__["default"])) // window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
+  }), persistedState, composeEnhancers(Object(redux__WEBPACK_IMPORTED_MODULE_0__["applyMiddleware"])(redux_thunk__WEBPACK_IMPORTED_MODULE_1__["default"])) // window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
   );
+  store.subscribe(function () {
+    saveState(store.getState());
+  });
+  return store;
 });
+
+var loadState = function loadState() {
+  try {
+    var serializedState = localStorage.getItem('state');
+
+    if (serializedState === null) {
+      return undefined;
+    }
+
+    return JSON.parse(serializedState);
+  } catch (err) {
+    return undefined;
+  }
+};
+
+var saveState = function saveState(state) {
+  try {
+    var serializedState = JSON.stringify(state);
+    localStorage.setItem('state', serializedState);
+  } catch (_unused) {// ignore write errors
+  }
+};
 
 /***/ }),
 

@@ -11,6 +11,9 @@
 |
 */
 
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+
 $appDomain = env('APP_DOMAIN');
 //Auth::routes(['register' => false]);
 Route::get('greetings/{handle}', 'EcardController@handle');
@@ -53,6 +56,16 @@ Route::get('espr2', function () {
     return view('accounts.gallery', [
         'imageMap' => $imageMap
     ]);
+});
+
+Route::get('logout', function (Request $request) {
+    /** @var \App\User $user */
+    $user = $request->user();
+    if ($user) {
+        dd($user);
+        $user->invalidateToken();
+        Auth::logout();
+    }
 });
 
 Route::get('/{url}', function () {

@@ -16,7 +16,7 @@ const FetchDataExample = () => {
         /**
          * Get data from endpoint
          */
-        axios.get(Endpoints.TEST_DATA)
+        axios.post(Endpoints.TEST_DATA)
             .then(({data}) => {
                 /**
                  * Success response

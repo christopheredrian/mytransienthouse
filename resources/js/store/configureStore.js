@@ -7,13 +7,44 @@ import authReducer from '../reducers/auth';
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
 export default () => {
-    console.log("Configuring Store");
-    return createStore(
+
+    const persistedState = loadState();
+
+    const store = createStore(
         combineReducers({
             users: usersReducer,
             loggedInUser: authReducer,
         }),
-        composeEnhancers(applyMiddleware(thunkMiddleware))
+        persistedState,
+        composeEnhancers(applyMiddleware(thunkMiddleware)),
         // window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
     );
+
+    store.subscribe(() => {
+        saveState(store.getState());
+    });
+
+    return store;
 }
+
+const loadState = () => {
+    try {
+        const serializedState = localStorage.getItem('state');
+        if (serializedState === null) {
+            return undefined;
+        }
+        return JSON.parse(serializedState);
+    } catch (err) {
+        return undefined;
+    }
+};
+
+
+const saveState = (state) => {
+    try {
+        const serializedState = JSON.stringify(state);
+        localStorage.setItem('state', serializedState);
+    } catch {
+        // ignore write errors
+    }
+};

@@ -17,43 +17,36 @@ Route::post('login', 'Auth\LoginController@login');
 Route::post('logout', 'Auth\LoginController@logout');
 Route::post('register', 'Auth\RegisterController@register');
 
-Route::get('initialize_user', function (Request $request) {
-    $user = $request->user();
-
-    if ($user) {
-        return $user;
-    }
-
-    return [
-        'error' => 'Not logged in'
-    ];
-});
 
 Route::middleware('auth:api')->group(function () {
     /**
      * Authenticated Routes
      */
 
-    // Get logged in user
-//    Route::get('initialize_user', function (Request $request) {
-//        return $request->user();
-//    });
+    Route::get('initialize_user', function (Request $request) {
+        return $request->user();
+    });
+
+    Route::get('users', 'UserController@users');
+    /**
+     * Test route
+     */
+    Route::post('test', function () {
+        $data = [];
+
+        foreach (range(1, 100) as $count) {
+            $data[] = [
+                "id" => $count,
+                "content" => "Data {$count} from server",
+            ];
+        }
+        return $data;
+    });
 
 });
 
-
-Route::get('test', function () {
-    $data = [];
-
-    foreach (range(1, 100) as $count) {
-        $data[] = [
-            "id" => $count,
-            "content" => "Data {$count} from server",
-        ];
-    }
-    return $data;
+Route::get('initialize_user', function (Request $request) {
+    return [
+        'error' => 'Not logged in'
+    ];
 });
-
-//  todo: add to authenticated routes later on
-Route::get('users', 'UserController@users');
-
