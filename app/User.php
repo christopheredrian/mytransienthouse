@@ -2,19 +2,15 @@
 
 namespace App;
 
-use Illuminate\Contracts\Auth\MustVerifyEmail;
-use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Foundation\Auth\User as Authenticatable;
-use Illuminate\Http\JsonResponse;
-use Illuminate\Http\Request;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Str;
-use Illuminate\Validation\ValidationException;
-use Symfony\Component\HttpFoundation\Response;
 
 class User extends Authenticatable
 {
     use Notifiable;
+
+    const ROLE_ADMIN = "admin";
 
     /**
      * The attributes that are mass assignable.
@@ -49,5 +45,44 @@ class User extends Authenticatable
         $this->save();
 
         return $this->api_token;
+    }
+
+    public function getRole()
+    {
+        /**
+         * todo: sean continue
+         */
+        return self::ROLE_ADMIN;
+    }
+
+    /**
+     * Get redirect route  after logging in
+     * @return string
+     */
+    public function getLoginRedirectRoute(): string
+    {
+        switch ($this->getRole()) {
+            case self::ROLE_ADMIN:
+                // todo: sean add other roles
+            default:
+                return admin_url('');
+                break;
+        }
+    }
+
+    /**
+     * @return array|void
+     */
+    public function toArray()
+    {
+        parent::toArray();
+        /**
+         * Append other details for API
+         */
+        $data = parent::toArray();
+        $data['login_redirect_route'] = $this->getLoginRedirectRoute();
+
+        return $data;
+
     }
 }
