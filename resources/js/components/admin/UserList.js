@@ -10,7 +10,7 @@ import {
 const UserList = (props) => {
 
     return (
-        <Row className="justify-content-center mt-5">
+        <Row className="justify-content-center">
             <Col md={8}>
                 <Card className={'p-5'}>
                     <Card.Title>
@@ -37,12 +37,12 @@ const UserList = (props) => {
         </Row>
     );
 
-}
+};
 
 const mapStateToProps = (state) => {
     return {
         users: state.users
     }
-}
+};
 
 export default connect(mapStateToProps)(UserList);
