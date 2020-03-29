@@ -3,12 +3,13 @@
  * includes React and other helpers. It's a great starting point while
  * building robust, powerful web applications using React + Laravel.
  */
+import {initializeUser} from "./actions/auth";
+
 require('./bootstrap');
 
 
 import ReactDOM from "react-dom";
 import React from "react";
-import AdminApp from "./components/admin/AdminApp";
 import MainApp from "./components/MainApp";
 import { Provider } from 'react-redux';
 import { startSetUsers } from './actions/users'
@@ -17,7 +18,6 @@ import configureStore from './store/configureStore';
 const store = configureStore();
 const jsx = (
     <Provider store={store}>
-        {/*<AdminApp />*/}
         <MainApp/>
     </Provider>
 );
@@ -27,7 +27,7 @@ const jsx = (
  * the page. Then, you may begin adding components to this application
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
-
+store.dispatch(initializeUser());
 store.dispatch(startSetUsers()).then(() => {
     if (document.getElementById('app')) {
         ReactDOM.render(jsx, document.getElementById('app'));

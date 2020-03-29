@@ -1,22 +1,18 @@
 import React from 'react';
-
-
-import {
-    Row, Col, Navbar, Nav
-} from 'react-bootstrap';
+import {connect} from 'react-redux';
 
 import Login from "./Login";
 import AdminApp from "./admin/AdminApp";
 
 /**
- * todo:
- * Fetch current user
+ * @param user
+ * @param loggedInUser
+ * @returns {*}
+ * @constructor
  */
+const MainApp = ({loggedInUser = null}) => {
 
-const MainApp = () => {
-
-    // const isLoggedIn = false;
-    const isLoggedIn = true;
+    const isLoggedIn = !!(loggedInUser && loggedInUser.id && loggedInUser.api_token);
 
     if (isLoggedIn) {
         return <AdminApp/>;
@@ -29,4 +25,10 @@ const MainApp = () => {
     }
 };
 
-export default MainApp;
+const mapStateToProps = (state) => {
+    return {
+        loggedInUser: state.loggedInUser ? state.loggedInUser : null,
+    }
+};
+
+export default connect(mapStateToProps, null)(MainApp);

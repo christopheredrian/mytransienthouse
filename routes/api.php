@@ -17,6 +17,17 @@ Route::post('login', 'Auth\LoginController@login');
 Route::post('logout', 'Auth\LoginController@logout');
 Route::post('register', 'Auth\RegisterController@register');
 
+Route::get('initialize_user', function (Request $request) {
+    $user = $request->user();
+
+    if ($user) {
+        return $user;
+    }
+
+    return [
+        'error' => 'Not logged in'
+    ];
+});
 
 Route::middleware('auth:api')->group(function () {
     /**
@@ -24,9 +35,9 @@ Route::middleware('auth:api')->group(function () {
      */
 
     // Get logged in user
-    Route::get('user', function (Request $request) {
-        return $request->user();
-    });
+//    Route::get('initialize_user', function (Request $request) {
+//        return $request->user();
+//    });
 
 });
 

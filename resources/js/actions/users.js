@@ -41,6 +41,9 @@ export const setUsers = (users) => ({
     users
 });
 
+/**
+ * Action Creator
+ */
 export const startSetUsers = () => {
         return (dispatch) => {
 

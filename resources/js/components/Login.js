@@ -1,8 +1,11 @@
 import React, {useState} from "react";
 import axios from "axios";
 import {Container, Button, Card, Col, ListGroup, Row, Form} from "react-bootstrap";
+import Endpoints from "../config/Endpoints";
+import {connect} from "react-redux";
+import {setLoggedInUser} from "../actions/auth";
 
-const Login = () => {
+const Login = ({setLoggedInUser}) => {
 
     const [formData, setFormData] = useState({
         email: undefined,
@@ -15,23 +18,29 @@ const Login = () => {
         /**
          * Get data from endpoint
          */
-        axios.get('/test_data')
+        axios.post(Endpoints.LOGIN, {
+            ...formData
+        })
             .then(({data}) => {
                 /**
                  * Success response
-                 * set state data
+                 * todo: chris - error, errors
                  */
-                setTestData(data);
+                setLoggedInUser(data);
 
             })
             .catch(error => {
-                console.error(error);
+                /**
+                 * todo: chris
+                 */
                 alert("There was an error while fetching requests");
             });
 
     };
 
-    const onSubmit = () => {
+    const onSubmit = (e) => {
+        e.preventDefault();
+        attemptLogin();
         alert(JSON.stringify(formData));
     };
 
@@ -85,4 +94,12 @@ const Login = () => {
     );
 };
 
-export default Login;
+
+const mapDispatchToProps = dispatch => {
+    return {
+        setLoggedInUser: (user) => dispatch(setLoggedInUser(user)),
+    };
+};
+
+
+export default connect(null, mapDispatchToProps)(Login);

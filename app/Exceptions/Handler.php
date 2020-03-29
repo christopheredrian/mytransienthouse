@@ -56,7 +56,10 @@ class Handler extends ExceptionHandler
         try {
             throw $exception;
         } catch (ValidationException $exception) {
-            return response()->json($exception->errors(), 422);
+            return response()->json([
+                'status' => 'error',
+                'errors' => $exception->errors(),
+            ], 200);
         } catch (Throwable $exception) {
             return parent::render($request, $exception);
         }
