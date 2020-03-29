@@ -21,8 +21,9 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-
 Route::get('test', function(){
     return response()->json(['test']);
 });
+
+Route::get('users', 'UserController@users');
 

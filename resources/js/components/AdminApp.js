@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import axios from 'axios';
 
 import {
@@ -13,6 +13,8 @@ import {
     ListGroup
 } from 'react-bootstrap';
 
+import Users from './admin/Users'
+
 const ADMIN_ROOT_PATH = '/admin';
 
 const SideBar = () => {
@@ -22,15 +24,25 @@ const SideBar = () => {
                 <div>
                     <nav>
                         <ul>
-                            <Link to={`${ADMIN_ROOT_PATH}/fetch-sample`}>
-                                Fetch Data Example
-                            </Link>
+                            <li>
+                                <Link to={`${ADMIN_ROOT_PATH}/fetch-sample`}>
+                                    Fetch Data Example
+                                </Link>
+                            </li>
+                            <li>
+                                <Link to={`${ADMIN_ROOT_PATH}/users`}>
+                                    Users
+                                </Link>
+                            </li>
                         </ul>
                     </nav>
                 </div>
                 <Switch>
                     <Route path={`${ADMIN_ROOT_PATH}/fetch-sample`}>
-                        <FetchDataExample/>
+                        <FetchDataExample />
+                    </Route>
+                    <Route path={`${ADMIN_ROOT_PATH}/users`}>
+                        <Users />
                     </Route>
                 </Switch>
             </Router>
@@ -43,9 +55,9 @@ const SideBar = () => {
 const FetchDataExample = () => {
 
     const [testData, setTestData] = useState([
-        {id: 1, content: 'Test Data on JS 1'},
-        {id: 2, content: 'Test Data on JS 2'},
-        {id: 3, content: 'Test Data on js 3'},
+        { id: 1, content: 'Test Data on JS 1' },
+        { id: 2, content: 'Test Data on JS 2' },
+        { id: 3, content: 'Test Data on js 3' },
     ]);
 
     const getTestData = () => {
@@ -54,7 +66,7 @@ const FetchDataExample = () => {
          * Get data from endpoint
          */
         axios.get('/test_data')
-            .then(({data}) => {
+            .then(({ data }) => {
                 /**
                  * Success response
                  * set state data
@@ -87,7 +99,7 @@ const FetchDataExample = () => {
                         {
                             Array.isArray(testData) &&
                             (testData.length > 0) &&
-                            testData.map(({content, id}) => {
+                            testData.map(({ content, id }) => {
                                 return <ListGroup.Item key={id}>{content}</ListGroup.Item>
                             })
                         }
@@ -102,7 +114,7 @@ const AdminApp = () => {
 
     return (
         <Container>
-            <SideBar/>
+            <SideBar />
         </Container>
     );
 };
