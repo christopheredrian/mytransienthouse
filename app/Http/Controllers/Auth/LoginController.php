@@ -3,8 +3,12 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\User;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Validation\ValidationException;
+use Symfony\Component\HttpFoundation\Response;
 
 class LoginController extends Controller
 {
@@ -38,11 +42,17 @@ class LoginController extends Controller
         $this->middleware('guest')->except('logout');
     }
 
+    /**
+     * @param Request $request
+     * @return JsonResponse|Response
+     * @throws ValidationException
+     */
     public function login(Request $request)
     {
         $this->validateLogin($request);
 
         if ($this->attemptLogin($request)) {
+            /** @var User $user */
             $user = $this->guard()->user();
             $user->generateToken();
 
@@ -54,8 +64,13 @@ class LoginController extends Controller
         return $this->sendFailedLoginResponse($request);
     }
 
+    /**
+     * @param Request $request
+     * @return JsonResponse
+     */
     public function logout(Request $request)
     {
+        /** @var User $user */
         $user = Auth::guard('api')->user();
 
         if ($user) {
@@ -63,6 +78,8 @@ class LoginController extends Controller
             $user->save();
         }
 
-        return response()->json(['data' => 'User logged out.'], 200);
+        return response()->json([
+            'data' => 'User logged out.'
+        ], 200);
     }
 }

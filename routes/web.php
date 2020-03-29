@@ -13,7 +13,7 @@
 
 $appDomain = env('APP_DOMAIN');
 Auth::routes(['register' => false]);
-Route::get('/greetings/{handle}', 'EcardController@handle');
+Route::get('greetings/{handle}', 'EcardController@handle');
 
 /**
  * React Test endpoints (Check mo to sean)
