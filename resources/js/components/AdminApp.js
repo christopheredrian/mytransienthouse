@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, {useState} from 'react';
 import axios from 'axios';
 
 import {
@@ -17,47 +17,13 @@ import UserList from './admin/UserList'
 
 const ADMIN_ROOT_PATH = '/admin';
 
-const SideBar = () => {
-    return (
-        <div className={'pt-5'}>
-            <Router>
-                <div>
-                    <nav>
-                        <ul>
-                            <li>
-                                <Link to={`${ADMIN_ROOT_PATH}/fetch-sample`}>
-                                    Fetch Data Example
-                                </Link>
-                            </li>
-                            <li>
-                                <Link to={`${ADMIN_ROOT_PATH}/users`}>
-                                    Users
-                                </Link>
-                            </li>
-                        </ul>
-                    </nav>
-                </div>
-                <Switch>
-                    <Route path={`${ADMIN_ROOT_PATH}/fetch-sample`}>
-                        <FetchDataExample />
-                    </Route>
-                    <Route path={`${ADMIN_ROOT_PATH}/users`}>
-                        <UserList />
-                    </Route>
-                </Switch>
-            </Router>
-
-        </div>
-
-    );
-};
 
 const FetchDataExample = () => {
 
     const [testData, setTestData] = useState([
-        { id: 1, content: 'Test Data on JS 1' },
-        { id: 2, content: 'Test Data on JS 2' },
-        { id: 3, content: 'Test Data on js 3' },
+        {id: 1, content: 'Test Data on JS 1'},
+        {id: 2, content: 'Test Data on JS 2'},
+        {id: 3, content: 'Test Data on js 3'},
     ]);
 
     const getTestData = () => {
@@ -66,7 +32,7 @@ const FetchDataExample = () => {
          * Get data from endpoint
          */
         axios.get('/test_data')
-            .then(({ data }) => {
+            .then(({data}) => {
                 /**
                  * Success response
                  * set state data
@@ -99,7 +65,7 @@ const FetchDataExample = () => {
                         {
                             Array.isArray(testData) &&
                             (testData.length > 0) &&
-                            testData.map(({ content, id }) => {
+                            testData.map(({content, id}) => {
                                 return <ListGroup.Item key={id}>{content}</ListGroup.Item>
                             })
                         }
@@ -114,7 +80,29 @@ const AdminApp = () => {
 
     return (
         <Container>
-            <SideBar />
+            <div className={'pt-5'}>
+                <Router>
+                    {/* Sidebar */}
+                    <nav id={'sidebar'}>
+                        <div className="sidebar-header">
+                            <h3>Bootstrap Sidebar</h3>
+                        </div>
+                        <ul className="list-unstyled components">
+
+                            <li><Link to={`${ADMIN_ROOT_PATH}/fetch-sample`}>Fetch Data Example</Link></li>
+                            <li><Link to={`${ADMIN_ROOT_PATH}/users`}>Users</Link></li>
+                        </ul>
+                    </nav>
+                    {/* Main Component Rendered*/}
+                    <div id={'content'}>
+                        <Switch>
+                            <Route path={`${ADMIN_ROOT_PATH}/fetch-sample`}><FetchDataExample/></Route>
+                            <Route path={`${ADMIN_ROOT_PATH}/users`}><UserList/></Route>
+                        </Switch>
+                    </div>
+                </Router>
+
+            </div>
         </Container>
     );
 };

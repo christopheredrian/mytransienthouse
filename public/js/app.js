@@ -86972,49 +86972,6 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 var ADMIN_ROOT_PATH = '/admin';
 
-var SideBar = function SideBar() {
-  return (
-    /*#__PURE__*/
-    react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-      className: 'pt-5'
-    },
-    /*#__PURE__*/
-    react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["BrowserRouter"], null,
-    /*#__PURE__*/
-    react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null,
-    /*#__PURE__*/
-    react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("nav", null,
-    /*#__PURE__*/
-    react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", null,
-    /*#__PURE__*/
-    react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", null,
-    /*#__PURE__*/
-    react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["Link"], {
-      to: "".concat(ADMIN_ROOT_PATH, "/fetch-sample")
-    }, "Fetch Data Example")),
-    /*#__PURE__*/
-    react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", null,
-    /*#__PURE__*/
-    react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["Link"], {
-      to: "".concat(ADMIN_ROOT_PATH, "/users")
-    }, "Users"))))),
-    /*#__PURE__*/
-    react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["Switch"], null,
-    /*#__PURE__*/
-    react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["Route"], {
-      path: "".concat(ADMIN_ROOT_PATH, "/fetch-sample")
-    },
-    /*#__PURE__*/
-    react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(FetchDataExample, null)),
-    /*#__PURE__*/
-    react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["Route"], {
-      path: "".concat(ADMIN_ROOT_PATH, "/users")
-    },
-    /*#__PURE__*/
-    react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_admin_UserList__WEBPACK_IMPORTED_MODULE_4__["default"], null)))))
-  );
-};
-
 var FetchDataExample = function FetchDataExample() {
   var _useState = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])([{
     id: 1,
@@ -87091,7 +87048,55 @@ var AdminApp = function AdminApp() {
     /*#__PURE__*/
     react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_3__["Container"], null,
     /*#__PURE__*/
-    react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(SideBar, null))
+    react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+      className: 'pt-5'
+    },
+    /*#__PURE__*/
+    react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["BrowserRouter"], null,
+    /*#__PURE__*/
+    react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("nav", {
+      id: 'sidebar'
+    },
+    /*#__PURE__*/
+    react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+      className: "sidebar-header"
+    },
+    /*#__PURE__*/
+    react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h3", null, "Bootstrap Sidebar")),
+    /*#__PURE__*/
+    react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", {
+      className: "list-unstyled components"
+    },
+    /*#__PURE__*/
+    react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", null,
+    /*#__PURE__*/
+    react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["Link"], {
+      to: "".concat(ADMIN_ROOT_PATH, "/fetch-sample")
+    }, "Fetch Data Example")),
+    /*#__PURE__*/
+    react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", null,
+    /*#__PURE__*/
+    react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["Link"], {
+      to: "".concat(ADMIN_ROOT_PATH, "/users")
+    }, "Users")))),
+    /*#__PURE__*/
+    react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+      id: 'content'
+    },
+    /*#__PURE__*/
+    react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["Switch"], null,
+    /*#__PURE__*/
+    react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["Route"], {
+      path: "".concat(ADMIN_ROOT_PATH, "/fetch-sample")
+    },
+    /*#__PURE__*/
+    react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(FetchDataExample, null)),
+    /*#__PURE__*/
+    react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["Route"], {
+      path: "".concat(ADMIN_ROOT_PATH, "/users")
+    },
+    /*#__PURE__*/
+    react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_admin_UserList__WEBPACK_IMPORTED_MODULE_4__["default"], null)))))))
   );
 };
 
@@ -87306,8 +87311,8 @@ var composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || redux__WEB
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! /Users/seand/Desktop/Laravel Sites /mytransienthouse/resources/js/app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! /Users/seand/Desktop/Laravel Sites /mytransienthouse/resources/sass/app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! /Users/christopherespiritu/Sites/mytransienthouse/resources/js/app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! /Users/christopherespiritu/Sites/mytransienthouse/resources/sass/app.scss */"./resources/sass/app.scss");
 
 
 /***/ })

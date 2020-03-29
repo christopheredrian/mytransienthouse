@@ -34,3 +34,6 @@ Route::get('test', function () {
     return response()->json(['test']);
 });
 
+//  todo: add to authenticated routes later on
+Route::get('users', 'UserController@users');
+
