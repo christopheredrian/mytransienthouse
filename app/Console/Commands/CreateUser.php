@@ -13,7 +13,7 @@ class CreateUser extends Command
      *
      * @var string
      */
-    protected $signature = 'make:user {--email=} {--password=} {--name=}';
+    protected $signature = 'make:user {--email=} {--password=} {--name=} {--role=}';
 
     /**
      * The console command description.
@@ -44,9 +44,10 @@ class CreateUser extends Command
             $email = $this->option('email');
             $password = $this->option('password');
             $name = $this->option('name');
+            $role = $this->option('role');
 
 
-            if (!$email || !$password || !$name) {
+            if (!$email || !$password || !$name || !$role) {
                 throw new \InvalidArgumentException("Invalid Arguments.");
             }
 
@@ -58,6 +59,7 @@ class CreateUser extends Command
             $user->password = Hash::make($password);
             $user->email = $email;
             $user->name = $name;
+            $user->role = $role;
 
             if (!$user->save()) {
                 throw new \ErrorException("Was unable to create user");
