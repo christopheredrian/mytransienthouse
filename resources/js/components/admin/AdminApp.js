@@ -1,5 +1,4 @@
-import React, {useState} from 'react';
-import axios from 'axios';
+import React from 'react';
 
 import {
     BrowserRouter as Router,
@@ -12,8 +11,14 @@ import {
     Row, Col, Navbar, Nav
 } from 'react-bootstrap';
 
-import UserList from './admin/UserList'
-import FetchDataExample from './FetchDataExample';
+import UserList from './UserList'
+import FetchDataExample from '../FetchDataExample';
+import Login from "../Login";
+
+/**
+ * todo:
+ * Fetch current user
+ */
 
 const ADMIN_ROOT_PATH = '/admin';
 
@@ -53,6 +58,7 @@ const AdminApp = () => {
                             <Switch>
                                 <Route path={`${ADMIN_ROOT_PATH}/fetch-sample`}><FetchDataExample/></Route>
                                 <Route path={`${ADMIN_ROOT_PATH}/users`}><UserList/></Route>
+                                <Route path={`login`}><Login/></Route>
                             </Switch>
                         </div>
                     </Col>

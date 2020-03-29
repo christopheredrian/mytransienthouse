@@ -12,29 +12,13 @@
 */
 
 $appDomain = env('APP_DOMAIN');
-Auth::routes(['register' => false]);
+//Auth::routes(['register' => false]);
 Route::get('greetings/{handle}', 'EcardController@handle');
 
 /**
  * React Test endpoints (Check mo to sean)
  * Reference /resources/js/components/AdminApp.js
  */
-
-Route::get('{url}', function () {
-    return view('admin');
-})->where(['url' => 'admin|admin.*']);
-Route::get('test_data', function () {
-
-    $data = [];
-
-    foreach (range(1, 100) as $count) {
-        $data[] = [
-            "id" => $count,
-            "content" => "Data {$count} from server",
-        ];
-    }
-    return $data;
-});
 
 /**
  * End - React Test endpoints
@@ -70,3 +54,7 @@ Route::get('espr2', function () {
         'imageMap' => $imageMap
     ]);
 });
+
+Route::get('/{url}', function () {
+    return view('admin');
+})->where('url', '.*');

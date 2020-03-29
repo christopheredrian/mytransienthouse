@@ -17,6 +17,7 @@ Route::post('login', 'Auth\LoginController@login');
 Route::post('logout', 'Auth\LoginController@logout');
 Route::post('register', 'Auth\RegisterController@register');
 
+
 Route::middleware('auth:api')->group(function () {
     /**
      * Authenticated Routes
@@ -31,7 +32,15 @@ Route::middleware('auth:api')->group(function () {
 
 
 Route::get('test', function () {
-    return response()->json(['test']);
+    $data = [];
+
+    foreach (range(1, 100) as $count) {
+        $data[] = [
+            "id" => $count,
+            "content" => "Data {$count} from server",
+        ];
+    }
+    return $data;
 });
 
 //  todo: add to authenticated routes later on

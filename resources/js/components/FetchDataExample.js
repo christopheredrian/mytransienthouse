@@ -1,6 +1,7 @@
 import React, {useState} from "react";
 import axios from "axios";
 import {Button, Card, Col, ListGroup, Row} from "react-bootstrap";
+import Endpoints from "../config/Endpoints";
 
 const FetchDataExample = () => {
 
@@ -15,7 +16,7 @@ const FetchDataExample = () => {
         /**
          * Get data from endpoint
          */
-        axios.get('/test_data')
+        axios.get(Endpoints.TEST_DATA)
             .then(({data}) => {
                 /**
                  * Success response

@@ -86857,10 +86857,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react_dom__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react_dom__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var _components_AdminApp__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./components/AdminApp */ "./resources/js/components/AdminApp.js");
-/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
-/* harmony import */ var _actions_users__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./actions/users */ "./resources/js/actions/users.js");
-/* harmony import */ var _store_configureStore__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./store/configureStore */ "./resources/js/store/configureStore.js");
+/* harmony import */ var _components_admin_AdminApp__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./components/admin/AdminApp */ "./resources/js/components/admin/AdminApp.js");
+/* harmony import */ var _components_MainApp__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./components/MainApp */ "./resources/js/components/MainApp.js");
+/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
+/* harmony import */ var _actions_users__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./actions/users */ "./resources/js/actions/users.js");
+/* harmony import */ var _store_configureStore__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./store/configureStore */ "./resources/js/store/configureStore.js");
 /**
  * First we will load all of this project's JavaScript dependencies which
  * includes React and other helpers. It's a great starting point while
@@ -86874,21 +86875,22 @@ __webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js");
 
 
 
-var store = Object(_store_configureStore__WEBPACK_IMPORTED_MODULE_5__["default"])();
+
+var store = Object(_store_configureStore__WEBPACK_IMPORTED_MODULE_6__["default"])();
 var jsx =
 /*#__PURE__*/
-react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(react_redux__WEBPACK_IMPORTED_MODULE_3__["Provider"], {
+react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(react_redux__WEBPACK_IMPORTED_MODULE_4__["Provider"], {
   store: store
 },
 /*#__PURE__*/
-react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_components_AdminApp__WEBPACK_IMPORTED_MODULE_2__["default"], null));
+react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_components_MainApp__WEBPACK_IMPORTED_MODULE_3__["default"], null));
 /**
  * Next, we will create a fresh React component instance and attach it to
  * the page. Then, you may begin adding components to this application
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
 
-store.dispatch(Object(_actions_users__WEBPACK_IMPORTED_MODULE_4__["startSetUsers"])()).then(function () {
+store.dispatch(Object(_actions_users__WEBPACK_IMPORTED_MODULE_5__["startSetUsers"])()).then(function () {
   if (document.getElementById('app')) {
     react_dom__WEBPACK_IMPORTED_MODULE_0___default.a.render(jsx, document.getElementById('app'));
   }
@@ -86941,116 +86943,6 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 
 /***/ }),
 
-/***/ "./resources/js/components/AdminApp.js":
-/*!*********************************************!*\
-  !*** ./resources/js/components/AdminApp.js ***!
-  \*********************************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
-/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
-/* harmony import */ var react_bootstrap__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react-bootstrap */ "./node_modules/react-bootstrap/esm/index.js");
-/* harmony import */ var _admin_UserList__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./admin/UserList */ "./resources/js/components/admin/UserList.js");
-/* harmony import */ var _FetchDataExample__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./FetchDataExample */ "./resources/js/components/FetchDataExample.js");
-
-
-
-
-
-
-var ADMIN_ROOT_PATH = '/admin';
-
-var AdminApp = function AdminApp() {
-  return (
-    /*#__PURE__*/
-    react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null,
-    /*#__PURE__*/
-    react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["BrowserRouter"], null,
-    /*#__PURE__*/
-    react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_3__["Row"], null,
-    /*#__PURE__*/
-    react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_3__["Col"], {
-      className: 'no-gutters'
-    },
-    /*#__PURE__*/
-    react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_3__["Navbar"], {
-      bg: "primary",
-      variant: 'dark',
-      expand: "lg",
-      className: 'px-5'
-    },
-    /*#__PURE__*/
-    react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_3__["Navbar"].Collapse, {
-      className: 'order-0 w-100'
-    },
-    /*#__PURE__*/
-    react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_3__["Nav"], null,
-    /*#__PURE__*/
-    react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_3__["Navbar"].Brand, {
-      href: "#home"
-    }, "MTH Admin"),
-    /*#__PURE__*/
-    react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["Link"], {
-      to: "".concat(ADMIN_ROOT_PATH, "/fetch-sample"),
-      className: 'nav-link'
-    }, "Fetch Data Example"),
-    /*#__PURE__*/
-    react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["Link"], {
-      to: "".concat(ADMIN_ROOT_PATH, "/users"),
-      className: 'nav-link'
-    }, "Users"))),
-    /*#__PURE__*/
-    react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_3__["Navbar"].Collapse, {
-      className: 'order-1 w-100'
-    },
-    /*#__PURE__*/
-    react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_3__["Nav"], {
-      className: 'ml-auto'
-    },
-    /*#__PURE__*/
-    react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["Link"], {
-      to: "login",
-      className: 'nav-link text-right'
-    }, "Login"))),
-    /*#__PURE__*/
-    react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_3__["Navbar"].Toggle, {
-      "aria-controls": "basic-navbar-nav"
-    })))),
-    /*#__PURE__*/
-    react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_3__["Row"], null,
-    /*#__PURE__*/
-    react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_3__["Col"], null,
-    /*#__PURE__*/
-    react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-      className: 'mt-5'
-    },
-    /*#__PURE__*/
-    react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["Switch"], null,
-    /*#__PURE__*/
-    react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["Route"], {
-      path: "".concat(ADMIN_ROOT_PATH, "/fetch-sample")
-    },
-    /*#__PURE__*/
-    react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_FetchDataExample__WEBPACK_IMPORTED_MODULE_5__["default"], null)),
-    /*#__PURE__*/
-    react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["Route"], {
-      path: "".concat(ADMIN_ROOT_PATH, "/users")
-    },
-    /*#__PURE__*/
-    react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_admin_UserList__WEBPACK_IMPORTED_MODULE_4__["default"], null))))))))
-  );
-};
-
-/* harmony default export */ __webpack_exports__["default"] = (AdminApp);
-
-/***/ }),
-
 /***/ "./resources/js/components/FetchDataExample.js":
 /*!*****************************************************!*\
   !*** ./resources/js/components/FetchDataExample.js ***!
@@ -87065,6 +86957,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_1__);
 /* harmony import */ var react_bootstrap__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react-bootstrap */ "./node_modules/react-bootstrap/esm/index.js");
+/* harmony import */ var _config_Endpoints__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../config/Endpoints */ "./resources/js/config/Endpoints.js");
 function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _nonIterableRest(); }
 
 function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance"); }
@@ -87072,6 +86965,7 @@ function _nonIterableRest() { throw new TypeError("Invalid attempt to destructur
 function _iterableToArrayLimit(arr, i) { if (!(Symbol.iterator in Object(arr) || Object.prototype.toString.call(arr) === "[object Arguments]")) { return; } var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
 
 function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+
 
 
 
@@ -87096,7 +86990,7 @@ var FetchDataExample = function FetchDataExample() {
     /**
      * Get data from endpoint
      */
-    axios__WEBPACK_IMPORTED_MODULE_1___default.a.get('/test_data').then(function (_ref) {
+    axios__WEBPACK_IMPORTED_MODULE_1___default.a.get(_config_Endpoints__WEBPACK_IMPORTED_MODULE_3__["default"].TEST_DATA).then(function (_ref) {
       var data = _ref.data;
 
       /**
@@ -87149,6 +87043,301 @@ var FetchDataExample = function FetchDataExample() {
 };
 
 /* harmony default export */ __webpack_exports__["default"] = (FetchDataExample);
+
+/***/ }),
+
+/***/ "./resources/js/components/Login.js":
+/*!******************************************!*\
+  !*** ./resources/js/components/Login.js ***!
+  \******************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var react_bootstrap__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react-bootstrap */ "./node_modules/react-bootstrap/esm/index.js");
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _nonIterableRest(); }
+
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance"); }
+
+function _iterableToArrayLimit(arr, i) { if (!(Symbol.iterator in Object(arr) || Object.prototype.toString.call(arr) === "[object Arguments]")) { return; } var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
+
+function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+
+
+
+
+
+var Login = function Login() {
+  var _useState = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])({
+    email: undefined,
+    password: undefined
+  }),
+      _useState2 = _slicedToArray(_useState, 2),
+      formData = _useState2[0],
+      setFormData = _useState2[1];
+
+  var attemptLogin = function attemptLogin() {
+    /**
+     * Get data from endpoint
+     */
+    axios__WEBPACK_IMPORTED_MODULE_1___default.a.get('/test_data').then(function (_ref) {
+      var data = _ref.data;
+
+      /**
+       * Success response
+       * set state data
+       */
+      setTestData(data);
+    })["catch"](function (error) {
+      console.error(error);
+      alert("There was an error while fetching requests");
+    });
+  };
+
+  var onSubmit = function onSubmit() {
+    alert(JSON.stringify(formData));
+  };
+
+  var onSimpleFormChange = function onSimpleFormChange(e) {
+    setFormData(_objectSpread({}, formData, _defineProperty({}, e.target.name, e.target.value)));
+  };
+
+  return (
+    /*#__PURE__*/
+    react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["Container"], null,
+    /*#__PURE__*/
+    react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["Row"], {
+      className: "justify-content-center mt-5"
+    },
+    /*#__PURE__*/
+    react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["Col"], {
+      md: 8
+    },
+    /*#__PURE__*/
+    react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["Card"], null,
+    /*#__PURE__*/
+    react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["Card"].Header, null, "Login"),
+    /*#__PURE__*/
+    react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["Card"].Body, null,
+    /*#__PURE__*/
+    react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["Form"], {
+      onSubmit: onSubmit
+    },
+    /*#__PURE__*/
+    react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["Form"].Group, {
+      controlId: "email"
+    },
+    /*#__PURE__*/
+    react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["Form"].Label, null, "Email address"),
+    /*#__PURE__*/
+    react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["Form"].Control, {
+      type: "email",
+      placeholder: "Enter email",
+      onChange: onSimpleFormChange,
+      value: formData.email,
+      name: 'email'
+    })),
+    /*#__PURE__*/
+    react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["Form"].Group, {
+      controlId: "password"
+    },
+    /*#__PURE__*/
+    react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["Form"].Label, null, "Password"),
+    /*#__PURE__*/
+    react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["Form"].Control, {
+      name: 'password',
+      onChange: onSimpleFormChange,
+      type: "password",
+      placeholder: "Password",
+      value: formData.password
+    })),
+    /*#__PURE__*/
+    react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["Button"], {
+      variant: "primary",
+      type: "submit"
+    }, "Submit")))))))
+  );
+};
+
+/* harmony default export */ __webpack_exports__["default"] = (Login);
+
+/***/ }),
+
+/***/ "./resources/js/components/MainApp.js":
+/*!********************************************!*\
+  !*** ./resources/js/components/MainApp.js ***!
+  \********************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var react_bootstrap__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-bootstrap */ "./node_modules/react-bootstrap/esm/index.js");
+/* harmony import */ var _Login__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./Login */ "./resources/js/components/Login.js");
+/* harmony import */ var _admin_AdminApp__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./admin/AdminApp */ "./resources/js/components/admin/AdminApp.js");
+
+
+
+
+/**
+ * todo:
+ * Fetch current user
+ */
+
+var MainApp = function MainApp() {
+  // const isLoggedIn = false;
+  var isLoggedIn = true;
+
+  if (isLoggedIn) {
+    return (
+      /*#__PURE__*/
+      react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_admin_AdminApp__WEBPACK_IMPORTED_MODULE_3__["default"], null)
+    );
+  } else {
+    /**
+     * Unauthenticated
+     */
+    return (
+      /*#__PURE__*/
+      react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_Login__WEBPACK_IMPORTED_MODULE_2__["default"], null)
+    );
+  }
+};
+
+/* harmony default export */ __webpack_exports__["default"] = (MainApp);
+
+/***/ }),
+
+/***/ "./resources/js/components/admin/AdminApp.js":
+/*!***************************************************!*\
+  !*** ./resources/js/components/admin/AdminApp.js ***!
+  \***************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
+/* harmony import */ var react_bootstrap__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react-bootstrap */ "./node_modules/react-bootstrap/esm/index.js");
+/* harmony import */ var _UserList__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./UserList */ "./resources/js/components/admin/UserList.js");
+/* harmony import */ var _FetchDataExample__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../FetchDataExample */ "./resources/js/components/FetchDataExample.js");
+/* harmony import */ var _Login__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../Login */ "./resources/js/components/Login.js");
+
+
+
+
+
+
+/**
+ * todo:
+ * Fetch current user
+ */
+
+var ADMIN_ROOT_PATH = '/admin';
+
+var AdminApp = function AdminApp() {
+  return (
+    /*#__PURE__*/
+    react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null,
+    /*#__PURE__*/
+    react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["BrowserRouter"], null,
+    /*#__PURE__*/
+    react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["Row"], null,
+    /*#__PURE__*/
+    react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["Col"], {
+      className: 'no-gutters'
+    },
+    /*#__PURE__*/
+    react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["Navbar"], {
+      bg: "primary",
+      variant: 'dark',
+      expand: "lg",
+      className: 'px-5'
+    },
+    /*#__PURE__*/
+    react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["Navbar"].Collapse, {
+      className: 'order-0 w-100'
+    },
+    /*#__PURE__*/
+    react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["Nav"], null,
+    /*#__PURE__*/
+    react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["Navbar"].Brand, {
+      href: "#home"
+    }, "MTH Admin"),
+    /*#__PURE__*/
+    react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Link"], {
+      to: "".concat(ADMIN_ROOT_PATH, "/fetch-sample"),
+      className: 'nav-link'
+    }, "Fetch Data Example"),
+    /*#__PURE__*/
+    react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Link"], {
+      to: "".concat(ADMIN_ROOT_PATH, "/users"),
+      className: 'nav-link'
+    }, "Users"))),
+    /*#__PURE__*/
+    react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["Navbar"].Collapse, {
+      className: 'order-1 w-100'
+    },
+    /*#__PURE__*/
+    react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["Nav"], {
+      className: 'ml-auto'
+    },
+    /*#__PURE__*/
+    react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Link"], {
+      to: "login",
+      className: 'nav-link text-right'
+    }, "Login"))),
+    /*#__PURE__*/
+    react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["Navbar"].Toggle, {
+      "aria-controls": "basic-navbar-nav"
+    })))),
+    /*#__PURE__*/
+    react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["Row"], null,
+    /*#__PURE__*/
+    react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["Col"], null,
+    /*#__PURE__*/
+    react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+      className: 'mt-5'
+    },
+    /*#__PURE__*/
+    react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Switch"], null,
+    /*#__PURE__*/
+    react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Route"], {
+      path: "".concat(ADMIN_ROOT_PATH, "/fetch-sample")
+    },
+    /*#__PURE__*/
+    react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_FetchDataExample__WEBPACK_IMPORTED_MODULE_4__["default"], null)),
+    /*#__PURE__*/
+    react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Route"], {
+      path: "".concat(ADMIN_ROOT_PATH, "/users")
+    },
+    /*#__PURE__*/
+    react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_UserList__WEBPACK_IMPORTED_MODULE_3__["default"], null)),
+    /*#__PURE__*/
+    react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Route"], {
+      path: "login"
+    },
+    /*#__PURE__*/
+    react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_Login__WEBPACK_IMPORTED_MODULE_5__["default"], null))))))))
+  );
+};
+
+/* harmony default export */ __webpack_exports__["default"] = (AdminApp);
 
 /***/ }),
 
@@ -87252,6 +87441,23 @@ var UserListItem = function UserListItem(_ref) {
 };
 
 
+
+/***/ }),
+
+/***/ "./resources/js/config/Endpoints.js":
+/*!******************************************!*\
+  !*** ./resources/js/config/Endpoints.js ***!
+  \******************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+var Endpoints = {
+  LOGIN: '/api/login',
+  TEST_DATA: '/api/test'
+};
+/* harmony default export */ __webpack_exports__["default"] = (Endpoints);
 
 /***/ }),
 

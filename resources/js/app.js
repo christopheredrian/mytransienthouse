@@ -8,7 +8,8 @@ require('./bootstrap');
 
 import ReactDOM from "react-dom";
 import React from "react";
-import AdminApp from "./components/AdminApp";
+import AdminApp from "./components/admin/AdminApp";
+import MainApp from "./components/MainApp";
 import { Provider } from 'react-redux';
 import { startSetUsers } from './actions/users'
 import configureStore from './store/configureStore';
@@ -16,7 +17,8 @@ import configureStore from './store/configureStore';
 const store = configureStore();
 const jsx = (
     <Provider store={store}>
-        <AdminApp />
+        {/*<AdminApp />*/}
+        <MainApp/>
     </Provider>
 );
 
