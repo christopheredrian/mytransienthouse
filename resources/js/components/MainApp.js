@@ -1,8 +1,9 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {connect} from 'react-redux';
 
 import Login from "./Login";
 import AdminApp from "./admin/AdminApp";
+import {logoutUser} from "../actions/auth";
 
 /**
  * @param user
@@ -35,8 +36,8 @@ const setApiTokenToAxiosDefaults = (apiToken) => {
     }
 };
 
-const MainApp = ({loggedInUser = null}) => {
-    
+const MainApp = ({loggedInUser = null, setLoggedInUser = null}) => {
+
     const isLoggedIn = !!(loggedInUser && loggedInUser.id && loggedInUser.api_token);
 
     if (isLoggedIn) {
@@ -53,6 +54,7 @@ const MainApp = ({loggedInUser = null}) => {
         /**
          * Unauthenticated
          */
+        logoutUser();
         return <Login/>
 
     }
@@ -64,4 +66,10 @@ const mapStateToProps = (state) => {
     }
 };
 
-export default connect(mapStateToProps, null)(MainApp);
+const mapDispatchToProps = (dispatch) => {
+    return {
+        logoutUser: () => dispatch(logoutUser()),
+    }
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(MainApp);

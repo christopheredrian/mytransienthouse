@@ -1,5 +1,6 @@
 <?php
 
+use App\User;
 use Illuminate\Http\Request;
 
 /*
@@ -17,15 +18,46 @@ Route::post('login', 'Auth\LoginController@login');
 Route::post('logout', 'Auth\LoginController@logout');
 Route::post('register', 'Auth\RegisterController@register');
 
+Route::get('initialize_user', function (Request $request) {
+
+    /**
+     * todo: chris add to controller
+     */
+    $response = [
+        'error' => 'Forbidden',
+        'message' => 'Forbidden.'
+    ];
+
+    try {
+        $apiToken = $request->api_token ?? null;
+
+        if (empty($apiToken)) {
+            throw new Exception("Empty token");
+        }
+
+        $user = User::findByApiTokenOrFail($apiToken);
+
+
+        if (!$user) {
+            throw new Exception("Entity not valid");
+        }
+
+        $response = $user;
+
+
+    } catch (Exception $exception) {
+        $response['message'] = $exception->getMessage();
+    }
+
+    return $response;
+
+});
 
 Route::middleware('auth:api')->group(function () {
     /**
      * Authenticated Routes
      */
 
-    Route::get('initialize_user', function (Request $request) {
-        return $request->user();
-    });
 
     Route::get('users', 'UserController@users');
     /**
@@ -43,10 +75,4 @@ Route::middleware('auth:api')->group(function () {
         return $data;
     });
 
-});
-
-Route::get('initialize_user', function (Request $request) {
-    return [
-        'error' => 'Not logged in'
-    ];
 });

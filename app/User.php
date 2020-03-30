@@ -91,4 +91,15 @@ class User extends Authenticatable
         return $data;
 
     }
+
+    /**
+     * @param string $apiToken
+     * @return static
+     * @throws \Exception
+     */
+    public static function findByApiTokenOrFail(string $apiToken): self
+    {
+        return self::where('api_token', $apiToken)
+            ->firstOrFail();
+    }
 }

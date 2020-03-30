@@ -14,6 +14,8 @@ import {
 import UserList from './UserList'
 import FetchDataExample from '../FetchDataExample';
 import Login from "../Login";
+import {logoutUser, setLoggedInUser} from "../../actions/auth";
+import {connect} from "react-redux";
 
 /**
  * todo:
@@ -23,7 +25,7 @@ import Login from "../Login";
 const ADMIN_ROOT_PATH = '/admin';
 
 
-const AdminApp = () => {
+const AdminApp = ({logoutUser}) => {
 
     return (
         <div>
@@ -44,7 +46,11 @@ const AdminApp = () => {
                             {/* Right */}
                             <Navbar.Collapse className={'order-1 w-100'}>
                                 <Nav className={'ml-auto'}>
-                                    <Link to={`login`} className={'nav-link text-right'}>Login</Link>
+                                    <a to={`login`} className={'nav-link text-right'} onClick={() => {
+                                        logoutUser();
+                                    }}>
+                                        Logout
+                                    </a>
                                 </Nav>
                             </Navbar.Collapse>
 
@@ -68,4 +74,9 @@ const AdminApp = () => {
     );
 };
 
-export default AdminApp;
+const mapDispatchToProps = (dispatch) => {
+    return {
+        logoutUser: () => dispatch(logoutUser()),
+    }
+};
+export default connect(null, mapDispatchToProps)(AdminApp);

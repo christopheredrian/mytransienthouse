@@ -7,6 +7,16 @@ export default (state = [], action) => {
                 ...state,
                 ...action.user,
             };
+
+
+        case 'LOGOUT_USER':
+            console.log("Reducer: LOGOUT_USER");
+
+            const newState = {};
+
+            console.log(newState);
+            console.log("end");
+            return newState;
         default:
             return state
     }

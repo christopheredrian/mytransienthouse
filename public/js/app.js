@@ -86761,16 +86761,19 @@ module.exports = function(module) {
 /*!**************************************!*\
   !*** ./resources/js/actions/auth.js ***!
   \**************************************/
-/*! exports provided: setLoggedInUser, initializeUser */
+/*! exports provided: setLoggedInUser, logoutUser, initializeUser */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "setLoggedInUser", function() { return setLoggedInUser; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "logoutUser", function() { return logoutUser; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "initializeUser", function() { return initializeUser; });
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _config_Endpoints__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../config/Endpoints */ "./resources/js/config/Endpoints.js");
+/* harmony import */ var _store_configureStore__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../store/configureStore */ "./resources/js/store/configureStore.js");
+
 
 
 var setLoggedInUser = function setLoggedInUser(user) {
@@ -86781,13 +86784,28 @@ var setLoggedInUser = function setLoggedInUser(user) {
     user: user
   };
 };
+var logoutUser = function logoutUser() {
+  console.log("Action: LOGOUT_USER");
+  return {
+    type: 'LOGOUT_USER',
+    user: {}
+  };
+};
 /**
  * @returns {function(*): Promise<AxiosResponse<T>>}
  */
 
 var initializeUser = function initializeUser() {
+  var store = Object(_store_configureStore__WEBPACK_IMPORTED_MODULE_2__["default"])();
+  var state = store.getState();
+  var apiToken = '';
+
+  if (state.loggedInUser && state.loggedInUser.api_token) {
+    apiToken = state.loggedInUser.api_token;
+  }
+
   return function (dispatch) {
-    return axios__WEBPACK_IMPORTED_MODULE_0___default.a.get(_config_Endpoints__WEBPACK_IMPORTED_MODULE_1__["default"].INIT_USER).then(function (_ref) {
+    return axios__WEBPACK_IMPORTED_MODULE_0___default.a.get("".concat(_config_Endpoints__WEBPACK_IMPORTED_MODULE_1__["default"].INIT_USER, "?api_token=").concat(apiToken)).then(function (_ref) {
       var data = _ref.data;
 
       /**
@@ -87260,6 +87278,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
 /* harmony import */ var _Login__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./Login */ "./resources/js/components/Login.js");
 /* harmony import */ var _admin_AdminApp__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./admin/AdminApp */ "./resources/js/components/admin/AdminApp.js");
+/* harmony import */ var _actions_auth__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../actions/auth */ "./resources/js/actions/auth.js");
+
 
 
 
@@ -87295,7 +87315,9 @@ var setApiTokenToAxiosDefaults = function setApiTokenToAxiosDefaults(apiToken) {
 
 var MainApp = function MainApp(_ref) {
   var _ref$loggedInUser = _ref.loggedInUser,
-      loggedInUser = _ref$loggedInUser === void 0 ? null : _ref$loggedInUser;
+      loggedInUser = _ref$loggedInUser === void 0 ? null : _ref$loggedInUser,
+      _ref$setLoggedInUser = _ref.setLoggedInUser,
+      setLoggedInUser = _ref$setLoggedInUser === void 0 ? null : _ref$setLoggedInUser;
   var isLoggedIn = !!(loggedInUser && loggedInUser.id && loggedInUser.api_token);
 
   if (isLoggedIn) {
@@ -87316,6 +87338,8 @@ var MainApp = function MainApp(_ref) {
     /**
      * Unauthenticated
      */
+    Object(_actions_auth__WEBPACK_IMPORTED_MODULE_4__["logoutUser"])();
+
     return (
       /*#__PURE__*/
       react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_Login__WEBPACK_IMPORTED_MODULE_2__["default"], null)
@@ -87329,7 +87353,15 @@ var mapStateToProps = function mapStateToProps(state) {
   };
 };
 
-/* harmony default export */ __webpack_exports__["default"] = (Object(react_redux__WEBPACK_IMPORTED_MODULE_1__["connect"])(mapStateToProps, null)(MainApp));
+var mapDispatchToProps = function mapDispatchToProps(dispatch) {
+  return {
+    logoutUser: function logoutUser() {
+      return dispatch(Object(_actions_auth__WEBPACK_IMPORTED_MODULE_4__["logoutUser"])());
+    }
+  };
+};
+
+/* harmony default export */ __webpack_exports__["default"] = (Object(react_redux__WEBPACK_IMPORTED_MODULE_1__["connect"])(mapStateToProps, mapDispatchToProps)(MainApp));
 
 /***/ }),
 
@@ -87349,6 +87381,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _UserList__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./UserList */ "./resources/js/components/admin/UserList.js");
 /* harmony import */ var _FetchDataExample__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../FetchDataExample */ "./resources/js/components/FetchDataExample.js");
 /* harmony import */ var _Login__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../Login */ "./resources/js/components/Login.js");
+/* harmony import */ var _actions_auth__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../../actions/auth */ "./resources/js/actions/auth.js");
+/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
+
+
 
 
 
@@ -87362,7 +87398,8 @@ __webpack_require__.r(__webpack_exports__);
 
 var ADMIN_ROOT_PATH = '/admin';
 
-var AdminApp = function AdminApp() {
+var AdminApp = function AdminApp(_ref) {
+  var logoutUser = _ref.logoutUser;
   return (
     /*#__PURE__*/
     react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null,
@@ -87410,10 +87447,13 @@ var AdminApp = function AdminApp() {
       className: 'ml-auto'
     },
     /*#__PURE__*/
-    react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Link"], {
+    react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
       to: "login",
-      className: 'nav-link text-right'
-    }, "Login"))),
+      className: 'nav-link text-right',
+      onClick: function onClick() {
+        logoutUser();
+      }
+    }, "Logout"))),
     /*#__PURE__*/
     react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["Navbar"].Toggle, {
       "aria-controls": "basic-navbar-nav"
@@ -87449,7 +87489,15 @@ var AdminApp = function AdminApp() {
   );
 };
 
-/* harmony default export */ __webpack_exports__["default"] = (AdminApp);
+var mapDispatchToProps = function mapDispatchToProps(dispatch) {
+  return {
+    logoutUser: function logoutUser() {
+      return dispatch(Object(_actions_auth__WEBPACK_IMPORTED_MODULE_6__["logoutUser"])());
+    }
+  };
+};
+
+/* harmony default export */ __webpack_exports__["default"] = (Object(react_redux__WEBPACK_IMPORTED_MODULE_7__["connect"])(null, mapDispatchToProps)(AdminApp));
 
 /***/ }),
 
@@ -87597,6 +87645,13 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     case 'INITIALIZE_USER':
       console.log("Reducer: INITIALIZE_USER");
       return _objectSpread({}, state, {}, action.user);
+
+    case 'LOGOUT_USER':
+      console.log("Reducer: LOGOUT_USER");
+      var newState = {};
+      console.log(newState);
+      console.log("end");
+      return newState;
 
     default:
       return state;
