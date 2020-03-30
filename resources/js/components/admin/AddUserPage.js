@@ -18,6 +18,7 @@ const AddUserPage = () => {
                  * set state data
                  */
                 console.log(data);
+                setRedirect('/admin/users');
 
             })
             .catch(error => {
@@ -27,7 +28,7 @@ const AddUserPage = () => {
     };
 
     if (redirect) {
-        return <Redirect to="/users"/>;
+        return <Redirect to={redirect}/>;
     }
 
     return (

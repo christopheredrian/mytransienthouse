@@ -87413,6 +87413,7 @@ var AddUserPage = function AddUserPage() {
        * set state data
        */
       console.log(data);
+      setRedirect('/admin/users');
     })["catch"](function (error) {
       console.error(error);
       alert("There was an error while fetching requests");
@@ -87423,7 +87424,7 @@ var AddUserPage = function AddUserPage() {
     return (
       /*#__PURE__*/
       react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Redirect"], {
-        to: "/users"
+        to: redirect
       })
     );
   }
