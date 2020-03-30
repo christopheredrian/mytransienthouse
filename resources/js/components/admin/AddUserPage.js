@@ -1,24 +1,33 @@
-import React from 'react';
-import { Redirect } from "react-router-dom";
+import React, {useState} from 'react';
+import {Redirect} from "react-router-dom";
 import {Card, Col, Row} from "react-bootstrap";
 import Endpoints from "../../config/Endpoints";
 import UserForm from './UserForm';
+import axios from 'axios';
 
 const AddUserPage = () => {
+
+    const [redirect, setRedirect] = useState(null);
+
     const addUser = (userData) => {
+
         axios.post(Endpoints.CREATE_USER, userData)
-            .then(({ data }) => {
+            .then(({data}) => {
                 /**
                  * Success response
                  * set state data
                  */
                 console.log(data);
-                <Redirect to="/users" />
+
             })
             .catch(error => {
                 console.error(error);
                 alert("There was an error while fetching requests");
             });
+    };
+
+    if (redirect) {
+        return <Redirect to="/users"/>;
     }
 
     return (
@@ -39,4 +48,4 @@ const AddUserPage = () => {
     );
 }
 
-export { AddUserPage as default }
+export {AddUserPage as default}
