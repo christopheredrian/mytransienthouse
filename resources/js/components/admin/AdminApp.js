@@ -14,6 +14,7 @@ import {
 import UserList from './UserList'
 import FetchDataExample from '../FetchDataExample';
 import Login from "../Login";
+import AddUserPage from "../admin/AddUserPage";
 import {logoutUser, setLoggedInUser} from "../../actions/auth";
 import {connect} from "react-redux";
 
@@ -63,7 +64,8 @@ const AdminApp = ({logoutUser}) => {
                         <div className={'mt-5'}>
                             <Switch>
                                 <Route path={`${ADMIN_ROOT_PATH}/fetch-sample`}><FetchDataExample/></Route>
-                                <Route path={`${ADMIN_ROOT_PATH}/users`}><UserList/></Route>
+                                <Route path={`${ADMIN_ROOT_PATH}/users`} exact={true}><UserList/></Route>
+                                <Route path={`${ADMIN_ROOT_PATH}/users/create`}><AddUserPage/></Route>
                                 <Route path={`login`}><Login/></Route>
                             </Switch>
                         </div>

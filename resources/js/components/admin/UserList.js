@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 import UserListItem from './UserListItem';
 import Endpoints from "../../config/Endpoints";
 
@@ -17,7 +18,7 @@ const UserList = (props) => {
          * Get data from endpoint
          */
         axios.get(Endpoints.USERS_DATA)
-            .then(({data}) => {
+            .then(({ data }) => {
                 /**
                  * Success response
                  * set state data
@@ -42,6 +43,11 @@ const UserList = (props) => {
                     <Card.Title>
                         Users
                     </Card.Title>
+                    <div>
+                        <Link to="/admin/users/create">
+                            <button>Add Expense</button>
+                        </Link>
+                    </div>
 
                     <ListGroup>
                         {
@@ -65,4 +71,4 @@ const UserList = (props) => {
 
 };
 
-export { UserList as default};
+export { UserList as default };

@@ -1,13 +1,16 @@
 import React from 'react';
+import { Link } from "react-router-dom";
 import { ListGroup } from 'react-bootstrap';
 
-const UserListItem = ({ name, id, email }) => {
+const UserListItem = ({ name, id, email, role }) => {
     return (
-        <ListGroup.Item key={id}>
-            <div>ID: {id}</div>
-            <div>Name: {name}</div>
-            <div>Email: {email}</div>
-        </ListGroup.Item>
+        <Link to={`/admin/users/edit/${id}`}>
+            <ListGroup.Item key={id}>
+                <div>Name: {name}</div>
+                <div>Role: {role}</div>
+                <div>Email: {email}</div>
+            </ListGroup.Item>
+        </Link>
     )
 }
 

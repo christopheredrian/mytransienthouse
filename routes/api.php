@@ -18,7 +18,9 @@ Route::post('login', 'Auth\LoginController@login');
 Route::post('logout', 'Auth\LoginController@logout');
 Route::post('register', 'Auth\RegisterController@register');
 Route::get('initialize_user', 'ApiTokenController@initializeUser');
+
 Route::get('users', 'UserController@users');
+Route::post('users/create', 'UserController@create');
 
 Route::middleware('auth:api')->group(function () {
     /**
