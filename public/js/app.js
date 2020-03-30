@@ -87580,7 +87580,7 @@ var UserList = function UserList(props) {
       className: "list-item list-item--message"
     },
     /*#__PURE__*/
-    react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", null, "No expenses")) : usersData.map(function (user) {
+    react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", null, "No users")) : usersData.map(function (user) {
       return (
         /*#__PURE__*/
         react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_UserListItem__WEBPACK_IMPORTED_MODULE_1__["default"], _extends({
