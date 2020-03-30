@@ -69,9 +69,10 @@ class ApiTokenController extends Controller
                 // LOCAL_DEV_USER=chris on .env
                 $userId = 1;// chris - admin local
 
+            } elseif (env('LOCAL_DEV_USER') === 'sean') {
+                $userId = 3;// chris - admin local
             }
 
-            // todo: sean - add local admin user here
         }
 
         // validate user

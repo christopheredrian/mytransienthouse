@@ -48,7 +48,7 @@ const FetchDataExample = () => {
 
                     <ListGroup>
                         {
-                            Array.isArray(testData) &&
+                            !Array.isArray(testData) &&
                             (testData.length > 0) &&
                             testData.map(({content, id}) => {
                                 return <ListGroup.Item key={id}>{content}</ListGroup.Item>

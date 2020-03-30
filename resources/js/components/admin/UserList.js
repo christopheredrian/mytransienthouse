@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
-import { connect } from 'react-redux';
+import React, { useEffect, useState } from 'react';
 import UserListItem from './UserListItem';
+import Endpoints from "../../config/Endpoints";
 
 import {
     Row, Col, Card,
@@ -8,6 +8,32 @@ import {
 } from 'react-bootstrap';
 
 const UserList = (props) => {
+
+    const [usersData, setUsersData] = useState([]);
+
+    const getUserData = () => {
+
+        /**
+         * Get data from endpoint
+         */
+        axios.get(Endpoints.USERS_DATA)
+            .then(({data}) => {
+                /**
+                 * Success response
+                 * set state data
+                 */
+                setUsersData(data);
+            })
+            .catch(error => {
+                console.error(error);
+                alert("There was an error while fetching requests");
+            });
+
+    };
+
+    useEffect(() => {
+        getUserData();
+    }, [])
 
     return (
         <Row className="justify-content-center">
@@ -19,16 +45,16 @@ const UserList = (props) => {
 
                     <ListGroup>
                         {
-                            !Array.isArray(props.users) &&
-                            props.users.length === 0 ? (
-                                <div className="list-item list-item--message">
-                                    <span>No expenses</span>
-                                </div>
-                            ) : (
-                                props.users.map((user) => {
-                                    return <UserListItem key={user.id} {...user} />
-                                })
-                            )
+                            !Array.isArray(usersData) &&
+                                usersData.length === 0 ? (
+                                    <div className="list-item list-item--message">
+                                        <span>No expenses</span>
+                                    </div>
+                                ) : (
+                                    usersData.map((user) => {
+                                        return <UserListItem key={user.id} {...user} />
+                                    })
+                                )
                         }
                     </ListGroup>
 
@@ -39,10 +65,4 @@ const UserList = (props) => {
 
 };
 
-const mapStateToProps = (state) => {
-    return {
-        users: state.users
-    }
-};
-
-export default connect(mapStateToProps)(UserList);
+export { UserList as default};
