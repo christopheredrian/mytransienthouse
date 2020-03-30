@@ -17,48 +17,12 @@ use Illuminate\Http\Request;
 Route::post('login', 'Auth\LoginController@login');
 Route::post('logout', 'Auth\LoginController@logout');
 Route::post('register', 'Auth\RegisterController@register');
-
-Route::get('initialize_user', function (Request $request) {
-
-    /**
-     * todo: chris add to controller
-     */
-    $response = [
-        'error' => 'Forbidden',
-        'message' => 'Forbidden.'
-    ];
-
-    try {
-        $apiToken = $request->api_token ?? null;
-
-        if (empty($apiToken)) {
-            throw new Exception("Empty token");
-        }
-
-        $user = User::findByApiTokenOrFail($apiToken);
-
-
-        if (!$user) {
-            throw new Exception("Entity not valid");
-        }
-
-        $response = $user;
-
-
-    } catch (Exception $exception) {
-        $response['message'] = $exception->getMessage();
-    }
-
-    return $response;
-
-});
+Route::get('initialize_user', 'ApiTokenController@initializeUser');
 
 Route::middleware('auth:api')->group(function () {
     /**
      * Authenticated Routes
      */
-
-
     Route::get('users', 'UserController@users');
     /**
      * Test route
