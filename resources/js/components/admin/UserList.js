@@ -12,7 +12,7 @@ const UserList = (props) => {
 
     const [usersData, setUsersData] = useState([]);
 
-    const getUserData = () => {
+    const getUsersData = () => {
 
         /**
          * Get data from endpoint
@@ -33,7 +33,7 @@ const UserList = (props) => {
     };
 
     useEffect(() => {
-        getUserData();
+        getUsersData();
     }, [])
 
     return (
@@ -45,7 +45,7 @@ const UserList = (props) => {
                     </Card.Title>
                     <div>
                         <Link to="/admin/users/create">
-                            <button>Add Expense</button>
+                            <button>Add User</button>
                         </Link>
                     </div>
 

@@ -19,8 +19,17 @@ Route::post('logout', 'Auth\LoginController@logout');
 Route::post('register', 'Auth\RegisterController@register');
 Route::get('initialize_user', 'ApiTokenController@initializeUser');
 
-Route::get('users', 'UserController@users');
-Route::post('users/create', 'UserController@create');
+/**
+ * User Routes
+ */
+
+Route::group(['prefix' => 'users'], function() {
+    Route::get('/', 'UserController@users');
+    Route::get('/{id}', 'UserController@user');
+    Route::post('/create', 'UserController@create');
+    Route::post('/update', 'UserController@update');
+});
+
 
 Route::middleware('auth:api')->group(function () {
     /**

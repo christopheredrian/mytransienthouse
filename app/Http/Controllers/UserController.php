@@ -8,12 +8,26 @@ use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
+    /**
+     * @param Request $request
+     * @return JsonResponse|Response
+     * @throws TO-DO: ValidationException
+     */
+    public function user(string $userId)
+    {
+
+        $user = User::where('id', $userId)->first();
+
+        return response()->json($user);
+
+    }
 
     /**
-     * @param string $handle
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @param Request $request
+     * @return JsonResponse|Response
+     * @throws TO-DO: ValidationException
      */
-    public function users(string $handle = null)
+    public function users(Request $request)
     {
 
             $usersData = [];
@@ -27,6 +41,11 @@ class UserController extends Controller
 
     }
 
+    /**
+     * @param Request $request
+     * @return JsonResponse|Response
+     * @throws TO-DO: ValidationException
+     */
     public function create(Request $request)
     {
         $defaultPassword = "password";
@@ -39,6 +58,30 @@ class UserController extends Controller
 
         if (!$user->save()) {
             throw new \ErrorException("Was unable to create user");
+        }
+
+        return response()->json([
+            "data" => $user->toArray()
+        ]);
+
+    }
+
+    /**
+     * @param Request $request
+     * @return JsonResponse|Response
+     * @throws TO-DO: ValidationException
+     */
+    public function update(Request $request)
+    {
+
+        $user = User::where('id', $request->id)->first();
+
+        $user->email = $request->email;
+        $user->name = $request->name;
+        $user->role = $request->role;
+
+        if (!$user->save()) {
+            throw new \ErrorException("Was unable to update user");
         }
 
         return response()->json([

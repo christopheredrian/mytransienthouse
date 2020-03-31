@@ -15,6 +15,7 @@ import UserList from './UserList'
 import FetchDataExample from '../FetchDataExample';
 import Login from "../Login";
 import AddUserPage from "../admin/AddUserPage";
+import EditUserPage from "../admin/EditUserPage";
 import {logoutUser, setLoggedInUser} from "../../actions/auth";
 import {connect} from "react-redux";
 
@@ -66,6 +67,7 @@ const AdminApp = ({logoutUser}) => {
                                 <Route path={`${ADMIN_ROOT_PATH}/fetch-sample`}><FetchDataExample/></Route>
                                 <Route path={`${ADMIN_ROOT_PATH}/users`} exact={true}><UserList/></Route>
                                 <Route path={`${ADMIN_ROOT_PATH}/users/create`}><AddUserPage/></Route>
+                                <Route path={`${ADMIN_ROOT_PATH}/users/edit/:id`} component={EditUserPage} />
                                 <Route path={`login`}><Login/></Route>
                             </Switch>
                         </div>

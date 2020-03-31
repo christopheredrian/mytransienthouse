@@ -1,55 +1,59 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 const UserForm = (props) => {
-    const [userName, setUserName] = useState(props.userData ? props.userData.name : '');
-    const [userRole, setUserRole] = useState(props.userData ? props.userData.role : '');
-    const [userEmail, setUserEmail] = useState(props.userData ? props.userData.email : '');
-    const [error, setError] = useState({ error: '' });
+
+    const [userName, setUserName] = useState(null);
+    const [userRole, setUserRole] = useState(null);
+    const [userEmail, setUserEmail] = useState(null);
+    const [error, setError] = useState(null);
 
     const onSubmit = (e) => {
         e.preventDefault();
 
-        let error = '';
-
         if (!userName || !userRole || !userEmail) {
-            error = 'Please provide all inputs';
-
-            setError({ error });
+            setError('Please provide user name, role and email');
         } else {
-            console.log('pasok dito');
-
             const userData = {
                 name: userName,
                 role: userRole,
                 email: userEmail,
             }
 
-            props.addUser(userData);
+            props.onSubmit(userData);
         }
     }
+
+    useEffect(() => {
+        if(props.userData) {
+            setUserName(props.userData.name);
+            setUserRole(props.userData.role);
+            setUserEmail(props.userData.email);
+        }
+    }, [props.userData])
 
     return (
         <div>
             <form onSubmit={onSubmit}>
+                {error && <p className="form__error">{error}</p>}
                 <input
                     className="text-input"
                     type="text"
                     placeholder="Name"
-                    value={userName}
+                    value={userName || ''}
                     onChange={(e) => setUserName(e.target.value)}
                 />
                 <input
                     className="text-input"
                     type="text"
                     placeholder="Role"
-                    value={userRole}
+                    value={userRole || ''}
                     onChange={(e) => setUserRole(e.target.value)}
                 />
                 <input
                     className="text-input"
                     type="email"
                     placeholder="Email"
-                    value={userEmail}
+                    value={userEmail || ''}
                     onChange={(e) => setUserEmail(e.target.value)}
                 />
                 <button className="button">Save user</button>

@@ -9,7 +9,7 @@ const AddUserPage = () => {
 
     const [redirect, setRedirect] = useState(null);
 
-    const addUser = (userData) => {
+    const onSubmit = (userData) => {
 
         axios.post(Endpoints.CREATE_USER, userData)
             .then(({data}) => {
@@ -17,7 +17,7 @@ const AddUserPage = () => {
                  * Success response
                  * set state data
                  */
-                console.log(data);
+                console.log('Successfully ADDED user!',data);
                 setRedirect('/admin/users');
 
             })
@@ -40,7 +40,7 @@ const AddUserPage = () => {
                     </Card.Title>
 
                     <UserForm
-                        addUser={addUser}
+                        onSubmit={onSubmit}
                     />
 
                 </Card>
