@@ -1,12 +1,10 @@
-import React, { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
+import React, {useEffect, useState} from 'react';
+
+import {Link} from 'react-router-dom';
 import UserListItem from './UserListItem';
 import Endpoints from "../../config/Endpoints";
 
-import {
-    Row, Col, Card,
-    ListGroup
-} from 'react-bootstrap';
+import {Button, Container, Row, Col, Card, Table} from 'react-bootstrap';
 
 const UserList = (props) => {
 
@@ -18,7 +16,7 @@ const UserList = (props) => {
          * Get data from endpoint
          */
         axios.get(Endpoints.USERS_DATA)
-            .then(({ data }) => {
+            .then(({data}) => {
                 /**
                  * Success response
                  * set state data
@@ -37,38 +35,57 @@ const UserList = (props) => {
     }, [])
 
     return (
-        <Row className="justify-content-center">
-            <Col md={8}>
-                <Card className={'p-5'}>
-                    <Card.Title>
-                        Users
-                    </Card.Title>
-                    <div>
-                        <Link to="/admin/users/create">
-                            <button>Add User</button>
-                        </Link>
-                    </div>
+        <Container fluid>
+            <Row className="justify-content-center">
+                <Col md={7}>
+                    <Card className={'p-5'} >
+                        <Row>
+                            <Col xs={9}>
+                                <Card.Title>
+                                    Users
+                                </Card.Title>
+                            </Col>
 
-                    <ListGroup>
-                        {
-                            !Array.isArray(usersData) &&
-                                usersData.length === 0 ? (
-                                    <div className="list-item list-item--message">
-                                        <span>No users</span>
-                                    </div>
-                                ) : (
-                                    usersData.map((user) => {
-                                        return <UserListItem key={user.id} {...user} />
-                                    })
-                                )
-                        }
-                    </ListGroup>
+                            <Col xs={3}>
+                                <Link to="/admin/users/create">
+                                    <Button variant="primary">Add User</Button>
+                                </Link>
+                            </Col>
+                        </Row>
 
-                </Card>
-            </Col>
-        </Row>
+                        <br/>
+
+                        <Row>
+                            <Table striped bordered hover size="lg" responsive>
+                                <thead>
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Email</th>
+                                    <th>Role</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                {
+                                    !Array.isArray(usersData) &&
+                                    usersData.length === 0 ? (
+                                        <tr className="justify-content-center">
+                                            <td colSpan="3">No users.</td>
+                                        </tr>
+                                    ) : (
+                                        usersData.map((user) => {
+                                            return <UserListItem key={user.id} {...user} />
+                                        })
+                                    )
+                                }
+                                </tbody>
+                            </Table>
+                        </Row>
+                    </Card>
+                </Col>
+            </Row>
+        </Container>
     );
 
 };
 
-export { UserList as default };
+export {UserList as default};

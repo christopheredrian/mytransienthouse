@@ -1,6 +1,6 @@
-import React, { useEffect, useState} from 'react';
-import {Redirect} from "react-router-dom";
-import {Card, Col, Row} from "react-bootstrap";
+import React, {useEffect, useState} from 'react';
+import { Redirect} from "react-router-dom";
+import { Container, Card, Col, Row } from "react-bootstrap";
 import Endpoints from "../../config/Endpoints";
 import UserForm from './UserForm';
 import axios from 'axios';
@@ -13,7 +13,7 @@ const EditUserPage = (props) => {
 
     const onSubmit = (userData) => {
 
-        userData = { id, ...userData};
+        userData = {id, ...userData};
 
         axios.post(Endpoints.UPDATE_USER, userData)
             .then(({data}) => {
@@ -39,7 +39,7 @@ const EditUserPage = (props) => {
          * Get data from endpoint
          */
         axios.get(`${Endpoints.USER_DATA}${id}`)
-            .then(({ data }) => {
+            .then(({data}) => {
                 /**
                  * Success response
                  * set state data
@@ -64,22 +64,24 @@ const EditUserPage = (props) => {
 
 
     return (
-        <Row className="justify-content-center">
-            <Col md={8}>
-                <Card className={'p-5'}>
-                    <Card.Title>
-                        Edit User
-                    </Card.Title>
+        <Container fluid>
+            <Row className="justify-content-center">
+                <Col md={7}>
+                    <Card className={'p-5'}>
+                        <Card.Title>
+                            Edit User
+                        </Card.Title>
 
-                    <UserForm
-                        onSubmit={onSubmit}
-                        userData={userData}
-                    />
+                        <UserForm
+                            onSubmit={onSubmit}
+                            userData={userData}
+                        />
 
-                </Card>
-            </Col>
-        </Row>
+                    </Card>
+                </Col>
+            </Row>
+        </Container>
     );
 }
 
-export { EditUserPage as default }
+export {EditUserPage as default}

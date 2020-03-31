@@ -1,17 +1,29 @@
-import React from 'react';
-import { Link } from "react-router-dom";
-import { ListGroup } from 'react-bootstrap';
+import React, { useState } from 'react';
+import {Redirect} from "react-router-dom";
+import {Link} from "react-router-dom";
+import {ListGroup} from 'react-bootstrap';
 
-const UserListItem = ({ name, id, email, role }) => {
+const UserListItem = ({name, id, email, role}) => {
+
+    const [redirect, setRedirect] = useState(null);
+
+    const triggerRedirect = (e, id) => {
+        e.preventDefault();
+
+        setRedirect(`/admin/users/edit/${id}`);
+    }
+
+    if (redirect) {
+        return <Redirect to={redirect}/>;
+    }
+
     return (
-        <Link to={`/admin/users/edit/${id}`}>
-            <ListGroup.Item key={id}>
-                <div>Name: {name}</div>
-                <div>Role: {role}</div>
-                <div>Email: {email}</div>
-            </ListGroup.Item>
-        </Link>
+        <tr key={id} onClick={(e) => triggerRedirect(e, id)}>
+            <td>{name}</td>
+            <td>{email}</td>
+            <td>{role}</td>
+        </tr>
     )
 }
 
-export { UserListItem as default }
+export {UserListItem as default}
