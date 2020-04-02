@@ -31,13 +31,14 @@ class UserController extends Controller
     {
 
             $usersData = [];
-            $users = User::all();
+            $users = User::paginate(2);
 
-            foreach ($users as $user) {
-                $usersData[] = $user->toArray();
-            }
+//            foreach ($users as $user) {
+//                $usersData[] = $user->toArray();
+//            }
 
-            return $usersData;
+//            return $usersData;
+            return $users;
 
     }
 

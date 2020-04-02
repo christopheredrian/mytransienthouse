@@ -87535,7 +87535,12 @@ var AdminApp = function AdminApp(_ref) {
     react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Link"], {
       to: "".concat(ADMIN_ROOT_PATH, "/users"),
       className: 'nav-link'
-    }, "Users"))),
+    }, "Users"),
+    /*#__PURE__*/
+    react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Link"], {
+      to: "".concat(ADMIN_ROOT_PATH, "/table-test"),
+      className: 'nav-link'
+    }, "Table Test"))),
     /*#__PURE__*/
     react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["Navbar"].Collapse, {
       className: 'order-1 w-100'
@@ -87919,31 +87924,71 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 
 var UserList = function UserList(props) {
-  var _useState = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])([]),
+  var _useState = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])({
+    data: [],
+    perPage: 1,
+    currentPage: 1,
+    lastPage: 1,
+    total: 0,
+    fromPage: 1,
+    toPage: 1
+  }),
       _useState2 = _slicedToArray(_useState, 2),
       usersData = _useState2[0],
       setUsersData = _useState2[1];
 
-  var getUsersData = function getUsersData() {
+  var getUsersData = function getUsersData(currentPage) {
     /**
      * Get data from endpoint
      */
-    axios.get(_config_Endpoints__WEBPACK_IMPORTED_MODULE_3__["default"].USERS_DATA).then(function (_ref) {
+    axios.get("".concat(_config_Endpoints__WEBPACK_IMPORTED_MODULE_3__["default"].USERS_DATA, "?page=").concat(currentPage)).then(function (_ref) {
       var data = _ref.data;
 
       /**
        * Success response
        * set state data
        */
-      setUsersData(data);
+      console.log('server data', data);
+      setUsersData({
+        data: data.data,
+        perPage: data.per_page,
+        currentPage: data.current_page,
+        lastPage: data.last_page,
+        total: data.total
+      });
     })["catch"](function (error) {
       console.error(error);
       alert("There was an error while fetching requests");
     });
   };
 
+  var renderPaginationLinks = function renderPaginationLinks() {
+    var items = [];
+
+    var _loop = function _loop(number) {
+      items.push(
+      /*#__PURE__*/
+      react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_4__["Pagination"].Item, {
+        key: number,
+        active: number === usersData.currentPage,
+        onClick: function onClick() {
+          return getUsersData(number);
+        }
+      }, number));
+    };
+
+    for (var number = 1; number <= usersData.lastPage; number++) {
+      _loop(number);
+    }
+
+    return (
+      /*#__PURE__*/
+      react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_4__["Pagination"], null, items)
+    );
+  };
+
   Object(react__WEBPACK_IMPORTED_MODULE_0__["useEffect"])(function () {
-    getUsersData();
+    getUsersData(usersData.currentPage);
   }, []);
   return (
     /*#__PURE__*/
@@ -87956,7 +88001,7 @@ var UserList = function UserList(props) {
     },
     /*#__PURE__*/
     react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_4__["Col"], {
-      md: 7
+      md: 10
     },
     /*#__PURE__*/
     react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_4__["Card"], {
@@ -88005,7 +88050,7 @@ var UserList = function UserList(props) {
     /*#__PURE__*/
     react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("th", null, "Role"))),
     /*#__PURE__*/
-    react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("tbody", null, !Array.isArray(usersData) && usersData.length === 0 ?
+    react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("tbody", null, !Array.isArray(usersData.data) && usersData.data.length === 0 ?
     /*#__PURE__*/
     react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("tr", {
       className: "justify-content-center"
@@ -88013,14 +88058,18 @@ var UserList = function UserList(props) {
     /*#__PURE__*/
     react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", {
       colSpan: "3"
-    }, "No users.")) : usersData.map(function (user) {
+    }, "No users.")) : usersData.data.map(function (user) {
       return (
         /*#__PURE__*/
         react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_UserListItem__WEBPACK_IMPORTED_MODULE_2__["default"], _extends({
           key: user.id
         }, user))
       );
-    }))))))))
+    })))),
+    /*#__PURE__*/
+    react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_4__["Row"], null,
+    /*#__PURE__*/
+    react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_4__["Col"], null, renderPaginationLinks()))))))
   );
 };
 
