@@ -87757,6 +87757,12 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var react_bootstrap__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-bootstrap */ "./node_modules/react-bootstrap/esm/index.js");
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _nonIterableRest(); }
 
 function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance"); }
@@ -87769,46 +87775,39 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 
 var UserForm = function UserForm(props) {
-  var _useState = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])(null),
+  var _useState = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])({
+    name: '',
+    role: '',
+    email: ''
+  }),
       _useState2 = _slicedToArray(_useState, 2),
-      userName = _useState2[0],
-      setUserName = _useState2[1];
+      userData = _useState2[0],
+      setUserData = _useState2[1];
 
   var _useState3 = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])(null),
       _useState4 = _slicedToArray(_useState3, 2),
-      userRole = _useState4[0],
-      setUserRole = _useState4[1];
-
-  var _useState5 = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])(null),
-      _useState6 = _slicedToArray(_useState5, 2),
-      userEmail = _useState6[0],
-      setUserEmail = _useState6[1];
-
-  var _useState7 = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])(null),
-      _useState8 = _slicedToArray(_useState7, 2),
-      error = _useState8[0],
-      setError = _useState8[1];
+      error = _useState4[0],
+      setError = _useState4[1];
 
   var onSubmit = function onSubmit(e) {
     e.preventDefault();
 
-    if (!userName || !userRole || !userEmail) {
+    if (!userData.name || !userData.role || !userData.email) {
       setError('Please provide user name, email, and role.');
     } else {
-      var userData = {
-        name: userName,
-        role: userRole,
-        email: userEmail
-      };
-      props.onSubmit(userData);
+      var data = _objectSpread({}, userData);
+
+      props.onSubmit(data);
     }
   };
 
   Object(react__WEBPACK_IMPORTED_MODULE_0__["useEffect"])(function () {
     if (props.userData) {
-      setUserName(props.userData.name);
-      setUserRole(props.userData.role);
-      setUserEmail(props.userData.email);
+      setUserData({
+        name: props.userData.name,
+        role: props.userData.role,
+        email: props.userData.email
+      });
     }
   }, [props.userData]);
   return (
@@ -87831,9 +87830,11 @@ var UserForm = function UserForm(props) {
     react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_1__["Form"].Control, {
       type: "text",
       placeholder: "Enter name",
-      value: userName || '',
+      value: userData.name || '',
       onChange: function onChange(e) {
-        return setUserName(e.target.value);
+        return setUserData(_objectSpread({}, userData, {
+          name: e.target.value
+        }));
       }
     })),
     /*#__PURE__*/
@@ -87846,9 +87847,11 @@ var UserForm = function UserForm(props) {
     react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_1__["Form"].Control, {
       type: "email",
       placeholder: "Enter email",
-      value: userEmail || '',
+      value: userData.email || '',
       onChange: function onChange(e) {
-        return setUserEmail(e.target.value);
+        return setUserData(_objectSpread({}, userData, {
+          email: e.target.value
+        }));
       }
     }),
     /*#__PURE__*/
@@ -87864,9 +87867,11 @@ var UserForm = function UserForm(props) {
     /*#__PURE__*/
     react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_1__["Form"].Control, {
       as: "select",
-      value: userRole === '' ? 'Choose role...' : userRole,
+      value: userData.role === '' ? 'Choose role...' : userData.role,
       onChange: function onChange(e) {
-        return setUserRole(e.target.value);
+        return setUserData(_objectSpread({}, userData, {
+          role: e.target.value
+        }));
       }
     },
     /*#__PURE__*/

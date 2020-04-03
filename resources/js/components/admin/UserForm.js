@@ -3,32 +3,34 @@ import {Button, Col, Row, Alert, Form} from "react-bootstrap";
 
 const UserForm = (props) => {
 
-    const [userName, setUserName] = useState(null);
-    const [userRole, setUserRole] = useState(null);
-    const [userEmail, setUserEmail] = useState(null);
     const [error, setError] = useState(null);
+    const [userData, setUserData] = useState({
+        name: '',
+        role: '',
+        email: ''
+    });
 
     const onSubmit = (e) => {
         e.preventDefault();
 
-        if (!userName || !userRole || !userEmail) {
+        if (!userData.name || !userData.role || !userData.email) {
             setError('Please provide user name, email, and role.');
         } else {
-            const userData = {
-                name: userName,
-                role: userRole,
-                email: userEmail,
+            const data = {
+                ...userData
             }
 
-            props.onSubmit(userData);
+            props.onSubmit(data);
         }
     }
 
     useEffect(() => {
         if (props.userData) {
-            setUserName(props.userData.name);
-            setUserRole(props.userData.role);
-            setUserEmail(props.userData.email);
+            setUserData({
+                name: props.userData.name,
+                role: props.userData.role,
+                email: props.userData.email
+            });
         }
     }, [props.userData])
 
@@ -47,8 +49,8 @@ const UserForm = (props) => {
                 <Form.Control
                     type="text"
                     placeholder="Enter name"
-                    value={userName || ''}
-                    onChange={(e) => setUserName(e.target.value)}
+                    value={userData.name || ''}
+                    onChange={(e) => setUserData({ ...userData, name: e.target.value })}
                 />
             </Form.Group>
 
@@ -59,8 +61,8 @@ const UserForm = (props) => {
                 <Form.Control
                     type="email"
                     placeholder="Enter email"
-                    value={userEmail || ''}
-                    onChange={(e) => setUserEmail(e.target.value)}
+                    value={userData.email || ''}
+                    onChange={(e) => setUserData({ ...userData, email: e.target.value })}
                 />
                 <Form.Text className="text-muted">
                     Email must be unique for each user.
@@ -71,8 +73,8 @@ const UserForm = (props) => {
                 <Form.Label>Role</Form.Label>
                 <Form.Control
                     as="select"
-                    value={userRole === '' ? 'Choose role...' : userRole}
-                    onChange={(e) => setUserRole(e.target.value)}
+                    value={userData.role === '' ? 'Choose role...' : userData.role}
+                    onChange={(e) => setUserData({ ...userData, role: e.target.value })}
                 >
                     <option disabled>Choose role...</option>
                     <option value="customer">Customer</option>
