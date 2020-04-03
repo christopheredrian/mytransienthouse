@@ -19,7 +19,9 @@ const UserForm = (props) => {
                  * Success response
                  * set state data
                  */
-                console.log('Successfully UPSERTED user!', data);
+                const operation = userData.id ? 'UPDATED' : 'CREATED';
+                console.log(`Successfully ${operation} user!`, data);
+
                 props.afterSubmit();
             })
             .catch(error => {

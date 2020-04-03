@@ -79755,7 +79755,7 @@ function warning(message) {
 /*!***************************************************************!*\
   !*** ./node_modules/react-router-dom/esm/react-router-dom.js ***!
   \***************************************************************/
-/*! exports provided: MemoryRouter, Prompt, Redirect, Route, Router, StaticRouter, Switch, __RouterContext, generatePath, matchPath, useHistory, useLocation, useParams, useRouteMatch, withRouter, BrowserRouter, HashRouter, Link, NavLink */
+/*! exports provided: BrowserRouter, HashRouter, Link, NavLink, MemoryRouter, Prompt, Redirect, Route, Router, StaticRouter, Switch, __RouterContext, generatePath, matchPath, useHistory, useLocation, useParams, useRouteMatch, withRouter */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -87799,7 +87799,8 @@ var UserForm = function UserForm(props) {
        * Success response
        * set state data
        */
-      console.log('Successfully UPSERTED user!', data);
+      var operation = userData.id ? 'UPDATED' : 'CREATED';
+      console.log("Successfully ".concat(operation, " user!"), data);
       props.afterSubmit();
     })["catch"](function (error) {
       console.error(error);
