@@ -87535,12 +87535,7 @@ var AdminApp = function AdminApp(_ref) {
     react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Link"], {
       to: "".concat(ADMIN_ROOT_PATH, "/users"),
       className: 'nav-link'
-    }, "Users"),
-    /*#__PURE__*/
-    react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Link"], {
-      to: "".concat(ADMIN_ROOT_PATH, "/table-test"),
-      className: 'nav-link'
-    }, "Table Test"))),
+    }, "Users"))),
     /*#__PURE__*/
     react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["Navbar"].Collapse, {
       className: 'order-1 w-100'
@@ -87798,7 +87793,7 @@ var UserForm = function UserForm(props) {
     e.preventDefault();
 
     if (!userName || !userRole || !userEmail) {
-      setError('Please provide user name, role and email');
+      setError('Please provide user name, email, and role.');
     } else {
       var userData = {
         name: userName,
@@ -87862,23 +87857,34 @@ var UserForm = function UserForm(props) {
     }, "Email must be unique for each user.")),
     /*#__PURE__*/
     react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_1__["Form"].Group, {
-      controlId: "formEmail"
+      controlId: "exampleForm.ControlSelect1"
     },
     /*#__PURE__*/
     react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_1__["Form"].Label, null, "Role"),
     /*#__PURE__*/
     react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_1__["Form"].Control, {
-      type: "text",
-      placeholder: "Enter role",
-      value: userRole || '',
+      as: "select",
+      value: userRole === '' ? 'Choose role...' : userRole,
       onChange: function onChange(e) {
         return setUserRole(e.target.value);
       }
-    }),
+    },
     /*#__PURE__*/
-    react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_1__["Form"].Text, {
-      className: "text-muted"
-    }, "User role in the system")),
+    react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
+      disabled: true
+    }, "Choose role..."),
+    /*#__PURE__*/
+    react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
+      value: "customer"
+    }, "Customer"),
+    /*#__PURE__*/
+    react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
+      value: "businessowner"
+    }, "Business Owner"),
+    /*#__PURE__*/
+    react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
+      value: "admin"
+    }, "Admin"))),
     /*#__PURE__*/
     react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_1__["Button"], {
       variant: "primary",
@@ -88001,24 +88007,16 @@ var UserList = function UserList(props) {
     },
     /*#__PURE__*/
     react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_4__["Col"], {
-      md: 10
+      md: 8
     },
     /*#__PURE__*/
     react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_4__["Card"], {
       className: 'p-5'
     },
     /*#__PURE__*/
-    react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_4__["Row"], null,
+    react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_4__["Card"].Title, null, "Users"),
     /*#__PURE__*/
-    react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_4__["Col"], {
-      xs: 9
-    },
-    /*#__PURE__*/
-    react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_4__["Card"].Title, null, "Users")),
-    /*#__PURE__*/
-    react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_4__["Col"], {
-      xs: 3
-    },
+    react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_4__["Card"].Text, null,
     /*#__PURE__*/
     react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Link"], {
       to: "/admin/users/create"
@@ -88026,7 +88024,7 @@ var UserList = function UserList(props) {
     /*#__PURE__*/
     react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_4__["Button"], {
       variant: "primary"
-    }, "Add User")))),
+    }, "Add User"))),
     /*#__PURE__*/
     react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null),
     /*#__PURE__*/

@@ -70,7 +70,7 @@ class ApiTokenController extends Controller
                 $userId = 1;// chris - admin local
 
             } elseif (env('LOCAL_DEV_USER') === 'sean') {
-                $userId = 3;// chris - admin local
+                $userId = 1;// chris - admin local
             }
 
         }

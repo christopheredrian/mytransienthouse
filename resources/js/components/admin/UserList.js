@@ -13,7 +13,7 @@ const UserList = (props) => {
         currentPage: 1,
         lastPage: 1,
         total: 0,
-        fromPage : 1,
+        fromPage: 1,
         toPage: 1,
     });
 
@@ -63,26 +63,23 @@ const UserList = (props) => {
     }
 
     useEffect(() => {
+
         getUsersData(usersData.currentPage);
     }, [])
 
     return (
         <Container fluid>
             <Row className="justify-content-center">
-                <Col md={10}>
+                <Col md={8}>
                     <Card className={'p-5'}>
-                        <Row>
-                            <Col xs={9}>
-                                <Card.Title>
-                                    Users
-                                </Card.Title>
-                            </Col>
-                            <Col xs={3}>
-                                <Link to="/admin/users/create">
-                                    <Button variant="primary">Add User</Button>
-                                </Link>
-                            </Col>
-                        </Row>
+                        <Card.Title>
+                            Users
+                        </Card.Title>
+                        <Card.Text>
+                            <Link to="/admin/users/create">
+                                <Button variant="primary">Add User</Button>
+                            </Link>
+                        </Card.Text>
 
                         <br/>
 

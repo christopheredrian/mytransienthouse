@@ -12,7 +12,7 @@ const UserForm = (props) => {
         e.preventDefault();
 
         if (!userName || !userRole || !userEmail) {
-            setError('Please provide user name, role and email');
+            setError('Please provide user name, email, and role.');
         } else {
             const userData = {
                 name: userName,
@@ -67,19 +67,18 @@ const UserForm = (props) => {
                 </Form.Text>
             </Form.Group>
 
-            <Form.Group controlId="formEmail">
-                <Form.Label>
-                    Role
-                </Form.Label>
+            <Form.Group controlId="exampleForm.ControlSelect1">
+                <Form.Label>Role</Form.Label>
                 <Form.Control
-                    type="text"
-                    placeholder="Enter role"
-                    value={userRole || ''}
+                    as="select"
+                    value={userRole === '' ? 'Choose role...' : userRole}
                     onChange={(e) => setUserRole(e.target.value)}
-                />
-                <Form.Text className="text-muted">
-                    User role in the system
-                </Form.Text>
+                >
+                    <option disabled>Choose role...</option>
+                    <option value="customer">Customer</option>
+                    <option value="businessowner">Business Owner</option>
+                    <option value="admin">Admin</option>
+                </Form.Control>
             </Form.Group>
 
             <Button variant="primary" type="submit">
