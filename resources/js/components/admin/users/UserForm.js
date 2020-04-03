@@ -1,6 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import {Button, Alert, Form, Modal} from "react-bootstrap";
-import Endpoints from "../../config/Endpoints";
+
+import Endpoints from "../../../config/Endpoints";
 
 const UserForm = (props) => {
 
@@ -22,7 +23,7 @@ const UserForm = (props) => {
                 const operation = userData.id ? 'UPDATED' : 'CREATED';
                 console.log(`Successfully ${operation} user!`, data);
 
-                props.afterSubmit();
+                props.closeUserFormAfterSubmit();
             })
             .catch(error => {
                 console.error(error);
@@ -105,7 +106,7 @@ const UserForm = (props) => {
             </Form.Group>
 
             <Modal.Footer>
-                <Button onClick={props.closeUserForm} variant="secondary" type="submit">
+                <Button onClick={props.onClose} variant="secondary" type="button">
                     Close
                 </Button>
                 <Button variant="primary" type="submit">
