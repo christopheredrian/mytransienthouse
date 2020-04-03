@@ -4,8 +4,7 @@ const Endpoints = {
     INIT_USER: '/api/initialize_user',
     USERS_DATA: '/api/users',
     USER_DATA: '/api/users/',
-    CREATE_USER: '/api/users/create',
-    UPDATE_USER: '/api/users/update',
+    UPSERT_USER: '/api/users/upsert',
 };
 
 export default Endpoints;

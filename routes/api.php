@@ -26,8 +26,7 @@ Route::get('initialize_user', 'ApiTokenController@initializeUser');
 Route::group(['prefix' => 'users'], function() {
     Route::get('/', 'UserController@users');
     Route::get('/{id}', 'UserController@user');
-    Route::post('/create', 'UserController@create');
-    Route::post('/update', 'UserController@update');
+    Route::post('/upsert', 'UserController@upsert');
 });
 
 

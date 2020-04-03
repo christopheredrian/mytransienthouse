@@ -87405,7 +87405,7 @@ var AddUserPage = function AddUserPage() {
       setRedirect = _useState2[1];
 
   var onSubmit = function onSubmit(userData) {
-    axios__WEBPACK_IMPORTED_MODULE_5___default.a.post(_config_Endpoints__WEBPACK_IMPORTED_MODULE_3__["default"].CREATE_USER, userData).then(function (_ref) {
+    axios__WEBPACK_IMPORTED_MODULE_5___default.a.post(_config_Endpoints__WEBPACK_IMPORTED_MODULE_3__["default"].UPSERT_USER, userData).then(function (_ref) {
       var data = _ref.data;
 
       /**
@@ -87667,7 +87667,7 @@ var EditUserPage = function EditUserPage(props) {
     userData = _objectSpread({
       id: id
     }, userData);
-    axios__WEBPACK_IMPORTED_MODULE_5___default.a.post(_config_Endpoints__WEBPACK_IMPORTED_MODULE_3__["default"].UPDATE_USER, userData).then(function (_ref) {
+    axios__WEBPACK_IMPORTED_MODULE_5___default.a.post(_config_Endpoints__WEBPACK_IMPORTED_MODULE_3__["default"].UPSERT_USER, userData).then(function (_ref) {
       var data = _ref.data;
 
       /**
@@ -87757,6 +87757,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var react_bootstrap__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-bootstrap */ "./node_modules/react-bootstrap/esm/index.js");
+/* harmony import */ var _config_Endpoints__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../config/Endpoints */ "./resources/js/config/Endpoints.js");
 function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
 
 function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
@@ -87774,20 +87775,37 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 
 
+
 var UserForm = function UserForm(props) {
-  var _useState = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])({
+  var _useState = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])(null),
+      _useState2 = _slicedToArray(_useState, 2),
+      error = _useState2[0],
+      setError = _useState2[1];
+
+  var _useState3 = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])({
     name: '',
     role: '',
     email: ''
   }),
-      _useState2 = _slicedToArray(_useState, 2),
-      userData = _useState2[0],
-      setUserData = _useState2[1];
-
-  var _useState3 = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])(null),
       _useState4 = _slicedToArray(_useState3, 2),
-      error = _useState4[0],
-      setError = _useState4[1];
+      userData = _useState4[0],
+      setUserData = _useState4[1];
+
+  var upsertUser = function upsertUser(userData) {
+    axios.post(_config_Endpoints__WEBPACK_IMPORTED_MODULE_2__["default"].UPSERT_USER, userData).then(function (_ref) {
+      var data = _ref.data;
+
+      /**
+       * Success response
+       * set state data
+       */
+      console.log('Successfully UPSERTED user!', data);
+      props.afterSubmit();
+    })["catch"](function (error) {
+      console.error(error);
+      alert("There was an error while fetching requests");
+    });
+  };
 
   var onSubmit = function onSubmit(e) {
     e.preventDefault();
@@ -87795,9 +87813,11 @@ var UserForm = function UserForm(props) {
     if (!userData.name || !userData.role || !userData.email) {
       setError('Please provide user name, email, and role.');
     } else {
-      var data = _objectSpread({}, userData);
+      var data = _objectSpread({}, userData, {
+        id: props.userData ? props.userData.id : undefined
+      });
 
-      props.onSubmit(data);
+      upsertUser(data);
     }
   };
 
@@ -87891,10 +87911,18 @@ var UserForm = function UserForm(props) {
       value: "admin"
     }, "Admin"))),
     /*#__PURE__*/
+    react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_1__["Modal"].Footer, null,
+    /*#__PURE__*/
+    react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_1__["Button"], {
+      onClick: props.closeUserForm,
+      variant: "secondary",
+      type: "submit"
+    }, "Close"),
+    /*#__PURE__*/
     react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_1__["Button"], {
       variant: "primary",
       type: "submit"
-    }, "Save User"))
+    }, "Save User")))
   );
 };
 
@@ -87914,12 +87942,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return UserList; });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
-/* harmony import */ var _UserListItem__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./UserListItem */ "./resources/js/components/admin/UserListItem.js");
+/* harmony import */ var _UserListItem__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./UserListItem */ "./resources/js/components/admin/UserListItem.js");
+/* harmony import */ var _UserForm__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./UserForm */ "./resources/js/components/admin/UserForm.js");
 /* harmony import */ var _config_Endpoints__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../config/Endpoints */ "./resources/js/config/Endpoints.js");
 /* harmony import */ var react_bootstrap__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! react-bootstrap */ "./node_modules/react-bootstrap/esm/index.js");
-function _extends() { _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return _extends.apply(this, arguments); }
-
 function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _nonIterableRest(); }
 
 function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance"); }
@@ -87935,7 +87961,17 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 
 var UserList = function UserList(props) {
-  var _useState = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])({
+  var _useState = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])(false),
+      _useState2 = _slicedToArray(_useState, 2),
+      userFormShow = _useState2[0],
+      setUserFormShow = _useState2[1];
+
+  var _useState3 = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])(null),
+      _useState4 = _slicedToArray(_useState3, 2),
+      userData = _useState4[0],
+      setUserData = _useState4[1];
+
+  var _useState5 = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])({
     data: [],
     perPage: 1,
     currentPage: 1,
@@ -87944,36 +87980,70 @@ var UserList = function UserList(props) {
     fromPage: 1,
     toPage: 1
   }),
-      _useState2 = _slicedToArray(_useState, 2),
-      usersData = _useState2[0],
-      setUsersData = _useState2[1];
+      _useState6 = _slicedToArray(_useState5, 2),
+      usersData = _useState6[0],
+      setUsersData = _useState6[1];
 
-  var getUsersData = function getUsersData(currentPage) {
-    /**
-     * Get data from endpoint
-     */
-    axios.get("".concat(_config_Endpoints__WEBPACK_IMPORTED_MODULE_3__["default"].USERS_DATA, "?page=").concat(currentPage)).then(function (_ref) {
-      var data = _ref.data;
-
-      /**
-       * Success response
-       * set state data
-       */
-      console.log('server data', data);
-      setUsersData({
-        data: data.data,
-        perPage: data.per_page,
-        currentPage: data.current_page,
-        lastPage: data.last_page,
-        total: data.total
-      });
-    })["catch"](function (error) {
-      console.error(error);
-      alert("There was an error while fetching requests");
-    });
+  var closeUserForm = function closeUserForm(data) {
+    setUserData(null);
+    getUsersData(usersData.currentPage);
+    setUserFormShow(false);
   };
 
-  var renderPaginationLinks = function renderPaginationLinks() {
+  var showEditUserForm = function showEditUserForm(data) {
+    setUserData(data);
+    setUserFormShow(true);
+  };
+
+  var UsersTable = function UsersTable() {
+    return (
+      /*#__PURE__*/
+      react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_4__["Row"], null,
+      /*#__PURE__*/
+      react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_4__["Table"], {
+        striped: true,
+        bordered: true,
+        hover: true,
+        size: "lg",
+        responsive: true
+      },
+      /*#__PURE__*/
+      react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("thead", null,
+      /*#__PURE__*/
+      react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("tr", null,
+      /*#__PURE__*/
+      react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("th", null, "Name"),
+      /*#__PURE__*/
+      react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("th", null, "Email"),
+      /*#__PURE__*/
+      react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("th", null, "Role"))),
+      /*#__PURE__*/
+      react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("tbody", null, !Array.isArray(usersData.data) && usersData.data.length === 0 ?
+      /*#__PURE__*/
+      react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("tr", {
+        className: "justify-content-center"
+      },
+      /*#__PURE__*/
+      react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", {
+        colSpan: "3"
+      }, "No users.")) : usersData.data.map(function (user) {
+        return (
+          /*#__PURE__*/
+          react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_UserListItem__WEBPACK_IMPORTED_MODULE_1__["default"], {
+            key: user.id,
+            user: user,
+            onRowClick: function onRowClick() {
+              return showEditUserForm(user);
+            }
+          })
+        );
+      }))),
+      /*#__PURE__*/
+      react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(PaginationLinks, null))
+    );
+  };
+
+  var PaginationLinks = function PaginationLinks() {
     var items = [];
 
     var _loop = function _loop(number) {
@@ -87996,6 +88066,63 @@ var UserList = function UserList(props) {
       /*#__PURE__*/
       react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_4__["Pagination"], null, items)
     );
+  };
+
+  var FormModal = function FormModal(_ref) {
+    var show = _ref.show,
+        onHide = _ref.onHide;
+    return (
+      /*#__PURE__*/
+      react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_4__["Modal"], {
+        show: show,
+        onHide: onHide,
+        size: "md",
+        "aria-labelledby": "user-form-modal",
+        centered: true
+      },
+      /*#__PURE__*/
+      react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_4__["Modal"].Header, {
+        closeButton: true
+      },
+      /*#__PURE__*/
+      react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_4__["Modal"].Title, {
+        id: "user-form-modal"
+      }, userData ? 'Edit User' : 'Add User')),
+      /*#__PURE__*/
+      react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_4__["Modal"].Body, null,
+      /*#__PURE__*/
+      react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_UserForm__WEBPACK_IMPORTED_MODULE_2__["default"], {
+        userData: userData,
+        closeUserForm: function closeUserForm() {
+          return setUserFormShow(false);
+        },
+        afterSubmit: closeUserForm
+      })))
+    );
+  };
+
+  var getUsersData = function getUsersData(currentPage) {
+    /**
+     * Get data from endpoint
+     */
+    axios.get("".concat(_config_Endpoints__WEBPACK_IMPORTED_MODULE_3__["default"].USERS_DATA, "?page=").concat(currentPage)).then(function (_ref2) {
+      var data = _ref2.data;
+
+      /**
+       * Success response
+       * set state data
+       */
+      setUsersData({
+        data: data.data,
+        perPage: data.per_page,
+        currentPage: data.current_page,
+        lastPage: data.last_page,
+        total: data.total
+      });
+    })["catch"](function (error) {
+      console.error(error);
+      alert("There was an error while fetching requests");
+    });
   };
 
   Object(react__WEBPACK_IMPORTED_MODULE_0__["useEffect"])(function () {
@@ -88023,56 +88150,21 @@ var UserList = function UserList(props) {
     /*#__PURE__*/
     react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_4__["Card"].Text, null,
     /*#__PURE__*/
-    react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Link"], {
-      to: "/admin/users/create"
-    },
-    /*#__PURE__*/
     react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_4__["Button"], {
-      variant: "primary"
-    }, "Add User"))),
+      variant: "primary",
+      onClick: function onClick() {
+        return setUserFormShow(true);
+      }
+    }, "Add User")),
     /*#__PURE__*/
     react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null),
     /*#__PURE__*/
-    react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_4__["Row"], null,
+    react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(UsersTable, null),
     /*#__PURE__*/
-    react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_4__["Table"], {
-      striped: true,
-      bordered: true,
-      hover: true,
-      size: "lg",
-      responsive: true
-    },
-    /*#__PURE__*/
-    react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("thead", null,
-    /*#__PURE__*/
-    react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("tr", null,
-    /*#__PURE__*/
-    react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("th", null, "Name"),
-    /*#__PURE__*/
-    react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("th", null, "Email"),
-    /*#__PURE__*/
-    react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("th", null, "Role"))),
-    /*#__PURE__*/
-    react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("tbody", null, !Array.isArray(usersData.data) && usersData.data.length === 0 ?
-    /*#__PURE__*/
-    react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("tr", {
-      className: "justify-content-center"
-    },
-    /*#__PURE__*/
-    react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", {
-      colSpan: "3"
-    }, "No users.")) : usersData.data.map(function (user) {
-      return (
-        /*#__PURE__*/
-        react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_UserListItem__WEBPACK_IMPORTED_MODULE_2__["default"], _extends({
-          key: user.id
-        }, user))
-      );
-    })))),
-    /*#__PURE__*/
-    react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_4__["Row"], null,
-    /*#__PURE__*/
-    react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_4__["Col"], null, renderPaginationLinks()))))))
+    react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(FormModal, {
+      show: userFormShow,
+      onHide: closeUserForm
+    })))))
   );
 };
 
@@ -88092,60 +88184,23 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return UserListItem; });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
-/* harmony import */ var react_bootstrap__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react-bootstrap */ "./node_modules/react-bootstrap/esm/index.js");
-function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _nonIterableRest(); }
-
-function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance"); }
-
-function _iterableToArrayLimit(arr, i) { if (!(Symbol.iterator in Object(arr) || Object.prototype.toString.call(arr) === "[object Arguments]")) { return; } var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
-
-function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
-
-
-
-
 
 
 var UserListItem = function UserListItem(_ref) {
-  var name = _ref.name,
-      id = _ref.id,
-      email = _ref.email,
-      role = _ref.role;
-
-  var _useState = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])(null),
-      _useState2 = _slicedToArray(_useState, 2),
-      redirect = _useState2[0],
-      setRedirect = _useState2[1];
-
-  var triggerRedirect = function triggerRedirect(e, id) {
-    e.preventDefault();
-    setRedirect("/admin/users/edit/".concat(id));
-  };
-
-  if (redirect) {
-    return (
-      /*#__PURE__*/
-      react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Redirect"], {
-        to: redirect
-      })
-    );
-  }
-
+  var user = _ref.user,
+      onRowClick = _ref.onRowClick;
   return (
     /*#__PURE__*/
     react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("tr", {
-      key: id,
-      onClick: function onClick(e) {
-        return triggerRedirect(e, id);
-      }
+      key: user.id,
+      onClick: onRowClick
     },
     /*#__PURE__*/
-    react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, name),
+    react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, user.name),
     /*#__PURE__*/
-    react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, email),
+    react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, user.email),
     /*#__PURE__*/
-    react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, role))
+    react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, user.role))
   );
 };
 
@@ -88168,8 +88223,7 @@ var Endpoints = {
   INIT_USER: '/api/initialize_user',
   USERS_DATA: '/api/users',
   USER_DATA: '/api/users/',
-  CREATE_USER: '/api/users/create',
-  UPDATE_USER: '/api/users/update'
+  UPSERT_USER: '/api/users/upsert'
 };
 /* harmony default export */ __webpack_exports__["default"] = (Endpoints);
 

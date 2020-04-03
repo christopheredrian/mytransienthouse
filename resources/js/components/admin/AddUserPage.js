@@ -11,7 +11,7 @@ const AddUserPage = () => {
 
     const onSubmit = (userData) => {
 
-        axios.post(Endpoints.CREATE_USER, userData)
+        axios.post(Endpoints.UPSERT_USER, userData)
             .then(({data}) => {
                 /**
                  * Success response

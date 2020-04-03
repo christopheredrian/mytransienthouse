@@ -1,27 +1,11 @@
-import React, { useState } from 'react';
-import {Redirect} from "react-router-dom";
-import {Link} from "react-router-dom";
-import {ListGroup} from 'react-bootstrap';
+import React from 'react';
 
-const UserListItem = ({name, id, email, role}) => {
-
-    const [redirect, setRedirect] = useState(null);
-
-    const triggerRedirect = (e, id) => {
-        e.preventDefault();
-
-        setRedirect(`/admin/users/edit/${id}`);
-    }
-
-    if (redirect) {
-        return <Redirect to={redirect}/>;
-    }
-
+const UserListItem = ({ user, onRowClick }) => {
     return (
-        <tr key={id} onClick={(e) => triggerRedirect(e, id)}>
-            <td>{name}</td>
-            <td>{email}</td>
-            <td>{role}</td>
+        <tr key={user.id} onClick={onRowClick}>
+            <td>{user.name}</td>
+            <td>{user.email}</td>
+            <td>{user.role}</td>
         </tr>
     )
 }

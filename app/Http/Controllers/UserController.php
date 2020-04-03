@@ -30,15 +30,9 @@ class UserController extends Controller
     public function users(Request $request)
     {
 
-            $usersData = [];
-            $users = User::paginate(2);
+        $users = User::paginate(5);
 
-//            foreach ($users as $user) {
-//                $usersData[] = $user->toArray();
-//            }
-
-//            return $usersData;
-            return $users;
+        return $users;
 
     }
 
@@ -88,6 +82,37 @@ class UserController extends Controller
         return response()->json([
             "data" => $user->toArray()
         ]);
+
+    }
+
+    /**
+     * @param Request $request
+     * @return JsonResponse|Response
+     * @throws TO-DO: ValidationException
+     */
+    public function upsert(Request $request)
+    {
+
+        if ($request->id) {
+            $this->update($request);
+        } else {
+            $this->create($request);
+        }
+
+        // Problematic. Discuss with Chris.
+//        $user = User::updateOrCreate(
+//            ['email' => $request->originalEmail],
+//            [
+//                'name' => $request->name,
+//                'email' => $request->email,
+//                'role' => $request->role,
+//            ]
+//        );
+
+//        return response()->json([
+//            "data" => $user->toArray()
+//        ]);
+
 
     }
 

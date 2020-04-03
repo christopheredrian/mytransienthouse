@@ -15,7 +15,7 @@ const EditUserPage = (props) => {
 
         userData = {id, ...userData};
 
-        axios.post(Endpoints.UPDATE_USER, userData)
+        axios.post(Endpoints.UPSERT_USER, userData)
             .then(({data}) => {
 
                 /**
