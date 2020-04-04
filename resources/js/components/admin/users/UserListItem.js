@@ -8,6 +8,6 @@ const UserListItem = ({ user, onRowClick }) => {
             <td>{user.role}</td>
         </tr>
     )
-}
+};
 
 export {UserListItem as default}

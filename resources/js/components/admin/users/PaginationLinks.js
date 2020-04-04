@@ -4,19 +4,19 @@ import {Pagination} from 'react-bootstrap';
 const PaginationLinks = ({ usersData, onPageNumberClick}) => {
     let items = [];
 
-    for (let number = 1; number <= usersData.lastPage; number++) {
+    for (let pageNumber = 1; pageNumber <= usersData.lastPage; pageNumber++) {
         items.push(
             <Pagination.Item
-                key={number}
-                active={number === usersData.currentPage}
-                onClick={() => onPageNumberClick(number)}
+                key={pageNumber}
+                active={pageNumber === usersData.currentPage}
+                onClick={() => onPageNumberClick(pageNumber)}
             >
-                {number}
+                {pageNumber}
             </Pagination.Item>,
         );
     }
 
     return (<Pagination>{items}</Pagination>)
-}
+};
 
 export { PaginationLinks as default }

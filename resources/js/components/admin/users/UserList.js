@@ -3,17 +3,19 @@ import {Button, Container, Row, Col, Card} from 'react-bootstrap';
 
 import Endpoints from "../../../config/Endpoints";
 
+import TableToolBar from './TableToolBar';
 import UsersTable from './UsersTable';
 import FormModal from './FormModal';
 
-
 const UserList = (props) => {
 
-    const [showUserForm, setShowUserForm] = useState(false);
+    const defaultUsersPerPage = 5;
+
+    const [usersPerPage, setUsersPerPage] = useState(defaultUsersPerPage);
+    const [showUserForm, setShowUserForm] = useState(null);
     const [userData, setUserData] = useState(null);
     const [usersData, setUsersData] = useState({
         data: [],
-        perPage: 1,
         currentPage: 1,
         lastPage: 1,
         total: 0,
@@ -24,25 +26,37 @@ const UserList = (props) => {
     const showEditUserForm = (data) => {
         setUserData(data);
         setShowUserForm(true);
-    }
+    };
 
     const closeUserForm = () => {
         setShowUserForm(false);
         setUserData(null);
-    }
+    };
 
     const closeUserFormAfterSubmit = () => {
         closeUserForm();
-        getUsersData(usersData.currentPage);
-    }
+        getUsersData(usersData.currentPage, usersPerPage);
+    };
 
-    const getUsersData = (currentPage) => {
+    const changeUsersPerPage = (perPage) => {
+        setUsersPerPage(parseInt(perPage));
+    };
+
+    const onPageNumberClick = (pageNumber) => {
+        getUsersData(pageNumber, usersPerPage)
+    };
+
+    const getUsersData = (page, perPage) => {
 
         /**
          * Get data from endpoint
          */
-        axios.get(`${Endpoints.USERS_DATA}?page=${currentPage}`)
-            .then(({data}) => {
+        axios.get(`${Endpoints.USERS_DATA}`, {
+            params: {
+                page,
+                perPage
+            }
+        }).then(({data}) => {
                 /**
                  * Success response
                  * set state data
@@ -50,10 +64,11 @@ const UserList = (props) => {
 
                 setUsersData({
                     data: data.data,
-                    perPage: data.per_page,
                     currentPage: data.current_page,
                     lastPage: data.last_page,
-                    total: data.total
+                    total: data.total,
+                    fromPage: data.from,
+                    toPage: data.to
                 });
             })
             .catch(error => {
@@ -64,8 +79,14 @@ const UserList = (props) => {
     };
 
     useEffect(() => {
-        getUsersData(usersData.currentPage);
-    }, [])
+        getUsersData(usersData.currentPage, usersPerPage);
+    }, []);
+
+    useEffect(() => {
+        // Always start at first page when usersPerPage is changed
+        // Consult with Chris
+        getUsersData(1, usersPerPage);
+    }, [usersPerPage]);
 
     return (
         <Container fluid>
@@ -73,20 +94,17 @@ const UserList = (props) => {
                 <Col md={8}>
                     <Card className={'p-5'}>
                         <Card.Title>
-                            Users
+                            <h1>Users</h1>
                         </Card.Title>
-                        <Card.Text>
-                            <Button
-                                variant="primary"
-                                onClick={() => setShowUserForm(true)}>
-                                Add User
-                            </Button>
-                        </Card.Text>
-                        <br/>
+                        <TableToolBar
+                            usersPerPage={usersPerPage}
+                            changeUsersPerPage={changeUsersPerPage}
+                            setShowUserForm={setShowUserForm}
+                        />
                         <UsersTable
                             usersData={usersData}
+                            onPageNumberClick={onPageNumberClick}
                             showEditUserForm={showEditUserForm}
-                            onPageNumberClick={getUsersData}
                         />
                         <FormModal
                             userData={userData}

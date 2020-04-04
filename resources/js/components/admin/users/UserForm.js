@@ -40,11 +40,11 @@ const UserForm = (props) => {
             const data = {
                 ...userData,
                 id: props.userData ? props.userData.id : undefined
-            }
+            };
 
             upsertUser(data)
         }
-    }
+    };
 
     useEffect(() => {
         if (props.userData) {
@@ -54,7 +54,7 @@ const UserForm = (props) => {
                 email: props.userData.email
             });
         }
-    }, [props.userData])
+    }, [props.userData]);
 
     return (
         <Form onSubmit={onSubmit}>
@@ -66,7 +66,7 @@ const UserForm = (props) => {
 
             <Form.Group controlId="formName">
                 <Form.Label>
-                    User name
+                    Name
                 </Form.Label>
                 <Form.Control
                     type="text"
@@ -78,7 +78,7 @@ const UserForm = (props) => {
 
             <Form.Group controlId="formEmail">
                 <Form.Label>
-                    Email address
+                    Email
                 </Form.Label>
                 <Form.Control
                     type="email"
@@ -87,7 +87,7 @@ const UserForm = (props) => {
                     onChange={(e) => setUserData({...userData, email: e.target.value})}
                 />
                 <Form.Text className="text-muted">
-                    Email must be unique for each user.
+                    Must be unique for each user.
                 </Form.Text>
             </Form.Group>
 
@@ -115,6 +115,6 @@ const UserForm = (props) => {
             </Modal.Footer>
         </Form>
     )
-}
+};
 
 export {UserForm as default}

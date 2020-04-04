@@ -30,7 +30,8 @@ class UserController extends Controller
     public function users(Request $request)
     {
 
-        $users = User::paginate(5);
+        $perPage = (int)($request->perPage);
+        $users = User::paginate($perPage);
 
         return $users;
 
