@@ -31,7 +31,16 @@ class UserController extends Controller
     {
 
         $perPage = (int)($request->perPage);
-        $users = User::paginate($perPage);
+
+        if($request->has('filter')){
+            $users = User::where('name', 'like', '%' . $request->filter . '%')
+                ->orWhere('email', 'like', '%' . $request->filter . '%')
+                ->orWhere('role', 'like', '%' . $request->filter . '%')
+                ->paginate($perPage);
+
+        } else {
+            $users = User::paginate($perPage);
+        }
 
         return $users;
 

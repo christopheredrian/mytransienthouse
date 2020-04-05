@@ -87622,7 +87622,9 @@ __webpack_require__.r(__webpack_exports__);
 var TableToolBar = function TableToolBar(_ref) {
   var usersPerPage = _ref.usersPerPage,
       changeUsersPerPage = _ref.changeUsersPerPage,
-      setShowUserForm = _ref.setShowUserForm;
+      setShowUserForm = _ref.setShowUserForm,
+      searchFilter = _ref.searchFilter,
+      onSearchChange = _ref.onSearchChange;
   return (
     /*#__PURE__*/
     react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_1__["Row"], null,
@@ -87697,9 +87699,13 @@ var TableToolBar = function TableToolBar(_ref) {
       className: "mb-3"
     },
     /*#__PURE__*/
-    react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_1__["FormControl"], {
-      "aria-label": "Small",
-      "aria-describedby": "inputGroup-sizing-sm"
+    react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_1__["Form"].Control, {
+      type: "text",
+      name: "search-filter",
+      value: searchFilter || '',
+      onChange: function onChange(e) {
+        return onSearchChange(e.target.value);
+      }
     }),
     /*#__PURE__*/
     react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_1__["InputGroup"].Append, null,
@@ -87943,15 +87949,20 @@ var UserList = function UserList(props) {
 
   var _useState3 = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])(null),
       _useState4 = _slicedToArray(_useState3, 2),
-      showUserForm = _useState4[0],
-      setShowUserForm = _useState4[1];
+      searchFilter = _useState4[0],
+      setSearchFilter = _useState4[1];
 
   var _useState5 = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])(null),
       _useState6 = _slicedToArray(_useState5, 2),
-      userData = _useState6[0],
-      setUserData = _useState6[1];
+      showUserForm = _useState6[0],
+      setShowUserForm = _useState6[1];
 
-  var _useState7 = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])({
+  var _useState7 = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])(null),
+      _useState8 = _slicedToArray(_useState7, 2),
+      userData = _useState8[0],
+      setUserData = _useState8[1];
+
+  var _useState9 = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])({
     data: [],
     currentPage: 1,
     lastPage: 1,
@@ -87959,9 +87970,9 @@ var UserList = function UserList(props) {
     fromPage: 1,
     toPage: 1
   }),
-      _useState8 = _slicedToArray(_useState7, 2),
-      usersData = _useState8[0],
-      setUsersData = _useState8[1];
+      _useState10 = _slicedToArray(_useState9, 2),
+      usersData = _useState10[0],
+      setUsersData = _useState10[1];
 
   var showEditUserForm = function showEditUserForm(data) {
     setUserData(data);
@@ -87986,14 +87997,21 @@ var UserList = function UserList(props) {
     getUsersData(pageNumber, usersPerPage);
   };
 
+  var onSearchChange = function onSearchChange(searchFilter) {
+    setSearchFilter(searchFilter);
+  };
+
   var getUsersData = function getUsersData(page, perPage) {
+    var filter = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : null;
+
     /**
      * Get data from endpoint
      */
     axios.get("".concat(_config_Endpoints__WEBPACK_IMPORTED_MODULE_2__["default"].USERS_DATA), {
       params: {
         page: page,
-        perPage: perPage
+        perPage: perPage,
+        filter: filter
       }
     }).then(function (_ref) {
       var data = _ref.data;
@@ -88022,8 +88040,8 @@ var UserList = function UserList(props) {
   Object(react__WEBPACK_IMPORTED_MODULE_0__["useEffect"])(function () {
     // Always start at first page when usersPerPage is changed
     // Consult with Chris
-    getUsersData(1, usersPerPage);
-  }, [usersPerPage]);
+    getUsersData(1, usersPerPage, searchFilter);
+  }, [usersPerPage, searchFilter]);
   return (
     /*#__PURE__*/
     react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_1__["Container"], {
@@ -88049,7 +88067,9 @@ var UserList = function UserList(props) {
     react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_TableToolBar__WEBPACK_IMPORTED_MODULE_3__["default"], {
       usersPerPage: usersPerPage,
       changeUsersPerPage: changeUsersPerPage,
-      setShowUserForm: setShowUserForm
+      setShowUserForm: setShowUserForm,
+      searchFilter: searchFilter,
+      onSearchChange: onSearchChange
     }),
     /*#__PURE__*/
     react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_UsersTable__WEBPACK_IMPORTED_MODULE_4__["default"], {
@@ -88155,7 +88175,7 @@ var UsersTable = function UsersTable(_ref) {
     /*#__PURE__*/
     react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("th", null, "Role"))),
     /*#__PURE__*/
-    react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("tbody", null, !Array.isArray(usersData.data) && usersData.data.length === 0 ?
+    react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("tbody", null, !Array.isArray(usersData.data) || usersData.data.length === 0 ?
     /*#__PURE__*/
     react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("tr", {
       className: "justify-content-center"
@@ -88174,7 +88194,9 @@ var UsersTable = function UsersTable(_ref) {
           }
         })
       );
-    })))),
+    })))), !Array.isArray(usersData.data) || usersData.data.length === 0 ?
+    /*#__PURE__*/
+    react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null) :
     /*#__PURE__*/
     react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_1__["Row"], null,
     /*#__PURE__*/
@@ -88395,8 +88417,8 @@ var saveState = function saveState(state) {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! /Users/christopherespiritu/Sites/mytransienthouse/resources/js/app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! /Users/christopherespiritu/Sites/mytransienthouse/resources/sass/app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! /Users/seand/Desktop/Laravel Sites /mytransienthouse/resources/js/app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! /Users/seand/Desktop/Laravel Sites /mytransienthouse/resources/sass/app.scss */"./resources/sass/app.scss");
 
 
 /***/ })

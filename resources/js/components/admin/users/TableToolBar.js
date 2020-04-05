@@ -1,7 +1,7 @@
 import React from 'react';
-import {Button, Row, Col, FormControl, InputGroup, DropdownButton, Dropdown} from 'react-bootstrap';
+import {Button, Row, Col, Form, FormControl, InputGroup, DropdownButton, Dropdown} from 'react-bootstrap';
 
-const TableToolBar = ({usersPerPage, changeUsersPerPage, setShowUserForm}) => {
+const TableToolBar = ({usersPerPage, changeUsersPerPage, setShowUserForm, searchFilter, onSearchChange}) => {
     return (
         <Row>
             <Col className="float-left">
@@ -42,7 +42,12 @@ const TableToolBar = ({usersPerPage, changeUsersPerPage, setShowUserForm}) => {
                     <Col>
                         <div className="float-right">
                             <InputGroup className="mb-3">
-                                <FormControl aria-label="Small" aria-describedby="inputGroup-sizing-sm"/>
+                                <Form.Control
+                                    type="text"
+                                    name="search-filter"
+                                    value={searchFilter || ''}
+                                    onChange={(e) => onSearchChange(e.target.value)}
+                                />
                                 <InputGroup.Append>
                                     <InputGroup.Text id="inputGroup-sizing-sm">Search </InputGroup.Text>
                                 </InputGroup.Append>

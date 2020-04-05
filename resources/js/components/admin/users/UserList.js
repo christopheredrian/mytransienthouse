@@ -12,6 +12,7 @@ const UserList = (props) => {
     const defaultUsersPerPage = 5;
 
     const [usersPerPage, setUsersPerPage] = useState(defaultUsersPerPage);
+    const [searchFilter, setSearchFilter] = useState(null);
     const [showUserForm, setShowUserForm] = useState(null);
     const [userData, setUserData] = useState(null);
     const [usersData, setUsersData] = useState({
@@ -46,7 +47,11 @@ const UserList = (props) => {
         getUsersData(pageNumber, usersPerPage)
     };
 
-    const getUsersData = (page, perPage) => {
+    const onSearchChange = (searchFilter) => {
+        setSearchFilter(searchFilter);
+    };
+
+    const getUsersData = (page, perPage, filter = null) => {
 
         /**
          * Get data from endpoint
@@ -54,7 +59,8 @@ const UserList = (props) => {
         axios.get(`${Endpoints.USERS_DATA}`, {
             params: {
                 page,
-                perPage
+                perPage,
+                filter
             }
         }).then(({data}) => {
                 /**
@@ -85,8 +91,8 @@ const UserList = (props) => {
     useEffect(() => {
         // Always start at first page when usersPerPage is changed
         // Consult with Chris
-        getUsersData(1, usersPerPage);
-    }, [usersPerPage]);
+        getUsersData(1, usersPerPage, searchFilter);
+    }, [usersPerPage, searchFilter]);
 
     return (
         <Container fluid>
@@ -100,6 +106,8 @@ const UserList = (props) => {
                             usersPerPage={usersPerPage}
                             changeUsersPerPage={changeUsersPerPage}
                             setShowUserForm={setShowUserForm}
+                            searchFilter={searchFilter}
+                            onSearchChange={onSearchChange}
                         />
                         <UsersTable
                             usersData={usersData}
