@@ -53,21 +53,22 @@ class Handler extends ExceptionHandler
      */
     public function render($request, Throwable $exception)
     {
-        try {
-            throw $exception;
-        } catch (ValidationException $exception) {
-            return response()->json([
-                'status' => 'error',
-                'errors' => $exception->errors(),
-            ], 200);
-        } catch (Throwable $exception) {
-            return parent::render($request, $exception);
-        }
+        return parent::render($request, $exception);
+//        try {
+//            throw $exception;
+//        } catch (ValidationException $exception) {
+//            return response()->json([
+//                'status' => 'error',
+//                'errors' => $exception->errors(),
+//            ], 200);
+//        } catch (Throwable $exception) {
+//            return parent::render($request, $exception);
+//        }
     }
 
-    protected function unauthenticated($request, AuthenticationException $exception)
-    {
-        return response()->json(['error' => 'Forbidden'], 401);
-    }
+//    protected function unauthenticated($request, AuthenticationException $exception)
+//    {
+//        return response()->json(['error' => 'Forbidden'], 401);
+//    }
 
 }

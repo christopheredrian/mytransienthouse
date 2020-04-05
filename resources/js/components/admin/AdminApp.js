@@ -46,8 +46,8 @@ const AdminApp = ({logoutUser}) => {
                             {/* Right */}
                             <Navbar.Collapse className={'order-1 w-100'}>
                                 <Nav className={'ml-auto'}>
-                                    <a to={`login`} className={'nav-link text-right'} onClick={() => {
-                                        logoutUser();
+                                    <a href={`/logout`} className={'nav-link text-right'} onClick={() => {
+                                        // logoutUser();
                                     }}>
                                         Logout
                                     </a>

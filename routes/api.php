@@ -1,7 +1,7 @@
 <?php
 
-use App\User;
-use Illuminate\Http\Request;
+//use App\User;
+//use Illuminate\Http\Request;
 
 /*
 |--------------------------------------------------------------------------
@@ -14,40 +14,47 @@ use Illuminate\Http\Request;
 |
 */
 
-Route::post('login', 'Auth\LoginController@login');
-Route::post('logout', 'Auth\LoginController@logout');
-Route::post('register', 'Auth\RegisterController@register');
-Route::get('initialize_user', 'ApiTokenController@initializeUser');
+/**
+ *
+ *
+ * NOTE: DO NOT USE FOR NOW
+ *
+ *
+ */
+
+//Route::post('login', 'Auth\LoginController@login');
+//Route::post('logout', 'Auth\LoginController@logout');
+//Route::post('register', 'Auth\RegisterController@register');
+//Route::get('initialize_user', 'ApiTokenController@initializeUser');
 
 /**
  * User Routes
  */
-
-Route::group(['prefix' => 'users'], function() {
-    Route::get('/', 'UserController@users');
-    Route::get('/{id}', 'UserController@user');
-    Route::post('/upsert', 'UserController@upsert');
-});
-
-
-Route::middleware('auth:api')->group(function () {
-    /**
-     * Authenticated Routes
-     */
-    // Route::get('users', 'UserController@users');
-    /**
-     * Test route
-     */
-    Route::post('test', function () {
-        $data = [];
-
-        foreach (range(1, 100) as $count) {
-            $data[] = [
-                "id" => $count,
-                "content" => "Data {$count} from server",
-            ];
-        }
-        return $data;
-    });
-
-});
+//Route::group(['prefix' => 'users'], function() {
+//    Route::get('/', 'UserController@users');
+//    Route::get('/{id}', 'UserController@user');
+//    Route::post('/upsert', 'UserController@upsert');
+//});
+//
+//
+//Route::middleware('auth:api')->group(function () {
+//    /**
+//     * Authenticated Routes
+//     */
+//    // Route::get('users', 'UserController@users');
+//    /**
+//     * Test route
+//     */
+//    Route::post('test', function () {
+//        $data = [];
+//
+//        foreach (range(1, 100) as $count) {
+//            $data[] = [
+//                "id" => $count,
+//                "content" => "Data {$count} from server",
+//            ];
+//        }
+//        return $data;
+//    });
+//
+//});

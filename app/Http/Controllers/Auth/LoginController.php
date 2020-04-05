@@ -42,42 +42,42 @@ class LoginController extends Controller
         $this->middleware('guest')->except('logout');
     }
 
-    /**
-     * @param Request $request
-     * @return JsonResponse|Response
-     * @throws ValidationException
-     */
-    public function login(Request $request)
-    {
-        $this->validateLogin($request);
+//    /**
+//     * @param Request $request
+//     * @return JsonResponse|Response
+//     * @throws ValidationException
+//     */
+//    public function login(Request $request)
+//    {
+//        $this->validateLogin($request);
+//
+//        if ($this->attemptLogin($request)) {
+//            /** @var User $user */
+//            $user = $this->guard()->user();
+//            $user->generateToken();
+//
+//            return response()->json($user->toArray());
+//        }
+//
+//        return $this->sendFailedLoginResponse($request);
+//    }
 
-        if ($this->attemptLogin($request)) {
-            /** @var User $user */
-            $user = $this->guard()->user();
-            $user->generateToken();
-
-            return response()->json($user->toArray());
-        }
-
-        return $this->sendFailedLoginResponse($request);
-    }
-
-    /**
-     * @param Request $request
-     * @return JsonResponse
-     */
-    public function logout(Request $request)
-    {
-        /** @var User $user */
-        $user = Auth::guard('api')->user();
-
-        if ($user) {
-            $user->api_token = null;
-            $user->save();
-        }
-
-        return response()->json([
-            'data' => 'User logged out.'
-        ], 200);
-    }
+//    /**
+//     * @param Request $request
+//     * @return JsonResponse
+//     */
+//    public function logout(Request $request)
+//    {
+//        /** @var User $user */
+//        $user = Auth::guard('api')->user();
+//
+//        if ($user) {
+//            $user->api_token = null;
+//            $user->save();
+//        }
+//
+//        return response()->json([
+//            'data' => 'User logged out.'
+//        ], 200);
+//    }
 }

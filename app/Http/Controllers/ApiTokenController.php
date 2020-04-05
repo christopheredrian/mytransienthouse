@@ -19,8 +19,8 @@ class ApiTokenController extends Controller
     {
 
         $response = [
-            'error' => 'Forbidden',
-            'message' => 'Forbidden.'
+            'error' => '.',
+            'message' => '..'
         ];
 
         try {

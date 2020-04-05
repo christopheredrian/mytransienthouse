@@ -79755,7 +79755,7 @@ function warning(message) {
 /*!***************************************************************!*\
   !*** ./node_modules/react-router-dom/esm/react-router-dom.js ***!
   \***************************************************************/
-/*! exports provided: BrowserRouter, HashRouter, Link, NavLink, MemoryRouter, Prompt, Redirect, Route, Router, StaticRouter, Switch, __RouterContext, generatePath, matchPath, useHistory, useLocation, useParams, useRouteMatch, withRouter */
+/*! exports provided: MemoryRouter, Prompt, Redirect, Route, Router, StaticRouter, Switch, __RouterContext, generatePath, matchPath, useHistory, useLocation, useParams, useRouteMatch, withRouter, BrowserRouter, HashRouter, Link, NavLink */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -86939,31 +86939,32 @@ __webpack_require__.r(__webpack_exports__);
 
 __webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js");
 
+axios.defaults.withCredentials = true;
 
 
 
  // import {startSetUsers} from './actions/users'
 
 
-var store = Object(_store_configureStore__WEBPACK_IMPORTED_MODULE_5__["default"])();
-var jsx =
-/*#__PURE__*/
-react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(react_redux__WEBPACK_IMPORTED_MODULE_4__["Provider"], {
-  store: store
-},
-/*#__PURE__*/
-react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(_components_MainApp__WEBPACK_IMPORTED_MODULE_3__["default"], null));
 /**
  * Next, we will create a fresh React component instance and attach it to
  * the page. Then, you may begin adding components to this application
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
-
-store.dispatch(Object(_actions_auth__WEBPACK_IMPORTED_MODULE_0__["initializeUser"])()); // store.dispatch(startSetUsers()).then(() => {
+// store.dispatch(startSetUsers()).then(() => {
 // });
 
-if (document.getElementById('app')) {
-  react_dom__WEBPACK_IMPORTED_MODULE_1___default.a.render(jsx, document.getElementById('app'));
+if (document.getElementById('admin-app')) {
+  var store = Object(_store_configureStore__WEBPACK_IMPORTED_MODULE_5__["default"])(); // store.dispatch(initializeUser());
+
+  var jsx =
+  /*#__PURE__*/
+  react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(react_redux__WEBPACK_IMPORTED_MODULE_4__["Provider"], {
+    store: store
+  },
+  /*#__PURE__*/
+  react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(_components_MainApp__WEBPACK_IMPORTED_MODULE_3__["default"], null));
+  react_dom__WEBPACK_IMPORTED_MODULE_1___default.a.render(jsx, document.getElementById('admin-app'));
 }
 
 /***/ }),
@@ -87088,7 +87089,7 @@ var FetchDataExample = function FetchDataExample() {
       className: 'p-5'
     },
     /*#__PURE__*/
-    react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["Card"].Title, null, "AdminApp.js"),
+    react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["Card"].Title, null, "FetchDataExample.js"),
     /*#__PURE__*/
     react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["Card"].Text, null, "Click button to get data from server"),
     /*#__PURE__*/
@@ -87099,7 +87100,7 @@ var FetchDataExample = function FetchDataExample() {
       onClick: getTestData
     }, "Get data (via AJAX)")),
     /*#__PURE__*/
-    react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["ListGroup"], null, !Array.isArray(testData) && testData.length > 0 && testData.map(function (_ref2) {
+    react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["ListGroup"], null, Array.isArray(testData) && testData.length > 0 && testData.map(function (_ref2) {
       var content = _ref2.content,
           id = _ref2.id;
       return (
@@ -87297,20 +87298,18 @@ __webpack_require__.r(__webpack_exports__);
  */
 
 var setApiTokenToAxiosDefaults = function setApiTokenToAxiosDefaults(apiToken) {
-  if (apiToken) {
-    axios.interceptors.request.use(function (config) {
-      if (!config.data) {
-        config.data = {};
-      } // assign your variables here
+  axios.interceptors.request.use(function (config) {
+    if (!config.data) {
+      config.data = {};
+    } // assign your variables here
 
 
-      config.data.api_token = apiToken;
-      return config;
-    }, function (error) {
-      // Do something with request error
-      return Promise.reject(error);
-    });
-  }
+    config.data.api_token = apiToken;
+    return config;
+  }, function (error) {
+    // Do something with request error
+    return Promise.reject(error);
+  });
 };
 
 var MainApp = function MainApp(_ref) {
@@ -87318,33 +87317,34 @@ var MainApp = function MainApp(_ref) {
       loggedInUser = _ref$loggedInUser === void 0 ? null : _ref$loggedInUser,
       _ref$setLoggedInUser = _ref.setLoggedInUser,
       setLoggedInUser = _ref$setLoggedInUser === void 0 ? null : _ref$setLoggedInUser;
-  var isLoggedIn = !!(loggedInUser && loggedInUser.id && loggedInUser.api_token);
+  // const isLoggedIn = !!(loggedInUser && loggedInUser.id && loggedInUser.api_token);
+  //
+  // if (!isLoggedIn) {
+  //     window.location = "/login";
+  // }
+  //
+  // if (isLoggedIn) {
 
-  if (isLoggedIn) {
-    /**
-     * User is logged in.
-     * Rak na!
-     */
-    setApiTokenToAxiosDefaults(loggedInUser.api_token || null);
-    /**
-     * todo: future - return appropriate component here for other roles
-     */
+  /**
+   * User is logged in.
+   * Rak na!
+   */
+  setApiTokenToAxiosDefaults(loggedInUser.api_token || null);
+  /**
+   * todo: future - return appropriate component here for other roles
+   */
 
-    return (
-      /*#__PURE__*/
-      react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_admin_AdminApp__WEBPACK_IMPORTED_MODULE_3__["default"], null)
-    );
-  } else {
-    /**
-     * Unauthenticated
-     */
-    Object(_actions_auth__WEBPACK_IMPORTED_MODULE_4__["logoutUser"])();
-
-    return (
-      /*#__PURE__*/
-      react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_Login__WEBPACK_IMPORTED_MODULE_2__["default"], null)
-    );
-  }
+  return (
+    /*#__PURE__*/
+    react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_admin_AdminApp__WEBPACK_IMPORTED_MODULE_3__["default"], null)
+  ); // } else {
+  //     /**
+  //      * Unauthenticated
+  //      */
+  //     // logoutUser();
+  //     // return <Login/>
+  //
+  // }
 };
 
 var mapStateToProps = function mapStateToProps(state) {
@@ -87448,10 +87448,9 @@ var AdminApp = function AdminApp(_ref) {
     },
     /*#__PURE__*/
     react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
-      to: "login",
+      href: "/logout",
       className: 'nav-link text-right',
-      onClick: function onClick() {
-        logoutUser();
+      onClick: function onClick() {// logoutUser();
       }
     }, "Logout"))),
     /*#__PURE__*/
@@ -88396,8 +88395,8 @@ var saveState = function saveState(state) {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! /Users/seand/Desktop/Laravel Sites /mytransienthouse/resources/js/app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! /Users/seand/Desktop/Laravel Sites /mytransienthouse/resources/sass/app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! /Users/christopherespiritu/Sites/mytransienthouse/resources/js/app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! /Users/christopherespiritu/Sites/mytransienthouse/resources/sass/app.scss */"./resources/sass/app.scss");
 
 
 /***/ })

@@ -15,7 +15,10 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 $appDomain = env('APP_DOMAIN');
-//Auth::routes(['register' => false]);
+Auth::routes(['register' => false]);
+Route::get('home', function () {
+    return view('home');
+});
 Route::get('greetings/{handle}', 'EcardController@handle');
 
 /**
@@ -58,16 +61,43 @@ Route::get('espr2', function () {
     ]);
 });
 
-Route::get('logout', function (Request $request) {
-    /** @var \App\User $user */
-    $user = $request->user();
-    if ($user) {
-        dd($user);
-        $user->invalidateToken();
-        Auth::logout();
-    }
+Route::get('logout', 'Auth\LoginController@logout');
+
+Route::group([
+    'middleware' => 'auth',
+    'prefix' => 'api',
+    // todo: add middleware for admin
+], function () {
+    /**
+     * Authenticated routes
+     */
+    Route::group(['prefix' => 'users'], function () {
+        /**
+         * Users
+         * /api/users/
+         */
+        Route::get('/', 'UserController@users');
+        Route::get('/{id}', 'UserController@user');
+        Route::post('/upsert', 'UserController@upsert');
+    });
+
+    // test route
+    Route::post('test', function () {
+        $data = [];
+
+        foreach (range(1, 100) as $count) {
+            $data[] = [
+                "id" => $count,
+                "content" => "Data {$count} from server",
+            ];
+        }
+        return $data;
+    });
+
 });
 
-Route::get('/{url}', function () {
+
+Route::get('{url}', function () {
     return view('admin');
-})->where('url', '.*');
+//})->where('url', 'admin.*')->middleware('auth');
+})->where('url', '.*')->middleware('auth'); // todo: comment after redirect route is done - for roles

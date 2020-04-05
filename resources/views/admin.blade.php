@@ -6,6 +6,13 @@
 
     <title>MTH Admin</title>
 
+    <!-- CSRF Token -->
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+
+    <title>{{ config('app.name', 'Laravel') }}</title>
+
+    <!-- Scripts -->
+    <script src="{{ asset('js/app.js') }}" defer></script>
     <link
         rel="stylesheet"
         href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
@@ -17,9 +24,9 @@
 <body>
 
 <div class="content">
-    <div id="app"></div>
+    <div id="admin-app"></div>
 </div>
 
-<script type="text/javascript" src="/js/app.js"></script>
+<script src="{{ asset('js/app.js') }}" defer></script>
 </body>
 </html>

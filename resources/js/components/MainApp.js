@@ -18,46 +18,48 @@ import {logoutUser} from "../actions/auth";
  */
 const setApiTokenToAxiosDefaults = (apiToken) => {
 
-    if (apiToken) {
-        axios.interceptors.request.use(function (config) {
+    axios.interceptors.request.use(function (config) {
 
-            if (!config.data) {
-                config.data = {}
-            }
+        if (!config.data) {
+            config.data = {}
+        }
 
-            // assign your variables here
-            config.data.api_token = apiToken;
+        // assign your variables here
+        config.data.api_token = apiToken;
 
-            return config;
-        }, function (error) {
-            // Do something with request error
-            return Promise.reject(error);
-        });
-    }
+        return config;
+    }, function (error) {
+        // Do something with request error
+        return Promise.reject(error);
+    });
 };
 
 const MainApp = ({loggedInUser = null, setLoggedInUser = null}) => {
 
-    const isLoggedIn = !!(loggedInUser && loggedInUser.id && loggedInUser.api_token);
-
-    if (isLoggedIn) {
-        /**
-         * User is logged in.
-         * Rak na!
-         */
-        setApiTokenToAxiosDefaults(loggedInUser.api_token || null);
-        /**
-         * todo: future - return appropriate component here for other roles
-         */
-        return <AdminApp/>;
-    } else {
-        /**
-         * Unauthenticated
-         */
-        logoutUser();
-        return <Login/>
-
-    }
+    // const isLoggedIn = !!(loggedInUser && loggedInUser.id && loggedInUser.api_token);
+    //
+    // if (!isLoggedIn) {
+    //     window.location = "/login";
+    // }
+    //
+    // if (isLoggedIn) {
+    /**
+     * User is logged in.
+     * Rak na!
+     */
+    setApiTokenToAxiosDefaults(loggedInUser.api_token || null);
+    /**
+     * todo: future - return appropriate component here for other roles
+     */
+    return <AdminApp/>;
+    // } else {
+    //     /**
+    //      * Unauthenticated
+    //      */
+    //     // logoutUser();
+    //     // return <Login/>
+    //
+    // }
 };
 
 const mapStateToProps = (state) => {

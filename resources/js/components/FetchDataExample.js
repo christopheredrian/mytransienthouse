@@ -37,7 +37,7 @@ const FetchDataExample = () => {
             <Col md={8}>
                 <Card className={'p-5'}>
                     <Card.Title>
-                        AdminApp.js
+                        FetchDataExample.js
                     </Card.Title>
                     <Card.Text>
                         Click button to get data from server
@@ -48,7 +48,7 @@ const FetchDataExample = () => {
 
                     <ListGroup>
                         {
-                            !Array.isArray(testData) &&
+                            Array.isArray(testData) &&
                             (testData.length > 0) &&
                             testData.map(({content, id}) => {
                                 return <ListGroup.Item key={id}>{content}</ListGroup.Item>
