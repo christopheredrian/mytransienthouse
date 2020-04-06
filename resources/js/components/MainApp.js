@@ -47,7 +47,7 @@ const MainApp = ({loggedInUser = null, setLoggedInUser = null}) => {
      * User is logged in.
      * Rak na!
      */
-    setApiTokenToAxiosDefaults(loggedInUser.api_token || null);
+    // setApiTokenToAxiosDefaults(loggedInUser.api_token || null);
     /**
      * todo: future - return appropriate component here for other roles
      */
@@ -74,4 +74,5 @@ const mapDispatchToProps = (dispatch) => {
     }
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(MainApp);
+// export default connect(mapStateToProps, mapDispatchToProps)(MainApp);
+export default MainApp;

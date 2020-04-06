@@ -79,4 +79,5 @@ const mapDispatchToProps = (dispatch) => {
         logoutUser: () => dispatch(logoutUser()),
     }
 };
-export default connect(null, mapDispatchToProps)(AdminApp);
+// export default connect(null, mapDispatchToProps)(AdminApp);
+export default AdminApp;

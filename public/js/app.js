@@ -87329,11 +87329,11 @@ var MainApp = function MainApp(_ref) {
    * User is logged in.
    * Rak na!
    */
-  setApiTokenToAxiosDefaults(loggedInUser.api_token || null);
+  // setApiTokenToAxiosDefaults(loggedInUser.api_token || null);
+
   /**
    * todo: future - return appropriate component here for other roles
    */
-
   return (
     /*#__PURE__*/
     react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_admin_AdminApp__WEBPACK_IMPORTED_MODULE_3__["default"], null)
@@ -87359,9 +87359,10 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
       return dispatch(Object(_actions_auth__WEBPACK_IMPORTED_MODULE_4__["logoutUser"])());
     }
   };
-};
+}; // export default connect(mapStateToProps, mapDispatchToProps)(MainApp);
 
-/* harmony default export */ __webpack_exports__["default"] = (Object(react_redux__WEBPACK_IMPORTED_MODULE_1__["connect"])(mapStateToProps, mapDispatchToProps)(MainApp));
+
+/* harmony default export */ __webpack_exports__["default"] = (MainApp);
 
 /***/ }),
 
@@ -87495,9 +87496,10 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
       return dispatch(Object(_actions_auth__WEBPACK_IMPORTED_MODULE_6__["logoutUser"])());
     }
   };
-};
+}; // export default connect(null, mapDispatchToProps)(AdminApp);
 
-/* harmony default export */ __webpack_exports__["default"] = (Object(react_redux__WEBPACK_IMPORTED_MODULE_7__["connect"])(null, mapDispatchToProps)(AdminApp));
+
+/* harmony default export */ __webpack_exports__["default"] = (AdminApp);
 
 /***/ }),
 
@@ -88417,8 +88419,8 @@ var saveState = function saveState(state) {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! /Users/seand/Desktop/Laravel Sites /mytransienthouse/resources/js/app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! /Users/seand/Desktop/Laravel Sites /mytransienthouse/resources/sass/app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! /Users/christopherespiritu/Sites/mytransienthouse/resources/js/app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! /Users/christopherespiritu/Sites/mytransienthouse/resources/sass/app.scss */"./resources/sass/app.scss");
 
 
 /***/ })
