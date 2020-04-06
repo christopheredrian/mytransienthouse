@@ -3,7 +3,7 @@ import {Button, Alert, Form, Modal} from "react-bootstrap";
 
 import Endpoints from "../../../config/Endpoints";
 
-const UserForm = (props) => {
+const UserForm = (props, passwordFieldForProduction) => {
 
 
     // temporary, setting of password for production
@@ -113,7 +113,7 @@ const UserForm = (props) => {
             </Form.Group>
 
             {
-                !props.userData && (
+                (props.passwordFieldForProduction === true && !props.userData) && (
                     <Form.Group>
                         <Form.Label>Password</Form.Label>
                         <Form.Control

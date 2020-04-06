@@ -3,7 +3,7 @@ import {Modal} from 'react-bootstrap';
 
 import UserForm from './UserForm';
 
-const FormModal = ({ userData, showUserForm, onClose, closeUserFormAfterSubmit }) => {
+const FormModal = ({ userData, showUserForm, onClose, closeUserFormAfterSubmit, passwordFieldForProduction }) => {
     return (
         <Modal
             show={showUserForm}
@@ -22,6 +22,7 @@ const FormModal = ({ userData, showUserForm, onClose, closeUserFormAfterSubmit }
                     userData={userData}
                     onClose={onClose}
                     closeUserFormAfterSubmit={closeUserFormAfterSubmit}
+                    passwordFieldForProduction={passwordFieldForProduction}
                 />
             </Modal.Body>
         </Modal>

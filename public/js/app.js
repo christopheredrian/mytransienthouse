@@ -87396,8 +87396,9 @@ __webpack_require__.r(__webpack_exports__);
  * todo:
  * Fetch current user
  */
+// Sean: Edited for dev purposes. Para mabilis haha
 
-var ADMIN_ROOT_PATH = '/admin';
+var ADMIN_ROOT_PATH = '';
 
 var AdminApp = function AdminApp(_ref) {
   var logoutUser = _ref.logoutUser;
@@ -87525,7 +87526,8 @@ var FormModal = function FormModal(_ref) {
   var userData = _ref.userData,
       showUserForm = _ref.showUserForm,
       onClose = _ref.onClose,
-      closeUserFormAfterSubmit = _ref.closeUserFormAfterSubmit;
+      closeUserFormAfterSubmit = _ref.closeUserFormAfterSubmit,
+      passwordFieldForProduction = _ref.passwordFieldForProduction;
   return (
     /*#__PURE__*/
     react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_1__["Modal"], {
@@ -87549,7 +87551,8 @@ var FormModal = function FormModal(_ref) {
     react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_UserForm__WEBPACK_IMPORTED_MODULE_2__["default"], {
       userData: userData,
       onClose: onClose,
-      closeUserFormAfterSubmit: closeUserFormAfterSubmit
+      closeUserFormAfterSubmit: closeUserFormAfterSubmit,
+      passwordFieldForProduction: passwordFieldForProduction
     })))
   );
 };
@@ -87754,7 +87757,7 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 
 
-var UserForm = function UserForm(props) {
+var UserForm = function UserForm(props, passwordFieldForProduction) {
   // temporary, setting of password for production
   var _useState = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])(''),
       _useState2 = _slicedToArray(_useState, 2),
@@ -87897,7 +87900,7 @@ var UserForm = function UserForm(props) {
     /*#__PURE__*/
     react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
       value: "admin"
-    }, "Admin"))), !props.userData &&
+    }, "Admin"))), props.passwordFieldForProduction === true && !props.userData &&
     /*#__PURE__*/
     react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_1__["Form"].Group, null,
     /*#__PURE__*/
@@ -87963,7 +87966,8 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 
 
-var UserList = function UserList(props) {
+var UserList = function UserList() {
+  var passwordFieldForProduction = true;
   var defaultUsersPerPage = 5;
 
   var _useState = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])(defaultUsersPerPage),
@@ -88106,7 +88110,8 @@ var UserList = function UserList(props) {
       userData: userData,
       showUserForm: showUserForm,
       onClose: closeUserForm,
-      closeUserFormAfterSubmit: closeUserFormAfterSubmit
+      closeUserFormAfterSubmit: closeUserFormAfterSubmit,
+      passwordFieldForProduction: passwordFieldForProduction
     })))))
   );
 };

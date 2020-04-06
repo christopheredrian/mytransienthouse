@@ -22,7 +22,8 @@ import {connect} from "react-redux";
  * Fetch current user
  */
 
-const ADMIN_ROOT_PATH = '/admin';
+// Sean: Edited for dev purposes. Para mabilis haha
+const ADMIN_ROOT_PATH = '';
 
 
 const AdminApp = ({logoutUser}) => {

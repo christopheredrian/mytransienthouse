@@ -34,7 +34,8 @@ Route::domain("{account}.{$appDomain}")->group(function () {
      * Handle subdomain routing
      */
     // todo: handle guest / public pages
-    Route::get('/', 'ApplicationController@index')->middleware('auth');
+    // Sean: Edited for dev purposes. Para mabilis haha
+    Route::get('/{path?}', 'ApplicationController@index')->middleware('auth');
 });
 Route::get('espr2', 'StaticController@espr2');
 Route::get('logout', 'Auth\LoginController@logout');

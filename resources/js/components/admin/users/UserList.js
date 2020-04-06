@@ -7,8 +7,9 @@ import TableToolBar from './TableToolBar';
 import UsersTable from './UsersTable';
 import FormModal from './FormModal';
 
-const UserList = (props) => {
+const UserList = () => {
 
+    const passwordFieldForProduction = true;
     const defaultUsersPerPage = 5;
 
     const [usersPerPage, setUsersPerPage] = useState(defaultUsersPerPage);
@@ -119,6 +120,7 @@ const UserList = (props) => {
                             showUserForm={showUserForm}
                             onClose={closeUserForm}
                             closeUserFormAfterSubmit={closeUserFormAfterSubmit}
+                            passwordFieldForProduction={passwordFieldForProduction}
                         />
                     </Card>
                 </Col>
