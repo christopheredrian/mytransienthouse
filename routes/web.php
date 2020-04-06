@@ -16,9 +16,7 @@ use Illuminate\Support\Facades\Auth;
 
 $appDomain = env('APP_DOMAIN');
 Auth::routes(['register' => false]);
-Route::get('home', function () {
-    return view('home');
-});
+Route::get('home', 'StaticController@home');
 Route::get('greetings/{handle}', 'EcardController@handle');
 
 /**
@@ -32,7 +30,11 @@ Route::get('greetings/{handle}', 'EcardController@handle');
 
 
 Route::domain("{account}.{$appDomain}")->group(function () {
-    Route::get('/', 'ApplicationController@index');
+    /**
+     * Handle subdomain routing
+     */
+    // todo: handle guest / public pages
+    Route::get('/', 'ApplicationController@index')->middleware('auth');
 });
 Route::get('espr2', 'StaticController@espr2');
 Route::get('logout', 'Auth\LoginController@logout');
@@ -56,22 +58,5 @@ Route::group([
     });
 
     // test route
-    Route::post('test', function () {
-        $data = [];
-
-        foreach (range(1, 100) as $count) {
-            $data[] = [
-                "id" => $count,
-                "content" => "Data {$count} from server",
-            ];
-        }
-        return $data;
-    });
-
+    Route::post('test', 'StaticController@test');
 });
-
-
-Route::get('{url}', function () {
-    return view('admin');
-//})->where('url', 'admin.*')->middleware('auth');
-})->where('url', '.*')->middleware('auth'); // todo: comment after redirect route is done - for roles

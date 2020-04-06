@@ -28,6 +28,10 @@ class ApplicationController extends Controller
 
     public function index()
     {
-        dd($this->account);
+        if ($this->account->subdomain === 'admin') {
+            return view('admin');
+        } else {
+            dd($this->account);
+        }
     }
 }

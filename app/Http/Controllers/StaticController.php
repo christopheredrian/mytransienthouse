@@ -40,4 +40,22 @@ class StaticController extends Controller
             'imageMap' => $imageMap
         ]);
     }
+
+    public function test()
+    {
+        $data = [];
+
+        foreach (range(1, 100) as $count) {
+            $data[] = [
+                "id" => $count,
+                "content" => "Data {$count} from server",
+            ];
+        }
+        return $data;
+    }
+
+    public function home()
+    {
+        return view('home');
+    }
 }
