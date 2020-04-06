@@ -51,78 +51,25 @@ class UserController extends Controller
      * @return JsonResponse|Response
      * @throws TO-DO: ValidationException
      */
-    public function create(Request $request)
-    {
-        $defaultPassword = "password";
-
-        $user = new User();
-        $user->password = Hash::make($defaultPassword);
-        $user->email = $request->email;
-        $user->name = $request->name;
-        $user->role = $request->role;
-
-        if (!$user->save()) {
-            throw new \ErrorException("Was unable to create user");
-        }
-
-        return response()->json([
-            "data" => $user->toArray()
-        ]);
-
-    }
-
-    /**
-     * @param Request $request
-     * @return JsonResponse|Response
-     * @throws TO-DO: ValidationException
-     */
-    public function update(Request $request)
-    {
-
-        $user = User::where('id', $request->id)->first();
-
-        $user->email = $request->email;
-        $user->name = $request->name;
-        $user->role = $request->role;
-
-        if (!$user->save()) {
-            throw new \ErrorException("Was unable to update user");
-        }
-
-        return response()->json([
-            "data" => $user->toArray()
-        ]);
-
-    }
-
-    /**
-     * @param Request $request
-     * @return JsonResponse|Response
-     * @throws TO-DO: ValidationException
-     */
     public function upsert(Request $request)
     {
 
-        if ($request->id) {
-            $this->update($request);
-        } else {
-            $this->create($request);
-        }
+        // Default password is "password"
+        $password = $request->password ? $request->password : "password";
 
-        // Problematic. Discuss with Chris.
-//        $user = User::updateOrCreate(
-//            ['email' => $request->originalEmail],
-//            [
-//                'name' => $request->name,
-//                'email' => $request->email,
-//                'role' => $request->role,
-//            ]
-//        );
+        $user = User::updateOrCreate(
+            ['id' => $request->id],
+            [
+                'name' => $request->name,
+                'email' => $request->email,
+                'role' => $request->role,
+                'password' => Hash::make($password)
+            ]
+        );
 
-//        return response()->json([
-//            "data" => $user->toArray()
-//        ]);
-
+        return response()->json([
+            "data" => $user->toArray()
+        ]);
 
     }
 

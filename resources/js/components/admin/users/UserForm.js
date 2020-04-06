@@ -5,6 +5,10 @@ import Endpoints from "../../../config/Endpoints";
 
 const UserForm = (props) => {
 
+
+    // temporary, setting of password for production
+    const [password, setPassword] = useState('');
+
     const [error, setError] = useState(null);
     const [userData, setUserData] = useState({
         name: '',
@@ -14,8 +18,11 @@ const UserForm = (props) => {
 
     const upsertUser = (userData) => {
 
-        axios.post(Endpoints.UPSERT_USER, userData)
-            .then(({data}) => {
+        // temporary, setting of password for production
+        axios.post(Endpoints.UPSERT_USER, {
+            ...userData,
+            password
+        }).then(({data}) => {
                 /**
                  * Success response
                  * set state data
@@ -104,6 +111,20 @@ const UserForm = (props) => {
                     <option value="admin">Admin</option>
                 </Form.Control>
             </Form.Group>
+
+            {
+                !props.userData && (
+                    <Form.Group>
+                        <Form.Label>Password</Form.Label>
+                        <Form.Control
+                            type="password"
+                            placeholder="Enter password"
+                            value={password || ''}
+                            onChange={(e) => setPassword(e.target.value)}
+                        />
+                    </Form.Group>
+                )
+            }
 
             <Modal.Footer>
                 <Button onClick={props.onClose} variant="secondary" type="button">
