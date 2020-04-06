@@ -1,10 +1,10 @@
 import React from 'react';
 import {Row, Col, Table} from 'react-bootstrap';
 
-import UserListItem from './UserListItem';
-import PaginationLinks from './PaginationLinks';
+import TableItem from './TableItem';
+import PaginationLinks from '../users/PaginationLinks';
 
-const UsersTable = ({usersData, showEditUserForm, onPageNumberClick}) => {
+const DataTable = ({usersData, showEditUserForm, onPageNumberClick}) => {
 
     return (
         <div>
@@ -25,7 +25,7 @@ const UsersTable = ({usersData, showEditUserForm, onPageNumberClick}) => {
                             </tr>
                         ) : (
                             usersData.data.map((user) => {
-                                return <UserListItem
+                                return <TableItem
                                     key={user.id}
                                     user={user}
                                     onRowClick={() => showEditUserForm(user)}
@@ -64,4 +64,4 @@ const UsersTable = ({usersData, showEditUserForm, onPageNumberClick}) => {
     )
 };
 
-export {UsersTable as default}
+export {DataTable as default}

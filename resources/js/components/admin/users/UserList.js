@@ -3,8 +3,8 @@ import {Button, Container, Row, Col, Card} from 'react-bootstrap';
 
 import Endpoints from "../../../config/Endpoints";
 
-import TableToolBar from './TableToolBar';
-import UsersTable from './UsersTable';
+import TableToolBar from '../table/TableToolBar';
+import DataTable from '../table/DataTable';
 import FormModal from './FormModal';
 
 const UserList = () => {
@@ -110,7 +110,7 @@ const UserList = () => {
                             searchFilter={searchFilter}
                             onSearchChange={onSearchChange}
                         />
-                        <UsersTable
+                        <DataTable
                             usersData={usersData}
                             onPageNumberClick={onPageNumberClick}
                             showEditUserForm={showEditUserForm}

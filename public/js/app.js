@@ -87504,56 +87504,97 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
 
 /***/ }),
 
-/***/ "./resources/js/components/admin/users/FormModal.js":
+/***/ "./resources/js/components/admin/table/DataTable.js":
 /*!**********************************************************!*\
-  !*** ./resources/js/components/admin/users/FormModal.js ***!
+  !*** ./resources/js/components/admin/table/DataTable.js ***!
   \**********************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return FormModal; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return DataTable; });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var react_bootstrap__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-bootstrap */ "./node_modules/react-bootstrap/esm/index.js");
-/* harmony import */ var _UserForm__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./UserForm */ "./resources/js/components/admin/users/UserForm.js");
+/* harmony import */ var _TableItem__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./TableItem */ "./resources/js/components/admin/table/TableItem.js");
+/* harmony import */ var _users_PaginationLinks__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../users/PaginationLinks */ "./resources/js/components/admin/users/PaginationLinks.js");
 
 
 
 
-var FormModal = function FormModal(_ref) {
-  var userData = _ref.userData,
-      showUserForm = _ref.showUserForm,
-      onClose = _ref.onClose,
-      closeUserFormAfterSubmit = _ref.closeUserFormAfterSubmit,
-      passwordFieldForProduction = _ref.passwordFieldForProduction;
+
+var DataTable = function DataTable(_ref) {
+  var usersData = _ref.usersData,
+      showEditUserForm = _ref.showEditUserForm,
+      onPageNumberClick = _ref.onPageNumberClick;
   return (
     /*#__PURE__*/
-    react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_1__["Modal"], {
-      show: showUserForm,
-      onHide: onClose,
-      size: "md",
-      "aria-labelledby": "user-form-modal",
-      centered: true
+    react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null,
+    /*#__PURE__*/
+    react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_1__["Row"], null,
+    /*#__PURE__*/
+    react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_1__["Table"], {
+      striped: true,
+      bordered: true,
+      hover: true,
+      size: "lg",
+      responsive: true
     },
     /*#__PURE__*/
-    react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_1__["Modal"].Header, {
-      closeButton: true
+    react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("thead", null,
+    /*#__PURE__*/
+    react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("tr", null,
+    /*#__PURE__*/
+    react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("th", null, "Name"),
+    /*#__PURE__*/
+    react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("th", null, "Email"),
+    /*#__PURE__*/
+    react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("th", null, "Role"))),
+    /*#__PURE__*/
+    react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("tbody", null, !Array.isArray(usersData.data) || usersData.data.length === 0 ?
+    /*#__PURE__*/
+    react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("tr", {
+      className: "justify-content-center"
     },
     /*#__PURE__*/
-    react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_1__["Modal"].Title, {
-      id: "user-form-modal"
-    }, userData ? 'Edit User' : 'Add User')),
+    react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", {
+      colSpan: "3"
+    }, "No users.")) : usersData.data.map(function (user) {
+      return (
+        /*#__PURE__*/
+        react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_TableItem__WEBPACK_IMPORTED_MODULE_2__["default"], {
+          key: user.id,
+          user: user,
+          onRowClick: function onRowClick() {
+            return showEditUserForm(user);
+          }
+        })
+      );
+    })))), !Array.isArray(usersData.data) || usersData.data.length === 0 ?
     /*#__PURE__*/
-    react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_1__["Modal"].Body, null,
+    react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null) :
     /*#__PURE__*/
-    react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_UserForm__WEBPACK_IMPORTED_MODULE_2__["default"], {
-      userData: userData,
-      onClose: onClose,
-      closeUserFormAfterSubmit: closeUserFormAfterSubmit,
-      passwordFieldForProduction: passwordFieldForProduction
-    })))
+    react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_1__["Row"], null,
+    /*#__PURE__*/
+    react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_1__["Col"], null,
+    /*#__PURE__*/
+    react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+      className: "float-left"
+    },
+    /*#__PURE__*/
+    react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, "Showing ", usersData.fromPage, " to ", usersData.toPage, " of ", usersData.total, " users"))),
+    /*#__PURE__*/
+    react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_1__["Col"], null,
+    /*#__PURE__*/
+    react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+      className: "float-right"
+    },
+    /*#__PURE__*/
+    react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_users_PaginationLinks__WEBPACK_IMPORTED_MODULE_3__["default"], {
+      usersData: usersData,
+      onPageNumberClick: onPageNumberClick
+    })))))
   );
 };
 
@@ -87561,46 +87602,35 @@ var FormModal = function FormModal(_ref) {
 
 /***/ }),
 
-/***/ "./resources/js/components/admin/users/PaginationLinks.js":
-/*!****************************************************************!*\
-  !*** ./resources/js/components/admin/users/PaginationLinks.js ***!
-  \****************************************************************/
+/***/ "./resources/js/components/admin/table/TableItem.js":
+/*!**********************************************************!*\
+  !*** ./resources/js/components/admin/table/TableItem.js ***!
+  \**********************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return PaginationLinks; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return UserListItem; });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var react_bootstrap__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-bootstrap */ "./node_modules/react-bootstrap/esm/index.js");
 
 
-
-var PaginationLinks = function PaginationLinks(_ref) {
-  var usersData = _ref.usersData,
-      onPageNumberClick = _ref.onPageNumberClick;
-  var items = [];
-
-  var _loop = function _loop(pageNumber) {
-    items.push(
-    /*#__PURE__*/
-    react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_1__["Pagination"].Item, {
-      key: pageNumber,
-      active: pageNumber === usersData.currentPage,
-      onClick: function onClick() {
-        return onPageNumberClick(pageNumber);
-      }
-    }, pageNumber));
-  };
-
-  for (var pageNumber = 1; pageNumber <= usersData.lastPage; pageNumber++) {
-    _loop(pageNumber);
-  }
-
+var UserListItem = function UserListItem(_ref) {
+  var user = _ref.user,
+      onRowClick = _ref.onRowClick;
   return (
     /*#__PURE__*/
-    react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_1__["Pagination"], null, items)
+    react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("tr", {
+      key: user.id,
+      onClick: onRowClick
+    },
+    /*#__PURE__*/
+    react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, user.name),
+    /*#__PURE__*/
+    react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, user.email),
+    /*#__PURE__*/
+    react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, user.role))
   );
 };
 
@@ -87608,9 +87638,9 @@ var PaginationLinks = function PaginationLinks(_ref) {
 
 /***/ }),
 
-/***/ "./resources/js/components/admin/users/TableToolBar.js":
+/***/ "./resources/js/components/admin/table/TableToolBar.js":
 /*!*************************************************************!*\
-  !*** ./resources/js/components/admin/users/TableToolBar.js ***!
+  !*** ./resources/js/components/admin/table/TableToolBar.js ***!
   \*************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
@@ -87718,6 +87748,110 @@ var TableToolBar = function TableToolBar(_ref) {
     react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_1__["InputGroup"].Text, {
       id: "inputGroup-sizing-sm"
     }, "Search "))))))))
+  );
+};
+
+
+
+/***/ }),
+
+/***/ "./resources/js/components/admin/users/FormModal.js":
+/*!**********************************************************!*\
+  !*** ./resources/js/components/admin/users/FormModal.js ***!
+  \**********************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return FormModal; });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var react_bootstrap__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-bootstrap */ "./node_modules/react-bootstrap/esm/index.js");
+/* harmony import */ var _UserForm__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./UserForm */ "./resources/js/components/admin/users/UserForm.js");
+
+
+
+
+var FormModal = function FormModal(_ref) {
+  var userData = _ref.userData,
+      showUserForm = _ref.showUserForm,
+      onClose = _ref.onClose,
+      closeUserFormAfterSubmit = _ref.closeUserFormAfterSubmit,
+      passwordFieldForProduction = _ref.passwordFieldForProduction;
+  return (
+    /*#__PURE__*/
+    react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_1__["Modal"], {
+      show: showUserForm,
+      onHide: onClose,
+      size: "md",
+      "aria-labelledby": "user-form-modal",
+      centered: true
+    },
+    /*#__PURE__*/
+    react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_1__["Modal"].Header, {
+      closeButton: true
+    },
+    /*#__PURE__*/
+    react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_1__["Modal"].Title, {
+      id: "user-form-modal"
+    }, userData ? 'Edit User' : 'Add User')),
+    /*#__PURE__*/
+    react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_1__["Modal"].Body, null,
+    /*#__PURE__*/
+    react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_UserForm__WEBPACK_IMPORTED_MODULE_2__["default"], {
+      userData: userData,
+      onClose: onClose,
+      closeUserFormAfterSubmit: closeUserFormAfterSubmit,
+      passwordFieldForProduction: passwordFieldForProduction
+    })))
+  );
+};
+
+
+
+/***/ }),
+
+/***/ "./resources/js/components/admin/users/PaginationLinks.js":
+/*!****************************************************************!*\
+  !*** ./resources/js/components/admin/users/PaginationLinks.js ***!
+  \****************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return PaginationLinks; });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var react_bootstrap__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-bootstrap */ "./node_modules/react-bootstrap/esm/index.js");
+
+
+
+var PaginationLinks = function PaginationLinks(_ref) {
+  var usersData = _ref.usersData,
+      onPageNumberClick = _ref.onPageNumberClick;
+  var items = [];
+
+  var _loop = function _loop(pageNumber) {
+    items.push(
+    /*#__PURE__*/
+    react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_1__["Pagination"].Item, {
+      key: pageNumber,
+      active: pageNumber === usersData.currentPage,
+      onClick: function onClick() {
+        return onPageNumberClick(pageNumber);
+      }
+    }, pageNumber));
+  };
+
+  for (var pageNumber = 1; pageNumber <= usersData.lastPage; pageNumber++) {
+    _loop(pageNumber);
+  }
+
+  return (
+    /*#__PURE__*/
+    react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_1__["Pagination"], null, items)
   );
 };
 
@@ -87948,8 +88082,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var react_bootstrap__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-bootstrap */ "./node_modules/react-bootstrap/esm/index.js");
 /* harmony import */ var _config_Endpoints__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../config/Endpoints */ "./resources/js/config/Endpoints.js");
-/* harmony import */ var _TableToolBar__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./TableToolBar */ "./resources/js/components/admin/users/TableToolBar.js");
-/* harmony import */ var _UsersTable__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./UsersTable */ "./resources/js/components/admin/users/UsersTable.js");
+/* harmony import */ var _table_TableToolBar__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../table/TableToolBar */ "./resources/js/components/admin/table/TableToolBar.js");
+/* harmony import */ var _table_DataTable__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../table/DataTable */ "./resources/js/components/admin/table/DataTable.js");
 /* harmony import */ var _FormModal__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./FormModal */ "./resources/js/components/admin/users/FormModal.js");
 function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _nonIterableRest(); }
 
@@ -88092,7 +88226,7 @@ var UserList = function UserList() {
     /*#__PURE__*/
     react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h1", null, "Users")),
     /*#__PURE__*/
-    react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_TableToolBar__WEBPACK_IMPORTED_MODULE_3__["default"], {
+    react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_table_TableToolBar__WEBPACK_IMPORTED_MODULE_3__["default"], {
       usersPerPage: usersPerPage,
       changeUsersPerPage: changeUsersPerPage,
       setShowUserForm: setShowUserForm,
@@ -88100,7 +88234,7 @@ var UserList = function UserList() {
       onSearchChange: onSearchChange
     }),
     /*#__PURE__*/
-    react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_UsersTable__WEBPACK_IMPORTED_MODULE_4__["default"], {
+    react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_table_DataTable__WEBPACK_IMPORTED_MODULE_4__["default"], {
       usersData: usersData,
       onPageNumberClick: onPageNumberClick,
       showEditUserForm: showEditUserForm
@@ -88112,140 +88246,6 @@ var UserList = function UserList() {
       onClose: closeUserForm,
       closeUserFormAfterSubmit: closeUserFormAfterSubmit,
       passwordFieldForProduction: passwordFieldForProduction
-    })))))
-  );
-};
-
-
-
-/***/ }),
-
-/***/ "./resources/js/components/admin/users/UserListItem.js":
-/*!*************************************************************!*\
-  !*** ./resources/js/components/admin/users/UserListItem.js ***!
-  \*************************************************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return UserListItem; });
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-
-
-var UserListItem = function UserListItem(_ref) {
-  var user = _ref.user,
-      onRowClick = _ref.onRowClick;
-  return (
-    /*#__PURE__*/
-    react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("tr", {
-      key: user.id,
-      onClick: onRowClick
-    },
-    /*#__PURE__*/
-    react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, user.name),
-    /*#__PURE__*/
-    react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, user.email),
-    /*#__PURE__*/
-    react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, user.role))
-  );
-};
-
-
-
-/***/ }),
-
-/***/ "./resources/js/components/admin/users/UsersTable.js":
-/*!***********************************************************!*\
-  !*** ./resources/js/components/admin/users/UsersTable.js ***!
-  \***********************************************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return UsersTable; });
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var react_bootstrap__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-bootstrap */ "./node_modules/react-bootstrap/esm/index.js");
-/* harmony import */ var _UserListItem__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./UserListItem */ "./resources/js/components/admin/users/UserListItem.js");
-/* harmony import */ var _PaginationLinks__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./PaginationLinks */ "./resources/js/components/admin/users/PaginationLinks.js");
-
-
-
-
-
-var UsersTable = function UsersTable(_ref) {
-  var usersData = _ref.usersData,
-      showEditUserForm = _ref.showEditUserForm,
-      onPageNumberClick = _ref.onPageNumberClick;
-  return (
-    /*#__PURE__*/
-    react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null,
-    /*#__PURE__*/
-    react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_1__["Row"], null,
-    /*#__PURE__*/
-    react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_1__["Table"], {
-      striped: true,
-      bordered: true,
-      hover: true,
-      size: "lg",
-      responsive: true
-    },
-    /*#__PURE__*/
-    react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("thead", null,
-    /*#__PURE__*/
-    react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("tr", null,
-    /*#__PURE__*/
-    react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("th", null, "Name"),
-    /*#__PURE__*/
-    react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("th", null, "Email"),
-    /*#__PURE__*/
-    react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("th", null, "Role"))),
-    /*#__PURE__*/
-    react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("tbody", null, !Array.isArray(usersData.data) || usersData.data.length === 0 ?
-    /*#__PURE__*/
-    react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("tr", {
-      className: "justify-content-center"
-    },
-    /*#__PURE__*/
-    react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", {
-      colSpan: "3"
-    }, "No users.")) : usersData.data.map(function (user) {
-      return (
-        /*#__PURE__*/
-        react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_UserListItem__WEBPACK_IMPORTED_MODULE_2__["default"], {
-          key: user.id,
-          user: user,
-          onRowClick: function onRowClick() {
-            return showEditUserForm(user);
-          }
-        })
-      );
-    })))), !Array.isArray(usersData.data) || usersData.data.length === 0 ?
-    /*#__PURE__*/
-    react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null) :
-    /*#__PURE__*/
-    react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_1__["Row"], null,
-    /*#__PURE__*/
-    react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_1__["Col"], null,
-    /*#__PURE__*/
-    react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-      className: "float-left"
-    },
-    /*#__PURE__*/
-    react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, "Showing ", usersData.fromPage, " to ", usersData.toPage, " of ", usersData.total, " users"))),
-    /*#__PURE__*/
-    react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_1__["Col"], null,
-    /*#__PURE__*/
-    react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-      className: "float-right"
-    },
-    /*#__PURE__*/
-    react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_PaginationLinks__WEBPACK_IMPORTED_MODULE_3__["default"], {
-      usersData: usersData,
-      onPageNumberClick: onPageNumberClick
     })))))
   );
 };
