@@ -30,6 +30,8 @@ class ApplicationController extends Controller
     {
         if ($this->account->subdomain === 'admin') {
             return view('admin');
+        } elseif ($this->account->subdomain === 'owner') {
+            return view('businessowner.dashboard');
         } else {
             dd($this->account);
         }

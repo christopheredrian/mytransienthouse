@@ -1,5 +1,5 @@
 import React from 'react';
-import {Button, Row, Col, Form, FormControl, InputGroup, DropdownButton, Dropdown} from 'react-bootstrap';
+import {Button, Row, Col, Form, InputGroup, DropdownButton, Dropdown} from 'react-bootstrap';
 
 const TableToolBar = ({usersPerPage, changeUsersPerPage, setShowUserForm, searchFilter, onSearchChange}) => {
     return (
