@@ -33,9 +33,26 @@ Route::domain("{account}.{$appDomain}")->group(function () {
     /**
      * Handle subdomain routing
      */
-    // todo: handle guest / public pages
-    // Sean: Edited for dev purposes. Para mabilis haha
-    Route::get('/{path?}', 'ApplicationController@index')->middleware('auth');
+    // todo: Add protected routes via middleware (auth/business owners)
+
+    // START: Public Routes
+
+    // END: Public Routes
+
+    Route::group(['middleware' => 'auth'], function () {
+
+        // START: Business owner
+        Route::get('test', 'BOLandingPageCrudController@test');
+        Route::get('/', 'BOLandingPageCrudController@dashboard');
+        // END: Business Owner Routes
+
+
+        // START: Admin Routes
+        Route::get('/{path?}', 'ApplicationController@index')->middleware('auth');
+        // END: Admin Routes
+
+    });
+
 });
 Route::get('espr2', 'StaticController@espr2');
 Route::get('logout', 'Auth\LoginController@logout');

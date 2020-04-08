@@ -21,7 +21,8 @@ class ApplicationController extends Controller
 
     {
 
-        $account = $request->route()->parameter('account');
+        $account = $request->route()->parameter('account'); // subdomain
+        // todo: load account and account settings from db
         $this->account = new Account($account);
 
     }
@@ -30,8 +31,6 @@ class ApplicationController extends Controller
     {
         if ($this->account->subdomain === 'admin') {
             return view('admin');
-        } elseif ($this->account->subdomain === 'owner') {
-            return view('businessowner.dashboard');
         } else {
             dd($this->account);
         }
