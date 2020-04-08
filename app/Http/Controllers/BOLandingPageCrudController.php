@@ -14,5 +14,10 @@ class BOLandingPageCrudController extends ApplicationController
         return view('businessowner.dashboard');
     }
 
+    public function earnings()
+    {
+        return view('businessowner.earnings');
+    }
+
     // todo: sean add fns here for images CRUD
 }

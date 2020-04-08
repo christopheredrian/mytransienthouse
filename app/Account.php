@@ -10,4 +10,13 @@ class Account // extends Model
     {
         $this->subdomain = $subdomain;
     }
+
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var array
+     */
+    protected $fillable = [
+        'subdomain', 'business_name',
+    ];
 }

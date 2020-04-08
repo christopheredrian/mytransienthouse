@@ -52,12 +52,14 @@ Route::domain("{account}.{$appDomain}")->group(function () {
         // START: Business owner
         Route::get('test', 'BOLandingPageCrudController@test');
         Route::get('/', 'BOLandingPageCrudController@dashboard');
+        Route::get('earnings', 'BOLandingPageCrudController@earnings');
         // END: Business Owner Routes
 
 
     });
 
 });
+
 Route::get('espr2', 'StaticController@espr2');
 
 Route::group([
