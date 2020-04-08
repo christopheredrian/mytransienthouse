@@ -26,22 +26,29 @@
         Transient House
     </div>
 
-    <!-- Nav Item - Earnings Collapse Menu -->
+    <!-- Nav Item - Collapse Menu -->
+    {{--<li class="nav-item">--}}
+        {{--<a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities"--}}
+           {{--aria-expanded="true" aria-controls="collapseUtilities">--}}
+            {{--<i class="fas fa-fw fa-chart-area"></i>--}}
+            {{--<span>Earnings</span>--}}
+        {{--</a>--}}
+        {{--<div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities"--}}
+             {{--data-parent="#accordionSidebar">--}}
+            {{--<div class="bg-white py-2 collapse-inner rounded">--}}
+                {{--<h6 class="collapse-header">Specific earnings:</h6>--}}
+                {{--<a class="collapse-item" href="/earnings">Monthly</a>--}}
+                {{--<a class="collapse-item" href="/earnings">Annually</a>--}}
+                {{--<a class="collapse-item" href="/earnings">All</a>--}}
+            {{--</div>--}}
+        {{--</div>--}}
+    {{--</li>--}}
+
+    <!-- Nav Item - Charts -->
     <li class="nav-item">
-        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities"
-           aria-expanded="true" aria-controls="collapseUtilities">
+        <a class="nav-link" href="/earnings">
             <i class="fas fa-fw fa-chart-area"></i>
-            <span>Earnings</span>
-        </a>
-        <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities"
-             data-parent="#accordionSidebar">
-            <div class="bg-white py-2 collapse-inner rounded">
-                <h6 class="collapse-header">Specific earnings:</h6>
-                <a class="collapse-item" href="/earnings">Monthly</a>
-                <a class="collapse-item" href="/earnings">Annually</a>
-                <a class="collapse-item" href="/earnings">All</a>
-            </div>
-        </div>
+            <span>Earnings</span></a>
     </li>
 
     <!-- Nav Item - Charts -->
@@ -64,10 +71,8 @@
             <span>Reports</span></a>
     </li>
 
-    <!-- Divider -->
     <hr class="sidebar-divider">
 
-    <!-- Heading -->
     <div class="sidebar-heading">
         Management
     </div>
@@ -78,7 +83,6 @@
             <span>Photos</span></a>
     </li>
 
-    <!-- Nav Item - Charts -->
     <li class="nav-item">
         <a class="nav-link" href="#">
             <i class="fas fa-fw fa-percent"></i>
