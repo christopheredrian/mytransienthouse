@@ -28,6 +28,9 @@ Route::get('greetings/{handle}', 'EcardController@handle');
  * End - React Test endpoints
  */
 
+Route::get('logout', 'Auth\LoginController@logout');
+
+Route::get('earnings', 'BusinessOwnerController@earnings');
 
 Route::domain("{account}.{$appDomain}")->group(function () {
     /**
@@ -37,8 +40,8 @@ Route::domain("{account}.{$appDomain}")->group(function () {
     // Sean: Edited for dev purposes. Para mabilis haha
     Route::get('/{path?}', 'ApplicationController@index')->middleware('auth');
 });
+
 Route::get('espr2', 'StaticController@espr2');
-Route::get('logout', 'Auth\LoginController@logout');
 
 Route::group([
     'middleware' => 'auth',
