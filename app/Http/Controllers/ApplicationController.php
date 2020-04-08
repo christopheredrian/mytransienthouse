@@ -23,6 +23,10 @@ class ApplicationController extends Controller
         $subdomain = $request->route()
             ->parameter('subdomain'); // subdomain
 
+        /**
+         * Find account by sub domain and throw not found exception if
+         * it does not exist
+         */
         $this->account = Account::findOrThrowBySubdomain($subdomain);
 
         /**

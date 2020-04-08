@@ -9,7 +9,7 @@
     <meta name="author" content="">
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>MTH Busineness Owner - Dashboard</title>
+    <title>{{ $account->business_name }}</title>
 
     <!-- Custom fonts for this template-->
     <link href="{{ asset('sbadmin2/vendor/fontawesome-free/css/all.min.css') }}" rel="stylesheet" type="text/css">
