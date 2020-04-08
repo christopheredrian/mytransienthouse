@@ -16,6 +16,7 @@ use Illuminate\Support\Facades\Auth;
 
 $appDomain = env('APP_DOMAIN');
 Auth::routes(['register' => false]);
+Route::get('logout', 'Auth\LoginController@logout');
 Route::get('home', 'StaticController@home');
 Route::get('greetings/{handle}', 'EcardController@handle');
 
@@ -28,6 +29,13 @@ Route::get('greetings/{handle}', 'EcardController@handle');
  * End - React Test endpoints
  */
 
+Route::domain("admin.{$appDomain}")->group(function () {
+    // START: Admin Routes
+    Route::get('/{path?}', function () {
+        return view('admin');
+    })->middleware('auth');
+    // END: Admin Routes
+});
 
 Route::domain("{account}.{$appDomain}")->group(function () {
     /**
@@ -47,15 +55,10 @@ Route::domain("{account}.{$appDomain}")->group(function () {
         // END: Business Owner Routes
 
 
-        // START: Admin Routes
-        Route::get('/{path?}', 'ApplicationController@index')->middleware('auth');
-        // END: Admin Routes
-
     });
 
 });
 Route::get('espr2', 'StaticController@espr2');
-Route::get('logout', 'Auth\LoginController@logout');
 
 Route::group([
     'middleware' => 'auth',
