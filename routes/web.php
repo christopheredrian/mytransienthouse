@@ -46,6 +46,8 @@ Route::domain("{account}.{$appDomain}")->group(function () {
         Route::get('test', 'BOLandingPageCrudController@test');
         Route::get('/', 'BOLandingPageCrudController@dashboard');
         Route::get('earnings', 'BOLandingPageCrudController@earnings');
+        Route::get('upload-photos', 'BOLandingPageCrudController@showPhotoUpload');
+        Route::post('upload', 'BOLandingPageCrudController@upload');
         // END: Business Owner Routes
 
 

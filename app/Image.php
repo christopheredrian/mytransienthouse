@@ -3,8 +3,12 @@
 namespace App;
 
 
-class Images
+use Illuminate\Database\Eloquent\SoftDeletes;
+
+class Image
 {
+    use SoftDeletes;
+
     /**
      * The attributes that are mass assignable.
      *

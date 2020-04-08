@@ -19,6 +19,7 @@ class CreateImagesTable extends Migration
             $table->foreignId('account_id')->constrained();
             $table->string('url')->unique();
             $table->boolean('is_active');
+            $table->softDeletes();
             $table->timestamps();
         });
     }

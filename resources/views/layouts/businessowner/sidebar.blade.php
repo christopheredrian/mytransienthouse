@@ -78,7 +78,7 @@
     </div>
 
     <li class="nav-item">
-        <a class="nav-link" href="#">
+        <a class="nav-link" href="/upload-photos">
             <i class="fas fa-fw fa-file"></i>
             <span>Photos</span></a>
     </li>
