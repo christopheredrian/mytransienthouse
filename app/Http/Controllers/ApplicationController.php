@@ -8,7 +8,6 @@ use Illuminate\Http\Request;
 class ApplicationController extends Controller
 {
 
-
     /**
      * @var Account $account
      */
@@ -16,6 +15,7 @@ class ApplicationController extends Controller
 
     /**
      * ApplicationController constructor.
+     * @param Request $request
      */
     public function __construct(Request $request)
 
@@ -27,12 +27,4 @@ class ApplicationController extends Controller
 
     }
 
-    public function index()
-    {
-        if ($this->account->subdomain === 'admin') {
-            return view('admin');
-        } else {
-            dd($this->account);
-        }
-    }
 }
