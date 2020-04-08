@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Account;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\View;
 
 class ApplicationController extends Controller
 {
@@ -18,13 +19,16 @@ class ApplicationController extends Controller
      * @param Request $request
      */
     public function __construct(Request $request)
-
     {
+        $subdomain = $request->route()
+            ->parameter('subdomain'); // subdomain
 
-        $account = $request->route()->parameter('account'); // subdomain
-        // todo: load account and account settings from db
-        $this->account = new Account($account);
+        $this->account = Account::findOrThrowBySubdomain($subdomain);
 
+        /**
+         * Add account variable to all views
+         */
+        View::share('account', $this->account);
     }
 
 }

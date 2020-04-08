@@ -3,13 +3,10 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 
-class Account // extends Model
+class Account extends Model
 {
-    public function __construct(string $subdomain)
-    {
-        $this->subdomain = $subdomain;
-    }
 
     /**
      * The attributes that are mass assignable.
@@ -19,4 +16,16 @@ class Account // extends Model
     protected $fillable = [
         'subdomain', 'business_name',
     ];
+
+    /**
+     * @param string $subdomain
+     * @throws ModelNotFoundException
+     * @return self
+     */
+    public static function findOrThrowBySubdomain(string $subdomain)
+    {
+        return Account::where('subdomain', $subdomain)
+            ->firstOrFail();
+
+    }
 }

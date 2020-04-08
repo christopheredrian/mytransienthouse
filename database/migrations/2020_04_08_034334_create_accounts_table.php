@@ -15,10 +15,12 @@ class CreateAccountsTable extends Migration
     {
         Schema::create('accounts', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id')->constrained();
+            $table->unsignedBigInteger('owner_user_id')->nullable();
             $table->string('subdomain', 32)->unique();
             $table->string('business_name')->unique();
             $table->timestamps();
+
+            $table->foreign('owner_user_id')->references('id')->on('users');
         });
     }
 

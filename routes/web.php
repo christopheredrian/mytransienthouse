@@ -37,7 +37,7 @@ Route::domain("admin.{$appDomain}")->group(function () {
     // END: Admin Routes
 });
 
-Route::domain("{account}.{$appDomain}")->group(function () {
+Route::domain("{subdomain}.{$appDomain}")->group(function () {
     /**
      * Handle subdomain routing
      */
