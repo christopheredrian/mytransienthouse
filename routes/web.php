@@ -30,8 +30,6 @@ Route::get('greetings/{handle}', 'EcardController@handle');
 
 Route::get('logout', 'Auth\LoginController@logout');
 
-Route::get('earnings', 'BusinessOwnerController@earnings');
-
 Route::domain("{account}.{$appDomain}")->group(function () {
     /**
      * Handle subdomain routing
@@ -47,6 +45,7 @@ Route::domain("{account}.{$appDomain}")->group(function () {
         // START: Business owner
         Route::get('test', 'BOLandingPageCrudController@test');
         Route::get('/', 'BOLandingPageCrudController@dashboard');
+        Route::get('earnings', 'BOLandingPageCrudController@earnings');
         // END: Business Owner Routes
 
 
