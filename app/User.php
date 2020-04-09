@@ -11,6 +11,8 @@ class User extends Authenticatable
     use Notifiable;
 
     const ROLE_ADMIN = "admin";
+    const ROLE_BUSINESS_OWNER = "business_owner";
+    const ROLE_CUSTOMER = "customer";
 
     /**
      * The attributes that are mass assignable.
@@ -55,10 +57,7 @@ class User extends Authenticatable
 
     public function getRole()
     {
-        /**
-         * todo: sean continue
-         */
-        return self::ROLE_ADMIN;
+        return $this->role;
     }
 
     /**
@@ -67,12 +66,15 @@ class User extends Authenticatable
      */
     public function getLoginRedirectRoute(): string
     {
-        switch ($this->getRole()) {
-            case self::ROLE_ADMIN:
-                // todo: sean add other roles
-            default:
-                return admin_url('');
-                break;
+
+        $role = $this->getRole();
+
+        if ($role === self::ROLE_ADMIN) {
+            return '/';
+        } else if ($role === self::ROLE_BUSINESS_OWNER) {
+            return '/bo';
+        } else {
+            return '/';
         }
     }
 

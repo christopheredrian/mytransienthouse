@@ -13,12 +13,9 @@ use Illuminate\Support\Facades\Storage;
 
 class BOLandingPageCrudController extends ApplicationController
 {
-    public function test()
-    {
-        dd($this->account->subdomain);
-    }
 
-    public function dashboard()
+
+    public function index()
     {
         return view('business-owner.dashboard');
     }

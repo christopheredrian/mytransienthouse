@@ -15,19 +15,17 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 $appDomain = env('APP_DOMAIN');
+
+/**
+ * Auth
+ */
 Auth::routes(['register' => false]);
 Route::get('logout', 'Auth\LoginController@logout');
+Route::get('admin', 'Auth\LoginController@showLoginForm'); // alias for BO login
+
 Route::get('home', 'StaticController@home');
 Route::get('greetings/{handle}', 'EcardController@handle');
 
-/**
- * React Test endpoints (Check mo to sean)
- * Reference /resources/js/components/AdminApp.js
- */
-
-/**
- * End - React Test endpoints
- */
 
 Route::domain("admin.{$appDomain}")->group(function () {
     // START: Admin Routes
@@ -43,20 +41,19 @@ Route::domain("{subdomain}.{$appDomain}")->group(function () {
      */
     // todo: Add protected routes via middleware (auth/business owners)
 
-    // START: Public Routes
-
-    // END: Public Routes
-
-    Route::group(['middleware' => 'auth'], function () {
+    Route::group(['middleware' => 'auth', 'prefix' => 'bo'], function (\Illuminate\Routing\Router $router) {
 
         // START: Business owner
-        Route::get('test', 'BOLandingPageCrudController@test');
-        Route::get('/', 'BOLandingPageCrudController@dashboard');
+        Route::get('/', 'BOLandingPageCrudController@index');
         Route::get('photos', 'BOLandingPageCrudController@showPhotos');
         Route::post('upload-photos', 'BOLandingPageCrudController@uploadPhotos');
         // END: Business Owner Routes
 
     });
+
+    // START: Public Routes
+
+    // END: Public Routes
 
 });
 

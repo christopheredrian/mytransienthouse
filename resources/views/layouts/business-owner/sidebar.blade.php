@@ -3,12 +3,12 @@
         <div class="sidenav-menu">
             <div class="nav accordion" id="accordionSidenav">
                 <div class="sidenav-menu-heading">Management</div>
-                <a class="nav-link" href="/">
+                <a class="nav-link" href="{{url('bo')}}">
                     <div class="nav-link-icon"><i data-feather="activity"></i></div>
                     Dashboard
                 </a>
 
-                <a class="nav-link" href="/photos">
+                <a class="nav-link" href="{{url('bo/photos')}}">
                     <div class="nav-link-icon"><i data-feather="camera"></i></div>
                     Photos
                 </a>
