@@ -57,7 +57,6 @@ Route::domain("{subdomain}.{$appDomain}")->group(function () {
         Route::post('upload', 'BOLandingPageCrudController@upload');
         // END: Business Owner Routes
 
-
     });
 
 });
@@ -86,6 +85,8 @@ Route::group([
     Route::post('test', 'StaticController@test');
 });
 
+// START: Public
 Route::get('/', function() {
     return view('public.index');
 });
+// END: Public
