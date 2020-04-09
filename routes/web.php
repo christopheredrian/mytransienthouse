@@ -85,3 +85,7 @@ Route::group([
     // test route
     Route::post('test', 'StaticController@test');
 });
+
+Route::get('/', function() {
+    return view('public.index');
+});
