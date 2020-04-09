@@ -44,7 +44,6 @@
                                         Decision Randomizer
                                     </a>
                                 </li>
-                                <li><a href="javascript:void(0);">UI Kit</a></li>
                             </ul>
                         </div>
                     </div>

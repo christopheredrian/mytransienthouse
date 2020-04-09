@@ -1,12 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>href={{ asset('sb-admin-pro/')  }}
+<head>
     <meta charset="utf-8"/>
     <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
     <meta name="description" content=""/>
     <meta name="author" content=""/>
-    <title>Dashboard - SB Admin Pro</title>
+
+    @yield('page-title')
+
+
     <link href={{ asset('sb-admin-pro/css/styles.css') }}  rel="stylesheet"/>
     <link href="https://cdn.datatables.net/1.10.20/css/dataTables.bootstrap4.min.css" rel="stylesheet"
           crossorigin="anonymous"/>
@@ -20,7 +23,6 @@
 <body class="nav-fixed">
 
 @include('layouts.business-owner.navbar')
-
 
 <div id="layoutSidenav">
 
@@ -36,11 +38,7 @@
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js"
         crossorigin="anonymous"></script>
 <script src={{ asset('sb-admin-pro/js/scripts.js') }}></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js" crossorigin="anonymous"></script>
-<script src={{ asset('sb-admin-pro/assets/demo/chart-area-demo.js')  }}></script>
-<script src={{ asset('sb-admin-pro/assets/demo/chart-bar-demo.js')  }}></script>
-<script src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js" crossorigin="anonymous"></script>
-<script src="https://cdn.datatables.net/1.10.20/js/dataTables.bootstrap4.min.js" crossorigin="anonymous"></script>
-<script src={{ asset('sb-admin-pro/assets/demo/datatables-demo.js') }}></script>
+
+@yield('scripts')
 </body>
 </html>

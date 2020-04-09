@@ -8,9 +8,8 @@
                 <div class="row justify-content-center">
                     <div class="col-xl-8 col-lg-10 text-center">
                         <h1 class="page-header-title">Rent home or rooms</h1>
-                        <p class="page-header-text mb-5">Our home is open for vacationers!
-                        Lets get started with your ideal vacation and book your stay with us!</p>
-
+                        <p class="page-header-text mb-5">Our home is open for all vacationers!
+                        Staying with us is a great way to start your ideal vacation. Let's get started and book your stay with us!</p>
                         <a class="btn btn-marketing rounded-pill btn-primary" href="#!">Get Started</a><a
                                 class="btn btn-link btn-marketing rounded-pill" href="#!">Learn More</a>
                     </div>

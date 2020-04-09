@@ -52,9 +52,8 @@ Route::domain("{subdomain}.{$appDomain}")->group(function () {
         // START: Business owner
         Route::get('test', 'BOLandingPageCrudController@test');
         Route::get('/', 'BOLandingPageCrudController@dashboard');
-        Route::get('earnings', 'BOLandingPageCrudController@earnings');
-        Route::get('upload-photos', 'BOLandingPageCrudController@showPhotoUpload');
-        Route::post('upload', 'BOLandingPageCrudController@upload');
+        Route::get('photos', 'BOLandingPageCrudController@showPhotos');
+        Route::post('upload-photos', 'BOLandingPageCrudController@uploadPhotos');
         // END: Business Owner Routes
 
     });

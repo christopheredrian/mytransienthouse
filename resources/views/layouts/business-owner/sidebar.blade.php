@@ -8,7 +8,7 @@
                     Dashboard
                 </a>
 
-                <a class="nav-link" href="#">
+                <a class="nav-link" href="/photos">
                     <div class="nav-link-icon"><i data-feather="camera"></i></div>
                     Photos
                 </a>

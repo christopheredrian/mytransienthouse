@@ -2,7 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Account;
+use App\Image;
+use App\Photo;
+use App\S3Utilities;
+use GuzzleHttp\Psr7\UploadedFile;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 
 class BOLandingPageCrudController extends ApplicationController
 {
@@ -13,45 +20,43 @@ class BOLandingPageCrudController extends ApplicationController
 
     public function dashboard()
     {
-        return view('businessowner.dashboard');
+        return view('business-owner.dashboard');
     }
 
     public function earnings()
     {
-        return view('businessowner.earnings');
+        return view('business-owner.earnings');
     }
 
     // todo: sean add fns here for images CRUD
 
-    public function showPhotoUpload()
+    public function showPhotos()
     {
-        return view('businessowner.photoupload');
+
+        $photos = Photo::where('owner_user_id', Auth::user()->id)
+            ->get();
+
+        return view('business-owner.photos', ['photos' => $photos]);
     }
 
-    public function upload(Request $request)
+    public function uploadPhotos(Request $request)
     {
+
         // todo: Integration with S3
-        if ($request->hasFile('file')) {
+        if ($request->hasFile('photos')) {
 
-            $disk = env('APP_ENV') === 'local' ? 'local' : 's3';
+            $destinationPath = S3Utilities::generateDestinationPath(Auth::user()->id, $this->account->subdomain);
 
-            $destinationPath = 'photos/';
-            $validExtensions = array("jpeg", "jpg", "png");
-
-            $fileNameWithExtension = $request->file('file')->getClientOriginalName();
-            $fileExtension = $request->file('file')->extension();
-
-            if (in_array(strtolower($fileExtension), $validExtensions)) {
-
-                $path = $request->file('file')->storeAs(
-                    $destinationPath,
-                    $fileNameWithExtension,
-                    $disk
-                );
-
-                // todo: Store in database (images table)
-            }
-
+            S3Utilities::uploadPhotos(
+                $destinationPath,
+                $request->file('photos'),
+                $this->account->id
+            );
         }
+
+        return redirect('/photos');
+
     }
 }
+
+
