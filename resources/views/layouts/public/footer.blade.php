@@ -15,42 +15,36 @@
                                     class="fab fa-twitter"></i></a>
                     </div>
                 </div>
-                <div class="col-lg-9">
+                <div class="col-lg-9 float-right">
                     <div class="row">
+                        <div class="col-lg-3 col-md-6 mb-5 mb-lg-0"></div>
+                        <div class="col-lg-3 col-md-6 mb-5 mb-lg-0"></div>
                         <div class="col-lg-3 col-md-6 mb-5 mb-lg-0">
                             <div class="text-uppercase-expanded text-xs mb-4">Products</div>
                             <ul class="list-unstyled mb-0">
-                                <li class="mb-2"><a target="_blank" href="https://researchbaguio.herokuapp.com/">Lengua</a></li>
-                                <li class="mb-2"><a target="_blank" href="http://project-lengua.herokuapp.com/">Research Baguio</a></li>
-                                <li><a href="javascript:void(0);">Changelog</a></li>
+                                <li class="mb-2">
+                                    <a target="_blank" href="https://researchbaguio.herokuapp.com/">Lengua</a>
+                                </li>
+                                <li class="mb-2">
+                                    <a target="_blank" href="http://project-lengua.herokuapp.com/">Research Baguio
+                                    </a>
+                                </li>
                             </ul>
                         </div>
                         <div class="col-lg-3 col-md-6 mb-5 mb-lg-0">
                             <div class="text-uppercase-expanded text-xs mb-4">Utilities</div>
                             <ul class="list-unstyled mb-0">
-                                <li class="mb-2"><a href="javascript:void(0);">Expense Tracker</a></li>
-                                <li class="mb-2"><a href="javascript:void(0);">Choice Randomizer</a></li>
+                                <li class="mb-2">
+                                    <a target="_blank" href="https://rjs-expensify-app.herokuapp.com/">
+                                        Expense Tracker
+                                    </a>
+                                </li>
+                                <li class="mb-2">
+                                    <a target="_blank" href="https://rjs-indecision-app.herokuapp.com/">
+                                        Decision Randomizer
+                                    </a>
+                                </li>
                                 <li><a href="javascript:void(0);">UI Kit</a></li>
-                            </ul>
-                        </div>
-                        <div class="col-lg-3 col-md-6 mb-5 mb-md-0">
-                            <div class="text-uppercase-expanded text-xs mb-4">Includes</div>
-                            <ul class="list-unstyled mb-0">
-                                <li class="mb-2"><a href="javascript:void(0);">Utilities</a></li>
-                                <li class="mb-2"><a href="javascript:void(0);">Components</a></li>
-                                <li class="mb-2"><a href="javascript:void(0);">Layouts</a></li>
-                                <li class="mb-2"><a href="javascript:void(0);">Code Samples</a></li>
-                                <li class="mb-2"><a href="javascript:void(0);">Products</a></li>
-                                <li class="mb-2"><a href="javascript:void(0);">Affiliates</a></li>
-                                <li><a href="javascript:void(0);">Updates</a></li>
-                            </ul>
-                        </div>
-                        <div class="col-lg-3 col-md-6">
-                            <div class="text-uppercase-expanded text-xs mb-4">Legal</div>
-                            <ul class="list-unstyled mb-0">
-                                <li class="mb-2"><a href="javascript:void(0);">Privacy Policy</a></li>
-                                <li class="mb-2"><a href="javascript:void(0);">Terms and Conditions</a></li>
-                                <li><a href="javascript:void(0);">License</a></li>
                             </ul>
                         </div>
                     </div>
