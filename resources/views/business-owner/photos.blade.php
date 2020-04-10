@@ -88,9 +88,14 @@
                                                             </div>
 
                                                             <div class="card-body">
-                                                                <button class="btn btn-outline-danger btn-sm float-right" type="button">
-                                                                    Delete
-                                                                </button>
+                                                                <form method="post" action="/bo/delete-photo">
+                                                                    @csrf
+
+                                                                    <input type="hidden" id="photoId" name="id" value="{{$photo->id}}">
+                                                                    <button class="btn btn-outline-danger btn-sm float-right" type="submit">
+                                                                        Delete
+                                                                    </button>
+                                                                </form>
                                                             </div>
                                                         </div>
                                                     </div>

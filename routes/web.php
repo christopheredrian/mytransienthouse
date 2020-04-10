@@ -47,6 +47,7 @@ Route::domain("{subdomain}.{$appDomain}")->group(function () {
         Route::get('/', 'BOLandingPageCrudController@index');
         Route::get('photos', 'BOLandingPageCrudController@showPhotos');
         Route::post('upload-photos', 'BOLandingPageCrudController@uploadPhotos');
+        Route::post('delete-photo', 'BOLandingPageCrudController@deletePhoto');
         // END: Business Owner Routes
 
     });

@@ -107,7 +107,7 @@ const UserForm = (props, passwordFieldForProduction) => {
                 >
                     <option disabled>Choose role...</option>
                     <option value="customer">Customer</option>
-                    <option value="businessowner">Business Owner</option>
+                    <option value="business_owner">Business Owner</option>
                     <option value="admin">Admin</option>
                 </Form.Control>
             </Form.Group>

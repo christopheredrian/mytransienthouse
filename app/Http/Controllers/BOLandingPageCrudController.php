@@ -25,7 +25,9 @@ class BOLandingPageCrudController extends ApplicationController
         return view('business-owner.earnings');
     }
 
-    // todo: sean add fns here for images CRUD
+    /**
+     * Photos module
+     */
 
     public function showPhotos()
     {
@@ -39,7 +41,6 @@ class BOLandingPageCrudController extends ApplicationController
     public function uploadPhotos(Request $request)
     {
 
-        // todo: Integration with S3
         if ($request->hasFile('photos')) {
 
             $destinationPath = S3Utilities::generateDestinationPath(Auth::user()->id, $this->account->subdomain);
@@ -50,6 +51,16 @@ class BOLandingPageCrudController extends ApplicationController
                 $this->account->id
             );
         }
+
+        return redirect('/bo/photos');
+
+    }
+
+    public function deletePhoto(Request $request) {
+
+        $photo = Photo::find($request->id);
+
+        $photo->delete();
 
         return redirect('/bo/photos');
 
