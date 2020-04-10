@@ -51,7 +51,7 @@ class BOLandingPageCrudController extends ApplicationController
             );
         }
 
-        return redirect('/photos');
+        return redirect('/bo/photos');
 
     }
 }
