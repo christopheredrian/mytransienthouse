@@ -60,7 +60,8 @@
                                         <input id="password" type="password"
                                                class="form-control py-4 @error('password') is-invalid @enderror"
                                                name="password"
-                                               required autocomplete="current-password">
+                                               required
+                                        >
 
                                         @error('password')
                                         <span class="invalid-feedback" role="alert">
@@ -71,16 +72,16 @@
 
 
 
-                                    <div class="form-group">
-                                        <div class="custom-control custom-checkbox">
-                                            <input class="custom-control-input" type="checkbox" name="remember"
-                                                   id="remember" {{ old('remember') ? 'checked' : '' }}>
+{{--                                    <div class="form-group">--}}
+{{--                                        <div class="custom-control custom-checkbox">--}}
+{{--                                            <input class="custom-control-input" type="checkbox" name="remember"--}}
+{{--                                                   id="remember" {{ old('remember') ? 'checked' : '' }}>--}}
 
-                                            <label class="custom-control-label" for="remember">
-                                                {{ __('Remember Me') }}
-                                            </label>
-                                        </div>
-                                    </div>
+{{--                                            <label class="custom-control-label" for="remember">--}}
+{{--                                                {{ __('Remember Me') }}--}}
+{{--                                            </label>--}}
+{{--                                        </div>--}}
+{{--                                    </div>--}}
 
                                     <div class="form-group d-flex align-items-center justify-content-between mt-4 mb-0">
 
