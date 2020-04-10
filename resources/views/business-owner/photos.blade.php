@@ -28,7 +28,7 @@
                             <div class="card-body">
                                 <div class="sbp-preview">
                                     <div class="sbp-preview-content">
-                                        <form method="post" action="/upload-photos" enctype="multipart/form-data">
+                                        <form method="post" action="/bo/upload-photos" enctype="multipart/form-data">
 
                                             @csrf
 
