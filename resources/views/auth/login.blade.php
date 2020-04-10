@@ -6,16 +6,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
     <meta name="description" content=""/>
     <meta name="author" content=""/>
-    <title>Login - SB Admin Pro</title>
+    <title>Login</title>
     <link href={{ asset('sb-admin-pro/css/styles.css') }}  rel="stylesheet"/>
-    <link href="https://cdn.datatables.net/1.10.20/css/dataTables.bootstrap4.min.css" rel="stylesheet"
-          crossorigin="anonymous"/>
     <link rel="icon" type="image/x-icon" href={{ asset('sb-admin-pro/assets/img/favicon.png') }}/>
     <script data-search-pseudo-elements defer
             src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/js/all.min.js"
             crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/feather-icons/4.24.1/feather.min.js"
-            crossorigin="anonymous"></script>
+{{--    <script src="https://cdnjs.cloudflare.com/ajax/libs/feather-icons/4.24.1/feather.min.js"--}}
+{{--            crossorigin="anonymous"></script>--}}
 
 </head>
 <body class="bg-primary">
@@ -60,7 +58,8 @@
                                         <input id="password" type="password"
                                                class="form-control py-4 @error('password') is-invalid @enderror"
                                                name="password"
-                                               required autocomplete="current-password">
+                                               required
+                                        >
 
                                         @error('password')
                                         <span class="invalid-feedback" role="alert">
@@ -71,16 +70,16 @@
 
 
 
-                                    <div class="form-group">
-                                        <div class="custom-control custom-checkbox">
-                                            <input class="custom-control-input" type="checkbox" name="remember"
-                                                   id="remember" {{ old('remember') ? 'checked' : '' }}>
+{{--                                    <div class="form-group">--}}
+{{--                                        <div class="custom-control custom-checkbox">--}}
+{{--                                            <input class="custom-control-input" type="checkbox" name="remember"--}}
+{{--                                                   id="remember" {{ old('remember') ? 'checked' : '' }}>--}}
 
-                                            <label class="custom-control-label" for="remember">
-                                                {{ __('Remember Me') }}
-                                            </label>
-                                        </div>
-                                    </div>
+{{--                                            <label class="custom-control-label" for="remember">--}}
+{{--                                                {{ __('Remember Me') }}--}}
+{{--                                            </label>--}}
+{{--                                        </div>--}}
+{{--                                    </div>--}}
 
                                     <div class="form-group d-flex align-items-center justify-content-between mt-4 mb-0">
 
@@ -97,9 +96,9 @@
 
                                 </form>
                             </div>
-                            <div class="card-footer text-center">
-                                <div class="small"><a href="register-basic.html">Need an account? Sign up!</a></div>
-                            </div>
+{{--                            <div class="card-footer text-center">--}}
+{{--                                <div class="small"><a href="register-basic.html">Need an account? Sign up!</a></div>--}}
+{{--                            </div>--}}
                         </div>
                     </div>
                 </div>
@@ -124,6 +123,6 @@
 <script src="https://code.jquery.com/jquery-3.4.1.min.js" crossorigin="anonymous"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js"
         crossorigin="anonymous"></script>
-<script src="js/scripts.js"></script>
+{{--<script src="js/scripts.js"></script>--}}
 </body>
 </html>
