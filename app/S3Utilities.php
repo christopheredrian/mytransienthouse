@@ -67,6 +67,7 @@ class S3Utilities
                 $newPhoto->owner_user_id = Auth::user()->id;
                 $newPhoto->account_id = $accountId;
                 $newPhoto->path = $path;
+                $newPhoto->url = $newPhoto->getUrlAttribute();
                 $newPhoto->is_active = true;
 
                 $newPhoto->save();
