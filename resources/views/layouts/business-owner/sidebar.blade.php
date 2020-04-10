@@ -12,6 +12,10 @@
                     <div class="nav-link-icon"><i data-feather="camera"></i></div>
                     Photos
                 </a>
+                <a class="nav-link" href="{{url('bo/faqs')}}">
+                    <div class="nav-link-icon"><i data-feather="help-circle"></i></div>
+                    FAQs
+                </a>
             </div>
         </div>
         <div class="sidenav-footer">

@@ -48,6 +48,12 @@ Route::domain("{subdomain}.{$appDomain}")->group(function () {
         Route::get('photos', 'BOLandingPageCrudController@showPhotos');
         Route::post('upload-photos', 'BOLandingPageCrudController@uploadPhotos');
         Route::post('delete-photo', 'BOLandingPageCrudController@deletePhoto');
+
+        Route::post('faqs/destroy', 'FaqsController@destroy');
+        Route::post('faqs/upsert', 'FaqsController@upsert');
+        Route::get('faqs/{id}/edit', 'FaqsController@edit');
+        Route::get('faqs/create', 'FaqsController@create'); // todo: modify
+        Route::get('faqs', 'FaqsController@index');
         // END: Business Owner Routes
 
     });
