@@ -2,14 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Account;
 use App\Image;
 use App\Photo;
 use App\S3Utilities;
-use GuzzleHttp\Psr7\UploadedFile;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Storage;
 
 class BOLandingPageCrudController extends ApplicationController
 {
@@ -31,7 +28,6 @@ class BOLandingPageCrudController extends ApplicationController
 
     public function showPhotos()
     {
-
         $photos = Photo::where('owner_user_id', Auth::user()->id)
             ->get();
 
