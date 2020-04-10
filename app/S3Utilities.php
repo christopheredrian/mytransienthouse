@@ -26,7 +26,7 @@ class S3Utilities
         $rootDirectory = '';
         $userPhotoDirectory = '/photos/'. $userId . '_' .$subdomain .'/business-owner';
 
-        if (env('LOCAL_DEV_USER') !== true) {
+        if (!empty(env('LOCAL_DEV_USER'))) {
             $rootDirectory .= 'local/dev/' . env('LOCAL_DEV_USER');
         } else {
             $rootDirectory .= env('APP_ENV') === 'local' ? 'local' : 'prod';
