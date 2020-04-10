@@ -98,7 +98,7 @@ const UserList = () => {
     return (
         <Container fluid>
             <Row className="justify-content-center">
-                <Col md={8}>
+                <Col md={12}>
                     <Card className={'p-5'}>
                         <Card.Title>
                             <h1>Users</h1>
