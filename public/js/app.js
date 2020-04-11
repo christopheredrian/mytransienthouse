@@ -86955,8 +86955,8 @@ axios.defaults.withCredentials = true;
 // });
 
 if (document.getElementById('admin-app')) {
-  var store = Object(_store_configureStore__WEBPACK_IMPORTED_MODULE_5__["default"])(); // store.dispatch(initializeUser());
-
+  var store = Object(_store_configureStore__WEBPACK_IMPORTED_MODULE_5__["default"])();
+  store.dispatch(Object(_actions_auth__WEBPACK_IMPORTED_MODULE_0__["initializeUser"])());
   var jsx =
   /*#__PURE__*/
   react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(react_redux__WEBPACK_IMPORTED_MODULE_4__["Provider"], {

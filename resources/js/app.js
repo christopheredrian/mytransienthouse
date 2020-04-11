@@ -27,7 +27,7 @@ import configureStore from './store/configureStore';
 if (document.getElementById('admin-app')) {
 
     const store = configureStore();
-    // store.dispatch(initializeUser());
+    store.dispatch(initializeUser());
 
     const jsx = (
         <Provider store={store}>

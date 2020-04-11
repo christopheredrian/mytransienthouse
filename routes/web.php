@@ -74,6 +74,9 @@ Route::group([
     /**
      * Authenticated routes
      */
+    Route::get('initialize_user', function(){
+        return Auth::user();
+    });
     Route::group(['prefix' => 'users'], function () {
         /**
          * Users
