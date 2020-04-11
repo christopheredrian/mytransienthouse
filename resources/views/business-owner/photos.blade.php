@@ -10,7 +10,7 @@
             <div class="container-fluid">
                 <div class="page-header-content">
                     <h1 class="page-header-title">
-                        <div class="page-header-icon"><i data-feather="edit-3"></i></div>
+                        <div class="page-header-icon"><i data-feather="camera"></i></div>
                         <span>Photos</span>
                     </h1>
                     <div class="page-header-subtitle">Photo overview and management of your residence</div>

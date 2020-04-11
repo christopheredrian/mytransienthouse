@@ -43,17 +43,22 @@ Route::domain("{subdomain}.{$appDomain}")->group(function () {
 
     Route::group(['middleware' => 'auth', 'prefix' => 'bo'], function (\Illuminate\Routing\Router $router) {
 
-        // START: Business owner
-        Route::get('/', 'BOLandingPageCrudController@index');
-        Route::get('photos', 'BOLandingPageCrudController@showPhotos');
-        Route::post('upload-photos', 'BOLandingPageCrudController@uploadPhotos');
-        Route::post('delete-photo', 'BOLandingPageCrudController@deletePhoto');
+        Route::get('/{path?}', function () {
+            return view('business-owner');
+        });
 
-        Route::post('faqs/destroy', 'FaqsController@destroy');
-        Route::post('faqs/upsert', 'FaqsController@upsert');
-        Route::get('faqs/{id}/edit', 'FaqsController@edit');
-        Route::get('faqs/create', 'FaqsController@create'); // todo: modify
-        Route::get('faqs', 'FaqsController@index');
+        // todo: Sean cleanup of unused routes
+        // START: Business owner
+//        Route::get('/', 'BOLandingPageCrudController@index');
+//        Route::get('photos', 'BOLandingPageCrudController@showPhotos');
+//        Route::post('upload-photos', 'BOLandingPageCrudController@uploadPhotos');
+//        Route::post('delete-photo', 'BOLandingPageCrudController@deletePhoto');
+//
+//        Route::post('faqs/destroy', 'FaqsController@destroy');
+//        Route::post('faqs/upsert', 'FaqsController@upsert');
+//        Route::get('faqs/{id}/edit', 'FaqsController@edit');
+//        Route::get('faqs/create', 'FaqsController@create'); // todo: modify
+//        Route::get('faqs', 'FaqsController@index');
         // END: Business Owner Routes
 
     });
@@ -85,6 +90,18 @@ Route::group([
         Route::get('/', 'UserController@users');
         Route::get('/{id}', 'UserController@user');
         Route::post('/upsert', 'UserController@upsert');
+    });
+
+    Route::group(['prefix' => 'photos'], function () {
+        /**
+         * Users
+         * /api/photos/
+         */
+        Route::get('/{id}', 'PhotoController@photos');
+        Route::post('/upload_photo', 'PhotoController@uploadPhoto');
+        Route::post('/delete_photo', 'PhotoController@deletePhoto');
+
+        // todo: Sean FAQ api
     });
 
     // test route

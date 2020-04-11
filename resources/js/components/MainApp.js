@@ -3,6 +3,7 @@ import {connect} from 'react-redux';
 
 import Login from "./Login";
 import AdminApp from "./admin/AdminApp";
+import BusinessOwnerApp from './business-owner/BusinessOwnerApp';
 import {logoutUser} from "../actions/auth";
 
 /**
@@ -51,7 +52,32 @@ const MainApp = ({loggedInUser = null, setLoggedInUser = null}) => {
     /**
      * todo: future - return appropriate component here for other roles
      */
-    return <AdminApp/>;
+
+    if (loggedInUser === null) {
+
+        /**
+         * Loading page
+         */
+        return (<p>Loading...</p>)
+
+    } else {
+
+        if (loggedInUser.role === 'admin') {
+
+            return <AdminApp/>;
+
+        } else if (loggedInUser.role === 'business_owner') {
+
+            return <BusinessOwnerApp/>;
+
+        } else {
+
+            return (<p>Unauthorized</p>)
+
+        }
+
+    }
+
     // } else {
     //     /**
     //      * Unauthenticated
@@ -74,5 +100,5 @@ const mapDispatchToProps = (dispatch) => {
     }
 };
 
-// export default connect(mapStateToProps, mapDispatchToProps)(MainApp);
-export default MainApp;
+export default connect(mapStateToProps, mapDispatchToProps)(MainApp);
+// export default MainApp;
