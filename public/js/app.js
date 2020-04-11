@@ -87606,7 +87606,8 @@ var AdminNavBar = function AdminNavBar() {
     /*#__PURE__*/
     react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
       className: "dropdown-user-img",
-      src: "/img/user.png"
+      src: "/img/user.png",
+      alt: 'image'
     }),
     /*#__PURE__*/
     react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {

@@ -106,7 +106,7 @@ const AdminNavBar = () => {
                     <div className="dropdown-menu dropdown-menu-right border-0 shadow animated--fade-in-up"
                          aria-labelledby="navbarDropdownUserImage">
                         <h6 className="dropdown-header d-flex align-items-center">
-                            <img className="dropdown-user-img" src="/img/user.png"/>
+                            <img className="dropdown-user-img" src="/img/user.png" alt={'image'}/>
                             <div className="dropdown-user-details">
                                 <div className="dropdown-user-details-name">John Doe</div>
                                 <div className="dropdown-user-details-email">Email of john doe</div>
@@ -151,7 +151,7 @@ const AdminSideBar = () => {
                 <div className="sidenav-footer">
                     <div className="sidenav-footer-content">
                         <div className="sidenav-footer-subtitle">Logged in as:</div>
-                        <div className="sidenav-footer-title"></div>
+                        <div className="sidenav-footer-title"/>
                     </div>
                 </div>
             </nav>

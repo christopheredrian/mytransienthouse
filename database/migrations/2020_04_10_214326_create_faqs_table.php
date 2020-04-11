@@ -22,8 +22,7 @@ class CreateFaqsTable extends Migration
                 ->comment('User who created entry')
                 ->index();
 
-            $table->string('faq_question',255)
-                ->index();
+            $table->string('faq_question',255);
             $table->mediumText('faq_answer');
 
             $table->softDeletes();
