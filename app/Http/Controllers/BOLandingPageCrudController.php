@@ -7,6 +7,7 @@ use App\Photo;
 use App\S3Utilities;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use function GuzzleHttp\Promise\all;
 
 class BOLandingPageCrudController extends ApplicationController
 {
@@ -28,10 +29,7 @@ class BOLandingPageCrudController extends ApplicationController
 
     public function showPhotos()
     {
-        $photos = Photo::where('owner_user_id', Auth::user()->id)
-            ->get();
-
-        return view('business-owner.photos', ['photos' => $photos]);
+        return view('business-owner.photos', ['photos' => Photo::all()]);
     }
 
     public function uploadPhotos(Request $request)
