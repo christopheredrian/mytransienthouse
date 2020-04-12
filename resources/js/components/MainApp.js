@@ -35,7 +35,7 @@ const setApiTokenToAxiosDefaults = (apiToken) => {
     });
 };
 
-const MainApp = ({loggedInUser = null, setLoggedInUser = null}) => {
+const MainApp = ({ loggedInUser = null, setLoggedInUser = null}) => {
 
     // const isLoggedIn = !!(loggedInUser && loggedInUser.id && loggedInUser.api_token);
     //
@@ -53,6 +53,9 @@ const MainApp = ({loggedInUser = null, setLoggedInUser = null}) => {
      * todo: future - return appropriate component here for other roles
      */
 
+
+    // console.log(location.pathname);
+
     if (loggedInUser === null) {
 
         /**
@@ -62,13 +65,14 @@ const MainApp = ({loggedInUser = null, setLoggedInUser = null}) => {
 
     } else {
 
-        if (loggedInUser.role === 'admin') {
-
-            return <AdminApp/>;
-
-        } else if (loggedInUser.role === 'business_owner') {
+        // Temporary. Adjusted so that admin can also access /bo
+        if (location.pathname.includes('/bo') && (loggedInUser.role === 'admin' || loggedInUser.role === 'business_owner')) {
 
             return <BusinessOwnerApp/>;
+
+        } else if (loggedInUser.role === 'admin') {
+
+            return <AdminApp/>;
 
         } else {
 

@@ -37,8 +37,7 @@
                         <div class="card-footer bg-transparent border-top d-flex align-items-center justify-content-between">
                             <div class="small text-primary">See more</div>
                             <div class="small text-primary"><i data-feather="arrow-right"></i></div>
-                        </div
-                        >
+                        </div>
                     </a>
                 </div>
                 <div class="col-lg-4 mb-5">

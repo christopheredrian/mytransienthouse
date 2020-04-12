@@ -40,7 +40,10 @@ Route::domain("{subdomain}.{$appDomain}")->group(function () {
      * Handle subdomain routing
      */
     // todo: Add protected routes via middleware (auth/business owners)
+
+    // START: Public
     Route::get('/gallery', 'PhotoController@index');
+    // END: Public
 
     Route::group(['middleware' => 'auth', 'prefix' => 'bo'], function (\Illuminate\Routing\Router $router) {
 
@@ -48,13 +51,8 @@ Route::domain("{subdomain}.{$appDomain}")->group(function () {
             return view('business-owner');
         });
 
-        // todo: Sean cleanup of unused routes
+        // todo Chris: Convert to React
         // START: Business owner
-//        Route::get('/', 'BOLandingPageCrudController@index');
-//        Route::get('photos', 'BOLandingPageCrudController@showPhotos');
-//        Route::post('upload-photos', 'BOLandingPageCrudController@uploadPhotos');
-//        Route::post('delete-photo', 'BOLandingPageCrudController@deletePhoto');
-//
 //        Route::post('faqs/destroy', 'FaqsController@destroy');
 //        Route::post('faqs/upsert', 'FaqsController@upsert');
 //        Route::get('faqs/{id}/edit', 'FaqsController@edit');

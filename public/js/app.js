@@ -87337,6 +87337,7 @@ var MainApp = function MainApp(_ref) {
   /**
    * todo: future - return appropriate component here for other roles
    */
+  // console.log(location.pathname);
   if (loggedInUser === null) {
     /**
      * Loading page
@@ -87346,15 +87347,16 @@ var MainApp = function MainApp(_ref) {
       react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, "Loading...")
     );
   } else {
-    if (loggedInUser.role === 'admin') {
-      return (
-        /*#__PURE__*/
-        react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_admin_AdminApp__WEBPACK_IMPORTED_MODULE_3__["default"], null)
-      );
-    } else if (loggedInUser.role === 'business_owner') {
+    // Temporary. Adjusted so that admin can also access /bo
+    if (location.pathname.includes('/bo') && (loggedInUser.role === 'admin' || loggedInUser.role === 'business_owner')) {
       return (
         /*#__PURE__*/
         react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_business_owner_BusinessOwnerApp__WEBPACK_IMPORTED_MODULE_4__["default"], null)
+      );
+    } else if (loggedInUser.role === 'admin') {
+      return (
+        /*#__PURE__*/
+        react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_admin_AdminApp__WEBPACK_IMPORTED_MODULE_3__["default"], null)
       );
     } else {
       return (

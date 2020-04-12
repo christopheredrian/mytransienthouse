@@ -6,7 +6,8 @@
                 aria-expanded="false" aria-label="Toggle navigation"><i data-feather="menu"></i></button>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav ml-auto mr-lg-5">
-                <li class="nav-item"><a class="nav-link" href="/">Home </a></li>
+                <li class="nav-item"><a class="nav-link" href="/">Home</a></li>
+                <li class="nav-item"><a class="nav-link" href="/gallery">Gallery</a></li>
                 {{--<li class="nav-item dropdown dropdown-xl no-caret">--}}
                 {{--<a class="nav-link dropdown-toggle" id="navbarDropdownDemos" href="#" role="button"--}}
                 {{--data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Landings<i--}}
