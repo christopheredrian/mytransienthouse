@@ -6,7 +6,7 @@ use App\Account;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\View;
 
-class ApplicationController extends Controller
+abstract class ApplicationController extends Controller
 {
 
     /**

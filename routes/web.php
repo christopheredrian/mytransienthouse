@@ -43,6 +43,7 @@ Route::domain("{subdomain}.{$appDomain}")->group(function () {
 
     // START: Public
     Route::get('/gallery', 'PhotoController@index');
+    Route::get('/', 'PublicController@index');
     // END: Public
 
     Route::group(['middleware' => 'auth', 'prefix' => 'bo'], function (\Illuminate\Routing\Router $router) {

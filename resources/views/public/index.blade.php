@@ -9,9 +9,10 @@
                     <div class="col-xl-8 col-lg-10 text-center">
                         <h1 class="page-header-title">Rent home or rooms</h1>
                         <p class="page-header-text mb-5">Our home is open for all vacationers!
-                        Staying with us is a great way to start your ideal vacation. Let's get started and book your stay with us!</p>
+                            Staying with us is a great way to start your ideal vacation. Let's get started and book your
+                            stay with us!</p>
                         <a class="btn btn-marketing rounded-pill btn-primary" href="#!">Get Started</a><a
-                                class="btn btn-link btn-marketing rounded-pill" href="#!">Learn More</a>
+                            class="btn btn-link btn-marketing rounded-pill" href="#!">Learn More</a>
                     </div>
                 </div>
             </div>
@@ -34,7 +35,8 @@
                             <p class="card-text">Our property features a beautiful, private outdoor area with
                                 seating and a pool.</p>
                         </div>
-                        <div class="card-footer bg-transparent border-top d-flex align-items-center justify-content-between">
+                        <div
+                            class="card-footer bg-transparent border-top d-flex align-items-center justify-content-between">
                             <div class="small text-primary">See more</div>
                             <div class="small text-primary"><i data-feather="arrow-right"></i></div>
                         </div>
@@ -48,7 +50,8 @@
                             <p class="card-text">A fully stocked kitchen with all modern amenities provides a
                                 peaceful cooking environment.</p>
                         </div>
-                        <div class="card-footer bg-transparent border-top d-flex align-items-center justify-content-between">
+                        <div
+                            class="card-footer bg-transparent border-top d-flex align-items-center justify-content-between">
                             <div class="small text-primary">See more</div>
                             <div class="small text-primary"><i data-feather="arrow-right"></i></div>
                         </div
@@ -63,7 +66,8 @@
                             <p class="card-text">With three newly updated bedrooms you will be sleeping soundly
                                 during your stay.</p>
                         </div>
-                        <div class="card-footer bg-transparent border-top d-flex align-items-center justify-content-between">
+                        <div
+                            class="card-footer bg-transparent border-top d-flex align-items-center justify-content-between">
                             <div class="small text-primary">See more</div>
                             <div class="small text-primary"><i data-feather="arrow-right"></i></div>
                         </div
@@ -71,78 +75,39 @@
                     </a>
                 </div>
             </div>
-            <div class="text-center mb-4"><h2>Your questions, answered.</h2></div>
-            <div class="accordion accordion-faq mb-5" id="helpAccordion">
-                <div class="card accordion-faq-item">
-                    <a class="card-header" id="helpHeadingOne" data-toggle="collapse"
-                       data-target="#helpCollapseOne" aria-expanded="true" aria-controls="helpCollapseOne"
-                       href="javascript:void(0);"
-                    >
-                        <div class="accordion-faq-item-heading">Is there a minimum number of nights?<i
-                                    class="accordion-faq-item-heading-arrow" data-feather="chevron-down"></i>
-                        </div
-                        >
-                    </a>
-                    <div class="collapse show" id="helpCollapseOne" aria-labelledby="helpHeadingOne"
-                         data-parent="#helpAccordion">
-                        <div class="card-body border-bottom">Anim pariatur cliche reprehenderit, enim eiusmod
-                            high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non
-                            cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod.
-                            Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee
-                            nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes
-                            anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo.
-                            Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you
-                            probably haven't heard of them accusamus labore sustainable VHS.
+
+            @if(isset($faqs) && !empty($faqs))
+
+                <div class="text-center mb-4"><h2>Your questions, answered.</h2></div>
+
+                <div class="accordion accordion-faq mb-5" id="helpAccordion">
+
+                    @foreach($faqs as $faq)
+
+                        <div class="card accordion-faq-item">
+                            <a class="card-header" id="helpHeadingOne{{$faq->id}}" data-toggle="collapse"
+                               data-target="#helpCollapseOne{{$faq->id}}" aria-expanded="true"
+                               aria-controls="helpCollapseOne{{$faq->id}}"
+                               href="javascript:void(0);"
+                            >
+                                <div class="accordion-faq-item-heading">
+                                    {{ $faq->faq_question }}
+                                    <i class="accordion-faq-item-heading-arrow" data-feather="chevron-down"></i>
+                                </div
+                                >
+                            </a>
+                            <div class="collapse" id="helpCollapseOne{{$faq->id}}"
+                                 aria-labelledby="helpHeadingOne{{$faq->id}}"
+                                 data-parent="#helpAccordion">
+                                <div class="card-body border-bottom">
+                                    {{ $faq->faq_answer }}
+                                </div>
+                            </div>
                         </div>
-                    </div>
+
+                    @endforeach
                 </div>
-                <div class="card accordion-faq-item">
-                    <a class="card-header collapsed" id="helpHeadingTwo" data-toggle="collapse"
-                       data-target="#helpCollapseTwo" aria-expanded="true" aria-controls="helpCollapseTwo"
-                       href="javascript:void(0);"
-                    >
-                        <div class="accordion-faq-item-heading">How close is the nearest grocery store?<i
-                                    class="accordion-faq-item-heading-arrow" data-feather="chevron-down"></i>
-                        </div
-                        >
-                    </a>
-                    <div class="collapse" id="helpCollapseTwo" aria-labelledby="helpHeadingTwo"
-                         data-parent="#helpAccordion">
-                        <div class="card-body border-bottom">Anim pariatur cliche reprehenderit, enim eiusmod
-                            high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non
-                            cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod.
-                            Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee
-                            nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes
-                            anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo.
-                            Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you
-                            probably haven't heard of them accusamus labore sustainable VHS.
-                        </div>
-                    </div>
-                </div>
-                <div class="card accordion-faq-item">
-                    <a class="card-header collapsed" id="helpHeadingThree" data-toggle="collapse"
-                       data-target="#helpCollapseThree" aria-expanded="true" aria-controls="helpCollapseThree"
-                       href="javascript:void(0);"
-                    >
-                        <div class="accordion-faq-item-heading">Is there a discount for longer term rental
-                            periods?<i class="accordion-faq-item-heading-arrow" data-feather="chevron-down"></i>
-                        </div
-                        >
-                    </a>
-                    <div class="collapse" id="helpCollapseThree" aria-labelledby="helpHeadingThree"
-                         data-parent="#helpAccordion">
-                        <div class="card-body border-bottom">Anim pariatur cliche reprehenderit, enim eiusmod
-                            high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non
-                            cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod.
-                            Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee
-                            nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes
-                            anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo.
-                            Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you
-                            probably haven't heard of them accusamus labore sustainable VHS.
-                        </div>
-                    </div>
-                </div>
-            </div>
+            @endif
         </div>
     </section>
     <section class="bg-img-cover overlay overlay-light overlay-80 py-15"
@@ -160,34 +125,34 @@
             </svg>
         </div>
     </section>
-    <section class="bg-white py-10">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-6 mb-5 mb-lg-0 divider-right">
-                    <div class="testimonial p-lg-5">
-                        <div class="mb-3 text-yellow"><i class="fas fa-star"></i><i class="fas fa-star"></i><i
-                                    class="fas fa-star"></i><i class="fas fa-star"></i><i
-                                    class="fas fa-star"></i></div>
-                        <p class="testimonial-quote text-primary">"I was impressed with how beautiful and clean
-                            this property was. The owner definitely goes the extra mile to help their
-                            guests!"</p>
-                        <div class="testimonial-name">Dustine</div>
-                        <div class="testimonial-position">Cali, Colombia</div>
-                    </div>
-                </div>
-                <div class="col-lg-6">
-                    <div class="testimonial p-lg-5">
-                        <div class="mb-3 text-yellow"><i class="fas fa-star"></i><i class="fas fa-star"></i><i
-                                    class="fas fa-star"></i><i class="fas fa-star"></i><i
-                                    class="fas fa-star"></i></div>
-                        <p class="testimonial-quote text-primary">"Amazing location, convenient parking, and a
-                            lots of amenities and extras. I will definitely be returning here whenever I'm in
-                            town."</p>
-                        <div class="testimonial-name">Lia Peterson</div>
-                        <div class="testimonial-position">Sacramento, CA, USA</div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
+    {{--    <section class="bg-white py-10">--}}
+    {{--        <div class="container">--}}
+    {{--            <div class="row">--}}
+    {{--                <div class="col-lg-6 mb-5 mb-lg-0 divider-right">--}}
+    {{--                    <div class="testimonial p-lg-5">--}}
+    {{--                        <div class="mb-3 text-yellow"><i class="fas fa-star"></i><i class="fas fa-star"></i><i--}}
+    {{--                                class="fas fa-star"></i><i class="fas fa-star"></i><i--}}
+    {{--                                class="fas fa-star"></i></div>--}}
+    {{--                        <p class="testimonial-quote text-primary">"I was impressed with how beautiful and clean--}}
+    {{--                            this property was. The owner definitely goes the extra mile to help their--}}
+    {{--                            guests!"</p>--}}
+    {{--                        <div class="testimonial-name">Dustine</div>--}}
+    {{--                        <div class="testimonial-position">Cali, Colombia</div>--}}
+    {{--                    </div>--}}
+    {{--                </div>--}}
+    {{--                <div class="col-lg-6">--}}
+    {{--                    <div class="testimonial p-lg-5">--}}
+    {{--                        <div class="mb-3 text-yellow"><i class="fas fa-star"></i><i class="fas fa-star"></i><i--}}
+    {{--                                class="fas fa-star"></i><i class="fas fa-star"></i><i--}}
+    {{--                                class="fas fa-star"></i></div>--}}
+    {{--                        <p class="testimonial-quote text-primary">"Amazing location, convenient parking, and a--}}
+    {{--                            lots of amenities and extras. I will definitely be returning here whenever I'm in--}}
+    {{--                            town."</p>--}}
+    {{--                        <div class="testimonial-name">Lia Peterson</div>--}}
+    {{--                        <div class="testimonial-position">Sacramento, CA, USA</div>--}}
+    {{--                    </div>--}}
+    {{--                </div>--}}
+    {{--            </div>--}}
+    {{--        </div>--}}
+    {{--    </section>--}}
 @endsection
