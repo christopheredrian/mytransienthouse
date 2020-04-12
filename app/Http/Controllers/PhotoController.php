@@ -14,9 +14,29 @@ use App\Photo;
 use App\S3Utilities;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class PhotoController
 {
+
+    public function index($subdomain) {
+
+        $account = Account::where('subdomain', '=', $subdomain)
+            ->first();
+
+        $ownerUserId = $account->owner_user_id;
+        $businessName = $account->business_name;
+
+        $photoURLs = DB::table('photos')
+            ->where('owner_user_id','=', $ownerUserId)
+            ->whereNull('deleted_at')
+            ->pluck('url');
+
+        return view('public.gallery', [
+            'photoURLs' => $photoURLs,
+            'businessName' => $businessName
+        ]);
+    }
 
     public function photos(Request $request) {
 

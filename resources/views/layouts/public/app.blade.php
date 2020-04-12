@@ -14,6 +14,11 @@
             crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/feather-icons/4.24.1/feather.min.js"
             crossorigin="anonymous"></script>
+
+    @yield('styles')
+
+
+
 </head>
 
 <body>
@@ -25,7 +30,7 @@
 
             @yield('content')
 
-            <hr class="my-0"/>
+
         </main>
     </div>
 
@@ -36,5 +41,8 @@
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js"
         crossorigin="anonymous"></script>
 <script src={{ asset('sb-kit-ui-pro/js/scripts.js') }}></script>
+
+@yield('scripts')
+
 </body>
 </html>

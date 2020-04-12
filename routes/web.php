@@ -40,6 +40,7 @@ Route::domain("{subdomain}.{$appDomain}")->group(function () {
      * Handle subdomain routing
      */
     // todo: Add protected routes via middleware (auth/business owners)
+    Route::get('/gallery', 'PhotoController@index');
 
     Route::group(['middleware' => 'auth', 'prefix' => 'bo'], function (\Illuminate\Routing\Router $router) {
 
