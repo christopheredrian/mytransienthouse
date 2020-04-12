@@ -79,7 +79,7 @@ Route::group([
     /**
      * Authenticated routes
      */
-    Route::get('initialize_user', function(){
+    Route::get('initialize_user', function () {
         return Auth::user();
     });
     Route::group(['prefix' => 'users'], function () {
@@ -104,12 +104,20 @@ Route::group([
         // todo: Sean FAQ api
     });
 
+
+    Route::group(['prefix' => 'faqs'], function () {
+        Route::get('/', 'FaqsController@all');
+        Route::get('/{id}', 'FaqsController@one');
+        Route::post('/upsert', 'FaqsController@upsert');
+        Route::post('/delete/{id}', 'FaqsController@delete');
+    });
+
     // test route
     Route::post('test', 'StaticController@test');
 });
 
 // START: Public
-Route::get('/', function() {
+Route::get('/', function () {
     return view('public.index');
 });
 // END: Public

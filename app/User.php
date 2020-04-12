@@ -104,4 +104,13 @@ class User extends Authenticatable
         return self::where('api_token', $apiToken)
             ->firstOrFail();
     }
+
+    /**
+     * Returns associated account
+     * @return Account
+     */
+    public function account(): Account
+    {
+        return Account::findOrFail($this->account_id);
+    }
 }
