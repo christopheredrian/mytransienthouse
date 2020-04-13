@@ -13,9 +13,9 @@ use InvalidArgumentException;
 
 class ApiPhotoController extends ApiAuthController
 {
-    public function all(Request $request) {
+    public function all() {
 
-        $photos = Photo::where('owner_user_id', $request->id)
+        $photos = Photo::where('account_id', $this->account->id)
             ->get();
 
         return $this->jsonApiResponse(self::STATUS_SUCCESS, 'Success', $photos);
@@ -38,23 +38,20 @@ class ApiPhotoController extends ApiAuthController
 
             if ($request->hasFile('photos') && strlen($request->userId) != 0) {
 
-                $account = Account::where('owner_user_id', $request->userId)
-                    ->first();
-
                 $destinationPath =
-                    S3Utilities::generateDestinationPath($request->userId, $account->subdomain);
+                    S3Utilities::generateDestinationPath($request->userId, $this->account->subdomain);
 
                 S3Utilities::uploadPhotos(
                     $destinationPath,
                     $request->file('photos'),
-                    $account->id
+                    $this->account->id
                 );
             }
 
             // DISCUSS w/ Chris.
             // Problematic since photos should be filtered by account_id
             // Getting of account is prohibited due to current setup of this controller
-            $photos = Photo::where('owner_user_id', $request->userId)
+            $photos = Photo::where('account_id', $this->account->id)
                 ->get();
 
             return $this->jsonApiResponse(self::STATUS_SUCCESS, 'Success', $photos);

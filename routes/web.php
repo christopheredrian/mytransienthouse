@@ -97,7 +97,7 @@ Route::group([
          * Users
          * /api/photos/
          */
-        Route::get('/{id}', 'ApiPhotoController@all');
+        Route::get('/', 'ApiPhotoController@all');
         Route::post('/upload_photo', 'ApiPhotoController@upload');
         Route::post('/delete_photo', 'ApiPhotoController@delete');
 

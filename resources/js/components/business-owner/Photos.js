@@ -27,7 +27,7 @@ const Photos = ({loggedInUser = null}) => {
         const data = new FormData();
 
         Array.from(photoFiles).forEach(photoFile => data.append('photos[]', photoFile));
-        data.append('userId', loggedInUser.id);
+        // data.append('userId', loggedInUser.id);
 
         /**
          * Get data from endpoint
@@ -73,7 +73,7 @@ const Photos = ({loggedInUser = null}) => {
         /**
          * Get data from endpoint
          */
-        axios.get(`${Endpoints.PHOTOS_DATA}/${loggedInUser.id}`)
+        axios.get(`${Endpoints.PHOTOS_DATA}`)
             .then(({data}) => {
                 /**
                  * Success response
