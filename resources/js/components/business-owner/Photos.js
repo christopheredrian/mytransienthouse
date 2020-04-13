@@ -49,13 +49,11 @@ const Photos = ({loggedInUser = null}) => {
 
     };
 
-    const deletePhoto = (e, photoId) => {
+    const deletePhoto = (e, id) => {
         e.preventDefault();
 
-        axios.post(`${Endpoints.DELETE_PHOTO}`, {
-            userId: loggedInUser.id,
-            photoId
-        }).then(({data}) => {
+        axios.post(`${Endpoints.DELETE_PHOTO}`, { id })
+            .then(({data}) => {
                 /**
                  * Success response
                  * set state data
@@ -198,12 +196,6 @@ const Photos = ({loggedInUser = null}) => {
                                                                             <form
                                                                                 onSubmit={(e) => deletePhoto(e, photo.id)}
                                                                             >
-                                                                                {/*<input*/}
-                                                                                    {/*type="hidden"*/}
-                                                                                    {/*id="photoId"*/}
-                                                                                    {/*name="id"*/}
-                                                                                    {/*value={photo.id}*/}
-                                                                                {/*/>*/}
                                                                                 <button
                                                                                     className="btn btn-outline-danger btn-sm float-right"
                                                                                     type="submit">

@@ -97,9 +97,9 @@ Route::group([
          * Users
          * /api/photos/
          */
-        Route::get('/{id}', 'PhotoController@photos');
-        Route::post('/upload_photo', 'PhotoController@uploadPhoto');
-        Route::post('/delete_photo', 'PhotoController@deletePhoto');
+        Route::get('/{id}', 'ApiPhotoController@all');
+        Route::post('/upload_photo', 'ApiPhotoController@upload');
+        Route::post('/delete_photo', 'ApiPhotoController@delete');
 
         // todo: Sean FAQ api
     });
