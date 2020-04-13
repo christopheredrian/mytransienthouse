@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import {connect} from 'react-redux';
+import { connect } from 'react-redux';
+import { Camera, Image } from 'react-feather';
 import axios from'axios';
 
 import Endpoints from "./../../config/Endpoints";
@@ -99,7 +100,9 @@ const Photos = ({loggedInUser = null}) => {
                 <div className="container-fluid">
                     <div className="page-header-content">
                         <h1 className="page-header-title">
-                            <div className="page-header-icon"><i data-feather="camera"></i></div>
+                            <div className="page-header-icon">
+                                <Camera />
+                            </div>
                             <span>Photos</span>
                         </h1>
                         <div className="page-header-subtitle">Photo overview and management of your residence</div>
@@ -148,7 +151,7 @@ const Photos = ({loggedInUser = null}) => {
                                 <div className="card card-icon ">
                                     <div className="row no-gutters">
                                         <div className="col-auto card-icon-aside bg-warning">
-                                            <i data-feather="camera"></i>
+                                            <Image />
                                         </div>
                                         <div className="col">
                                             <div className="card-body py-5">
