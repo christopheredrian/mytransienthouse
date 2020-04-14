@@ -36,27 +36,26 @@ class ApiPhotoController extends ApiAuthController
                 throw new InvalidArgumentException(implode(' ', $errorBag));
             }
 
-            if ($request->hasFile('photos') && strlen($request->userId) != 0) {
+            if ($request->hasFile('photos')) {
 
                 $destinationPath =
-                    S3Utilities::generateDestinationPath($request->userId, $this->account->subdomain);
+                    S3Utilities::generateDestinationPath($this->account->id, $this->account->subdomain);
 
                 S3Utilities::uploadPhotos(
                     $destinationPath,
                     $request->file('photos'),
                     $this->account->id
                 );
+
+                $photos = Photo::where('account_id', $this->account->id)
+                    ->get();
+
+                return $this->jsonApiResponse(self::STATUS_SUCCESS, 'Success', $photos);
             }
 
-            // DISCUSS w/ Chris.
-            // Problematic since photos should be filtered by account_id
-            // Getting of account is prohibited due to current setup of this controller
-            $photos = Photo::where('account_id', $this->account->id)
-                ->get();
-
-            return $this->jsonApiResponse(self::STATUS_SUCCESS, 'Success', $photos);
 
         } catch(Exception $exception) {
+
             return $this->jsonApiResponse(self::STATUS_ERROR, $exception->getMessage());
         }
     }
@@ -84,10 +83,13 @@ class ApiPhotoController extends ApiAuthController
                 throw new ErrorException("There was a problem while deleting the photo");
             }
 
-            $this->jsonApiResponse(self::STATUS_SUCCESS, 'Successfully deleted photo');
+            $photos = Photo::where('account_id', $this->account->id)
+                ->get();
+
+            return $this->jsonApiResponse(self::STATUS_SUCCESS, 'Successfully deleted photo', $photos);
 
         } catch (Exception $exception) {
-            $this->jsonApiResponse(self::STATUS_ERROR, $exception->getMessage());
+            return $this->jsonApiResponse(self::STATUS_ERROR, $exception->getMessage());
         }
 
     }
