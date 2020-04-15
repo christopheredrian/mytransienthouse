@@ -190,6 +190,7 @@ const Photos = ({loggedInUser = null}) => {
                                                         })
                                                     )
                                                 }
+
                                             </div>
                                         </div>
                                     </div>

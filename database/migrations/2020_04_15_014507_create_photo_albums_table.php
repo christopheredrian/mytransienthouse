@@ -24,7 +24,7 @@ class CreatePhotoAlbumsTable extends Migration
 
             $table->string('name', 191);
             $table->string('description', 191);
-            $table->boolean('is_featured');
+            $table->boolean('is_featured')->nullable();
             $table->softDeletes();
             $table->timestamps();
 

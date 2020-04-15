@@ -10,10 +10,11 @@ import {
 
 import Login from "../Login";
 import Photos from './Photos';
+import PhotoAlbumsList from './PhotoAlbums/PhotoAlbumsList';
 import Dashboard from './Dashboard';
 import FaqsList from '../faqs/FaqsList';
 import {
-    Camera, Activity, HelpCircle, Menu, LogOut
+    Camera, Activity, HelpCircle, Menu, LogOut, Book, Image
 } from 'react-feather';
 
 import {logoutUser, setLoggedInUser} from "../../actions/auth";
@@ -61,10 +62,35 @@ const BusinessOwnerSideBar = () => {
                             <div className="nav-link-icon"><Activity/></div>
                             Dashboard
                         </Link>
-                        <Link to={`${BUSINESS_OWNER_ROOT_PATH}/photos`} className={'nav-link'}>
+
+                        <a
+                            className="nav-link collapsed"
+                            data-toggle="collapse"
+                            data-target="#collapseLayouts"
+                            aria-expanded="false"
+                            aria-controls="collapseLayouts"
+                            style={ {cursor: "pointer" } }
+                        >
                             <div className="nav-link-icon"><Camera/></div>
                             Photos
-                        </Link>
+                            <div className="sidenav-collapse-arrow"><i className="fas fa-angle-down"></i>
+                            </div>
+                        </a>
+
+                        <div className="collapse" id="collapseLayouts" data-parent="#accordionSidenav">
+                            <nav className="sidenav-menu-nested nav accordion" id="accordionSidenavLayout">
+                                <Link to={`${BUSINESS_OWNER_ROOT_PATH}/photos`} className={'nav-link'}>
+                                    <div className="nav-link-icon"><Image/></div>
+                                    All Photos
+                                </Link>
+
+                                <Link to={`${BUSINESS_OWNER_ROOT_PATH}/photo-albums`} className={'nav-link'}>
+                                    <div className="nav-link-icon"><Book/></div>
+                                    Albums
+                                </Link>
+                            </nav>
+                        </div>
+
                         <Link to={`${BUSINESS_OWNER_ROOT_PATH}/faqs`} className={'nav-link'}>
                             <div className="nav-link-icon"><HelpCircle/></div>
                             FAQs
@@ -99,6 +125,7 @@ const BusinessOwnerApp = ({logoutUser}) => {
                         <Switch>
                             <Route path={`${BUSINESS_OWNER_ROOT_PATH}`} exact={true}><Dashboard/></Route>
                             <Route path={`${BUSINESS_OWNER_ROOT_PATH}/photos`}><Photos/></Route>
+                            <Route path={`${BUSINESS_OWNER_ROOT_PATH}/photo-albums`}><PhotoAlbumsList/></Route>
                             <Route path={`${BUSINESS_OWNER_ROOT_PATH}/faqs`}><FaqsList/></Route>
                             <Route path={`login`}><Login/></Route>
                         </Switch>

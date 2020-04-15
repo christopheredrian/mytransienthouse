@@ -22,7 +22,7 @@ class CreatePhotoAlbumPhotosTable extends Migration
                 ->comment('What photo album the entry is associated')
                 ->index();
 
-            $table->boolean('is_featured');
+            $table->boolean('is_featured')->nullable();
             $table->timestamps();
 
             $table->foreign('photo_id')

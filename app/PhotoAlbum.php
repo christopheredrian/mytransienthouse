@@ -3,9 +3,10 @@
 namespace App;
 
 
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class PhotoAlbum
+class PhotoAlbum extends Model
 {
     use SoftDeletes;
 
