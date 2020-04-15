@@ -44,6 +44,8 @@ Route::domain("{subdomain}.{$appDomain}")->group(function () {
     // START: Public
     Route::get('/gallery', 'PhotoController@index');
     Route::get('/', 'PublicController@index');
+    Route::get('contact', 'PublicController@contact');
+    Route::post('contact', 'PublicController@submit');
     // END: Public
 
     Route::group(['middleware' => 'auth', 'prefix' => 'bo'], function (\Illuminate\Routing\Router $router) {
@@ -51,15 +53,6 @@ Route::domain("{subdomain}.{$appDomain}")->group(function () {
         Route::get('/{path?}', function () {
             return view('business-owner');
         });
-
-        // todo Chris: Convert to React
-        // START: Business owner
-//        Route::post('faqs/destroy', 'FaqsController@destroy');
-//        Route::post('faqs/upsert', 'FaqsController@upsert');
-//        Route::get('faqs/{id}/edit', 'FaqsController@edit');
-//        Route::get('faqs/create', 'FaqsController@create'); // todo: modify
-//        Route::get('faqs', 'FaqsController@index');
-        // END: Business Owner Routes
 
     });
 
@@ -115,9 +108,3 @@ Route::group([
     // test route
     Route::post('test', 'StaticController@test');
 });
-
-// START: Public
-Route::get('/', function () {
-    return view('public.index');
-});
-// END: Public

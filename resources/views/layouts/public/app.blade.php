@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
     <meta name="description" content=""/>
     <meta name="author" content=""/>
-    <title>My Transient House</title>
+    <title>{{ isset($account) ? $account->company_name : 'My Transient House' }}</title>
     <link href={{ asset('sb-kit-ui-pro/css/styles.css') }} rel="stylesheet"/>
     <link rel="icon" type="image/x-icon" href={{ asset('sb-kit-ui-pro/assets/img/favicon.png') }}/>
     <script data-search-pseudo-elements defer
@@ -18,13 +18,12 @@
     @yield('styles')
 
 
-
 </head>
 
 <body>
 <div id="layoutDefault">
     <div id="layoutDefault_content">
-        <main>
+        <main class="bg-light">
 
             @include('layouts.public.navbar')
 

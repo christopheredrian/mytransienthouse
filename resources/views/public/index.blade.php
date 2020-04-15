@@ -115,7 +115,7 @@
         <div class="container z-1">
             <div class="mt-5">
                 <div class="display-4 mb-3 text-dark">Ready to book?</div>
-                <a class="btn btn-primary btn-marketing rounded-pill" href="#!">Search Availability</a>
+                <a class="btn btn-primary btn-marketing rounded-pill" href="/contact">Book Now</a>
             </div>
         </div>
         <div class="svg-border-angled text-white">
@@ -125,34 +125,5 @@
             </svg>
         </div>
     </section>
-    {{--    <section class="bg-white py-10">--}}
-    {{--        <div class="container">--}}
-    {{--            <div class="row">--}}
-    {{--                <div class="col-lg-6 mb-5 mb-lg-0 divider-right">--}}
-    {{--                    <div class="testimonial p-lg-5">--}}
-    {{--                        <div class="mb-3 text-yellow"><i class="fas fa-star"></i><i class="fas fa-star"></i><i--}}
-    {{--                                class="fas fa-star"></i><i class="fas fa-star"></i><i--}}
-    {{--                                class="fas fa-star"></i></div>--}}
-    {{--                        <p class="testimonial-quote text-primary">"I was impressed with how beautiful and clean--}}
-    {{--                            this property was. The owner definitely goes the extra mile to help their--}}
-    {{--                            guests!"</p>--}}
-    {{--                        <div class="testimonial-name">Dustine</div>--}}
-    {{--                        <div class="testimonial-position">Cali, Colombia</div>--}}
-    {{--                    </div>--}}
-    {{--                </div>--}}
-    {{--                <div class="col-lg-6">--}}
-    {{--                    <div class="testimonial p-lg-5">--}}
-    {{--                        <div class="mb-3 text-yellow"><i class="fas fa-star"></i><i class="fas fa-star"></i><i--}}
-    {{--                                class="fas fa-star"></i><i class="fas fa-star"></i><i--}}
-    {{--                                class="fas fa-star"></i></div>--}}
-    {{--                        <p class="testimonial-quote text-primary">"Amazing location, convenient parking, and a--}}
-    {{--                            lots of amenities and extras. I will definitely be returning here whenever I'm in--}}
-    {{--                            town."</p>--}}
-    {{--                        <div class="testimonial-name">Lia Peterson</div>--}}
-    {{--                        <div class="testimonial-position">Sacramento, CA, USA</div>--}}
-    {{--                    </div>--}}
-    {{--                </div>--}}
-    {{--            </div>--}}
-    {{--        </div>--}}
-    {{--    </section>--}}
+
 @endsection
