@@ -90,11 +90,21 @@ Route::group([
          * Users
          * /api/photos/
          */
-        Route::get('/{id}', 'PhotoController@photos');
-        Route::post('/upload_photo', 'PhotoController@uploadPhoto');
-        Route::post('/delete_photo', 'PhotoController@deletePhoto');
+        Route::get('/', 'ApiPhotoController@all');
+        Route::post('/upload_photo', 'ApiPhotoController@upload');
+        Route::post('/delete_photo', 'ApiPhotoController@delete');
 
-        // todo: Sean FAQ api
+    });
+
+    Route::group(['prefix' => 'photo_albums'], function () {
+        /**
+         * Users
+         * /api/photos/
+         */
+        Route::get('/', 'ApiPhotoAlbumController@all');
+        Route::post('/upload_photo_album', 'ApiPhotoAlbumController@upload');
+        Route::post('/delete_photo_album', 'ApiPhotoAlbumController@delete');
+
     });
 
 

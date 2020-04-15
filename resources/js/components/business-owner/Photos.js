@@ -1,12 +1,69 @@
-import React, { useState, useEffect } from 'react';
-import {connect} from 'react-redux';
-import axios from'axios';
+import React, {useState, useEffect} from 'react';
+import {Camera, Image} from 'react-feather';
 
-import Endpoints from "./../../config/Endpoints";
+import {
+    fetchAll, uploadPhoto, deletePhoto
+} from "../../services/PhotosServices";
 
 const Photos = ({loggedInUser = null}) => {
+
     const [photos, setPhotos] = useState([]);
     const [photoFiles, setPhotoFiles] = useState('');
+    const [errorMessage, setErrorMessage] = useState(null);
+
+    const fetchAllPhotos = () => {
+        fetchAll((photos) => {
+            setPhotos(photos);
+        }, (error) => {
+            // todo: handle
+        })
+    };
+
+    useEffect(() => {
+        fetchAllPhotos();
+    }, []);
+
+    const onFileSelectChange = (e) => {
+        e.preventDefault();
+        setPhotoFiles(e.target.files);
+    };
+
+    const onSuccess = (response) => {
+        console.log('boom');
+        fetchAllPhotos();
+    };
+
+    const onUpload = (e) => {
+        e.preventDefault();
+
+        const data = new FormData();
+        Array.from(photoFiles).forEach(photoFile => data.append('photos[]', photoFile));
+
+        uploadPhoto(data, (response) => {
+
+            if (_.isFunction(onSuccess)) {
+                onSuccess(response);
+            }
+
+        }, (message) => {
+            setErrorMessage(message);
+        });
+
+    };
+
+    const onDelete = (e, id) => {
+        e.preventDefault();
+
+        deletePhoto(id, (response) => {
+
+            if (_.isFunction(onSuccess)) {
+                onSuccess(response);
+            }
+
+        }, (message) => {
+            setErrorMessage(message);
+        });
+    };
 
     const photoStyle = {
         width: "100%",
@@ -15,93 +72,15 @@ const Photos = ({loggedInUser = null}) => {
         objectPosition: "50% -0%"
     };
 
-    const onFileChange = (e) => {
-        e.preventDefault();
-
-        setPhotoFiles(e.target.files);
-    };
-
-    const uploadPhoto = (e) => {
-        e.preventDefault();
-
-        const data = new FormData();
-
-        Array.from(photoFiles).forEach(photoFile => data.append('photos[]', photoFile));
-        data.append('userId', loggedInUser.id);
-
-        /**
-         * Get data from endpoint
-         */
-        axios.post(`${Endpoints.UPLOAD_PHOTO}`, data)
-            .then(({data}) => {
-                /**
-                 * Success response
-                 * set state data
-                 */
-
-                // console.log(`DEBUG: Successfully uploaded photo!`, data);
-                getPhotos();
-            })
-            .catch(error => {
-                console.error(error);
-                alert("There was an error uploading the photo.");
-            });
-
-    };
-
-    const deletePhoto = (e, photoId) => {
-        e.preventDefault();
-
-        axios.post(`${Endpoints.DELETE_PHOTO}`, {
-            userId: loggedInUser.id,
-            photoId
-        }).then(({data}) => {
-                /**
-                 * Success response
-                 * set state data
-                 */
-
-                // console.log(`DEBUG: Successfully deleted photo!`, data);
-                getPhotos();
-            })
-            .catch(error => {
-                console.error(error);
-                alert("There was an error deleting the photo.");
-            });
-    };
-
-    const getPhotos = () => {
-
-        /**
-         * Get data from endpoint
-         */
-        axios.get(`${Endpoints.PHOTOS_DATA}/${loggedInUser.id}`)
-            .then(({data}) => {
-                /**
-                 * Success response
-                 * set state data
-                 */
-
-                // console.log('DEBUG: PHOTO DATA', data)
-                setPhotos(data.data);
-            })
-            .catch(error => {
-                console.error(error);
-                alert("There was an error while fetching requests");
-            });
-    };
-
-    useEffect(() => {
-        getPhotos();
-    }, []);
-
     return (
         <main>
             <div className="page-header pb-10 page-header-dark bg-gradient-primary-to-secondary">
                 <div className="container-fluid">
                     <div className="page-header-content">
                         <h1 className="page-header-title">
-                            <div className="page-header-icon"><i data-feather="camera"></i></div>
+                            <div className="page-header-icon">
+                                <Camera />
+                            </div>
                             <span>Photos</span>
                         </h1>
                         <div className="page-header-subtitle">Photo overview and management of your residence</div>
@@ -118,14 +97,14 @@ const Photos = ({loggedInUser = null}) => {
                                 <div className="card-body">
                                     <div className="sbp-preview">
                                         <div className="sbp-preview-content">
-                                            <form onSubmit={(e) => uploadPhoto(e)} encType="multipart/form-data">
+                                            <form onSubmit={(e) => onUpload(e)} encType="multipart/form-data">
                                                 <div className="form-group">
                                                     <input
                                                         type="file"
                                                         name="photos[]"
                                                         accept=".jpeg, .jpg, .png"
                                                         className="form-control-file"
-                                                        onChange={(e) => onFileChange(e)}
+                                                        onChange={(e) => onFileSelectChange(e)}
                                                         multiple
                                                         required
                                                     />
@@ -150,7 +129,7 @@ const Photos = ({loggedInUser = null}) => {
                                 <div className="card card-icon ">
                                     <div className="row no-gutters">
                                         <div className="col-auto card-icon-aside bg-warning">
-                                            <i data-feather="camera"></i>
+                                            <Image />
                                         </div>
                                         <div className="col">
                                             <div className="card-body py-5">
@@ -191,19 +170,13 @@ const Photos = ({loggedInUser = null}) => {
                                                                             <img className="card-img-top"
                                                                                  src={ photo.url }
                                                                                  alt=" ..."
-                                                                                 style={photoStyle} />
+                                                                                 style={photoStyle}/>
                                                                         </div>
 
                                                                         <div className="card-body">
                                                                             <form
-                                                                                onSubmit={(e) => deletePhoto(e, photo.id)}
+                                                                                onSubmit={(e) => onDelete(e, photo.id)}
                                                                             >
-                                                                                {/*<input*/}
-                                                                                    {/*type="hidden"*/}
-                                                                                    {/*id="photoId"*/}
-                                                                                    {/*name="id"*/}
-                                                                                    {/*value={photo.id}*/}
-                                                                                {/*/>*/}
                                                                                 <button
                                                                                     className="btn btn-outline-danger btn-sm float-right"
                                                                                     type="submit">
@@ -217,6 +190,7 @@ const Photos = ({loggedInUser = null}) => {
                                                         })
                                                     )
                                                 }
+
                                             </div>
                                         </div>
                                     </div>
@@ -230,10 +204,4 @@ const Photos = ({loggedInUser = null}) => {
     );
 };
 
-const mapStateToProps = (state) => {
-    return {
-        loggedInUser: state.loggedInUser ? state.loggedInUser : null,
-    }
-};
-
-export default connect(mapStateToProps)(Photos);
+export default Photos;
