@@ -1,12 +1,12 @@
-import React, {useState, useEffect} from 'react';
-import {Book, Plus} from 'react-feather';
+import React, { useState, useEffect } from 'react';
+import { Book, Plus } from 'react-feather';
 
 import UpsertPhotoAlbumModal from './UpsertPhotoAlbumModal';
-
 import { fetchAll } from '../../../services/PhotoAlbumsServices';
 
 const PhotoAlbumsList = () => {
 
+    const [show, setShow] = useState(false);
     const [photoAlbums, setPhotoAlbums] = useState(null);
 
     const fetchAllPhotoAlbums = () => {
@@ -20,6 +20,10 @@ const PhotoAlbumsList = () => {
     useEffect(() => {
         fetchAllPhotoAlbums();
     }, []);
+
+    const onUpsertSuccess = () => {
+        fetchAllPhotoAlbums();
+    };
 
     return (
         <main>
@@ -47,61 +51,74 @@ const PhotoAlbumsList = () => {
                                     <button
                                         className="btn btn-primary btn-sm"
                                         type="button"
-                                        data-toggle="modal"
-                                        data-target="#upsertPhotoAlbumModal"
+                                        onClick={() => { setShow(true) }}
                                     >
-                                        <Plus/> Create Album
+                                        <Plus /> Create Album
                                     </button>
                                 </div>
                                 <div className="card-body">
-                                    <div className="row">
-
-
-                                        {
-                                            !Array.isArray(photoAlbums) || photoAlbums.length === 0 ? (
-                                                <div className="justify-content-center">
-                                                    <p colSpan="3">No Photo Albums</p>
-                                                </div>
-                                            ) : (
-                                                photoAlbums.map((photoAlbum) => {
-                                                    return (
-                                                        <div className="col-md-4" key={photoAlbum.id}>
-                                                            <div className="card mb-4 box-shadow">
-                                                                <img className="card-img-top"
-                                                                     src="https://mytransienthouse.s3.amazonaws.com/local/dev/sean/photos/1_genove/business-owner/19096247_10209699730152335_1697922340_o.jpg"
-                                                                     alt="Card image cap"/>
-                                                                <div className="card-body">
-                                                                    <h5 className="card-title">{photoAlbum.name}</h5>
-                                                                    <p className="card-text">
-                                                                        {photoAlbum.description}
-                                                                    </p>
-                                                                    <div className="d-flex justify-content-between align-items-center">
-                                                                        <div className="btn-group">
-                                                                            <button
-                                                                                type="button"
-                                                                                className="btn btn-sm btn-outline-secondary"
-                                                                            >
-                                                                                View
+                                    <div className="comntainer">
+                                        <div className="row">
+                                            {
+                                                !Array.isArray(photoAlbums) || photoAlbums.length === 0 ? (
+                                                    <div className="justify-content-center">
+                                                        <p colSpan="3">No Photo Albums</p>
+                                                    </div>
+                                                ) : (
+                                                        photoAlbums.map((photoAlbum) => {
+                                                            return (
+                                                                <div className="col-lg-3 d-flex align-items-stretch" key={photoAlbum.id}>
+                                                                    <div className="card mb-4 box-shadow">
+                                                                        <img className="card-img-top"
+                                                                            src={photoAlbum.url}
+                                                                            alt="Card image cap"
+                                                                            style={{ width: "100%", height: "15vw", objectFit: "cover", objectPosition: "50% -0%" }}
+                                                                        />
+                                                                        <div className="card-body px-3 py-3">
+                                                                            <div className="text-dark  mb-2">
+                                                                                {photoAlbum.name}
+                                                                                <div className="text-xs text-muted">
+                                                                                    {
+                                                                                        photoAlbum.description.length <= 90 ? (
+                                                                                            photoAlbum.description
+                                                                                        ) : (
+                                                                                            `${photoAlbum.description.substring(0, 90)}...`
+                                                                                        )
+                                                                                    }
+                                                                                </div>
+                                                                            </div>
+                                                                            <div className="d-flex justify-content-between align-items-center">
+                                                                                <div className="btn-group">
+                                                                                    <button
+                                                                                        type="button"
+                                                                                        className="btn btn-sm btn-outline-secondary"
+                                                                                    >
+                                                                                        View
                                                                             </button>
-                                                                            <button
-                                                                                type="button"
-                                                                                className="btn btn-sm btn-outline-secondary"
-                                                                            >
-                                                                                Edit
+                                                                                    <button
+                                                                                        type="button"
+                                                                                        className="btn btn-sm btn-outline-secondary"
+                                                                                    >
+                                                                                        Edit
                                                                             </button>
+                                                                                </div>
+                                                                            </div>
                                                                         </div>
                                                                     </div>
                                                                 </div>
-                                                            </div>
-                                                        </div>
-                                                    );
-                                                })
-                                            )
-                                        }
+                                                            );
+                                                        })
+                                                    )
+                                            }
+                                        </div>
                                     </div>
                                 </div>
 
-                                <UpsertPhotoAlbumModal/>
+                                <UpsertPhotoAlbumModal
+                                    show={show}
+                                    setShow={setShow}
+                                    onUpsertSuccess={onUpsertSuccess}
+                                />
 
                             </div>
                         </div>

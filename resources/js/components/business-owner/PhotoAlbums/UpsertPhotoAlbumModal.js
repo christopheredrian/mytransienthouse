@@ -1,7 +1,11 @@
-import React, {useState, useEffect} from 'react';
-import {fetchAll} from "../../../services/PhotosServices"
+import React, { useState, useEffect } from 'react';
+import { Modal } from 'react-bootstrap';
+import { Minus, Plus } from 'react-feather';
 
-import {uploadPhotoAlbum} from '../../../services/PhotoAlbumsServices';
+import { fetchAll } from "../../../services/PhotosServices"
+import { uploadPhotoAlbum } from '../../../services/PhotoAlbumsServices';
+
+import './UpsertPhotoAlbumModal.css'
 
 const AlbumForm = ({ onAlbumNameChange, onAlbumDescriptionChange }) => {
 
@@ -9,116 +13,111 @@ const AlbumForm = ({ onAlbumNameChange, onAlbumDescriptionChange }) => {
         <div className="col-lg-2">
             <div className="form-group">
                 <input className="form-control form-control-sm" id="name" type="text" placeholder="Album name"
-                    onChange={(e) => onAlbumNameChange(e, e.target.value)}
+                    onChange={(e) => onAlbumNameChange(e.target.value)} required
                 />
             </div>
             <div className="form-group">
-                <textarea className="form-control form-control-sm" id="description" rows="3" placeholder="Description"
-                    onChange={(e) => onAlbumDescriptionChange(e, e.target.value)}
+                <textarea
+                    className="form-control form-control-sm" id="description" rows="3" placeholder="Description"
+                    onChange={(e) => onAlbumDescriptionChange(e.target.value)} required
                 />
-            </div>
-        </div>
-    );
-}
-
-const SelectedPhotos = ({selectedPhotos, onDeselectPhoto, photoStyle}) => {
-
-    return (
-        <div className="col-lg-5">
-            <label>Selected photos</label>
-            <div className="card card-scrollable">
-                <div className="sbp-preview">
-                    <div className="sbp-preview-content">
-                        <div style={{overflowY: "auto", maxHeight: "350px"}}>
-                            <div className="card-body">
-                                <div className="row">
-                                    {
-                                        !Array.isArray(selectedPhotos) ||
-                                        selectedPhotos.length === 0 ? (
-                                            <div className="justify-content-center">
-                                                <p colSpan="3">No selected photos</p>
-                                            </div>
-                                        ) : (
-                                            selectedPhotos.map((selectedPhoto) => {
-                                                return (
-                                                    <div className="col-lg-4" key={selectedPhoto.id}>
-                                                        <div className="card mb-4 box-shadow">
-                                                            <img className="card-img"
-                                                                 src={selectedPhoto.url}
-                                                                 style={photoStyle}/>
-                                                            <div className="card-img-overlay">
-                                                                <div className="btn-group float-right">
-                                                                    <button className="btn btn-danger btn-xs btn-icon"
-                                                                        onClick={(e) => onDeselectPhoto(e, {
-                                                                            id: selectedPhoto.id,
-                                                                            url: selectedPhoto.url
-                                                                        })}
-                                                                    >
-                                                                        <i className="fas fa-minus"></i>
-                                                                    </button>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                );
-                                            })
-                                        )
-                                    }
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
             </div>
         </div>
     );
 };
 
-const PhotoPool = ({photos, onSelectPhoto, photoStyle}) => {
+const PhotoButtons = ({ label, photo, onPhotoSelect, onSelectFeaturedPhoto = null }) => {
+    
+    return (
+        <div>
+            {
+                label === "selected" ? (
+                    <div className="d-flex justify-content-between">
+                        <button
+                            className={`btn btn-xs btn-${photo.isFeatured ? 'yellow' : 'blue'} btn-icon`} type="button" title="Make cover photo"
+                            onClick={() => onSelectFeaturedPhoto(photo.id)}
+                        >
+                            <i className="fas fa-star" />
+                        </button>
+
+                        <button
+                            className="btn btn-xs btn-red btn-icon" type="button" title="Remove from photo album"
+                            onClick={(e) => onPhotoSelect({ id: photo.id, url: photo.url, isFeatured: false })}
+                        >
+                            <i className="fas fa-minus" />
+                        </button>
+                    </div>
+                ) : (
+                        <div className="d-flex justify-content-end">
+                            <button
+                                className="btn btn-xs btn-green btn-icon" type="button" title="Add to photo album"
+                                onClick={(e) => onPhotoSelect({ id: photo.id, url: photo.url, isFeatured: false })}
+                            >
+                                <i className="fas fa-plus" />
+                            </button>
+                        </div>
+                    )
+            }
+        </div>
+    );
+
+};
+
+const PhotoPool = ({ label, photos, onPhotoSelect, onSelectFeaturedPhoto = null }) => {
+
+    const photoStyle = {
+        objectFit: "cover",
+        width: "100%",
+        height: "12vh",
+        objectPosition: "50% -0%",
+        maxWidth: "100px",
+        maxHeight: "100px",
+    };
 
     return (
         <div className="col-lg-5">
-            <label>Photo pool</label>
+            <div className="text-dark ml-2 mb-2">
+                {label === 'selected' ? "Selected Photos" : "Photo Pool"}
+                <div className="text-xs text-muted">
+                    {label === 'selected' ? "Photos included in this album" : "Available photos not included in this album."}
+                </div>
+            </div>
             <div className="card">
                 <div className="sbp-preview">
                     <div className="sbp-preview-content">
-                        <div style={{overflowY: "auto", maxHeight: "350px"}}>
+                        <div style={{ overflowY: "auto", maxHeight: "500px" }}>
                             <div className="card-body">
                                 <div className="row">
                                     {
                                         !Array.isArray(photos) || photos.length === 0 ? (
                                             <div className="justify-content-center">
-                                                <p colSpan="3">No uploaded photos</p>
+                                                <p colSpan="3">
+                                                    {
+                                                        label === 'selected' ? "No selected photos" : "No uploaded photos"
+                                                    }
+                                                </p>
                                             </div>
                                         ) : (
-                                            photos.map((photo) => {
-                                                return (
-                                                    <div className="col-lg-4" key={photo.id}>
-                                                        <div className="card mb-4 box-shadow">
-                                                            <img className="card-img" src={photo.url} alt="Card image"
-                                                                 style={photoStyle}
-                                                            />
-                                                            <div className="card-img-overlay">
-                                                                <div
-                                                                    className="btn-group float-right">
-                                                                    <button
-                                                                        className="btn btn-success btn-xs btn-icon"
-                                                                        onClick={
-                                                                            (e) => onSelectPhoto(e, {
-                                                                                id: photo.id,
-                                                                                url: photo.url
-                                                                            })
-                                                                        }
-                                                                    >
-                                                                        <i className="fas fa-plus"></i>
-                                                                    </button>
+                                                photos.map((photo) => {
+                                                    return (
+                                                        <div className="col-lg-3 col-sm-2" key={photo.id}>
+                                                            <div className="card mb-4 box-shadow">
+                                                                <img className="card-img"
+                                                                    src={photo.url}
+                                                                    style={photoStyle} />
+                                                                <div className="card-img-overlay p-1">
+                                                                    <PhotoButtons
+                                                                        label={label}
+                                                                        photo={photo}
+                                                                        onPhotoSelect={onPhotoSelect}
+                                                                        onSelectFeaturedPhoto={onSelectFeaturedPhoto}
+                                                                    />
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                    </div>
-                                                );
-                                            })
-                                        )
+                                                    );
+                                                })
+                                            )
                                     }
                                 </div>
                             </div>
@@ -130,7 +129,7 @@ const PhotoPool = ({photos, onSelectPhoto, photoStyle}) => {
     );
 };
 
-const UpsertPhotoAlbumModal = () => {
+const UpsertPhotoAlbumModal = ({ show, setShow, onUpsertSuccess }) => {
 
     const [photos, setPhotos] = useState(null);
     const [albumData, setAlbumData] = useState({
@@ -151,50 +150,59 @@ const UpsertPhotoAlbumModal = () => {
         fetchAllPhotos();
     }, []);
 
-    const onAlbumNameChange = (e, name) => {
-        e.preventDefault();
-
+    const onAlbumNameChange = (name) => {
         setAlbumData({
             ...albumData,
             name
         });
     };
 
-    const onAlbumDescriptionChange = (e, description) => {
-        e.preventDefault();
-
+    const onAlbumDescriptionChange = (description) => {
         setAlbumData({
             ...albumData,
             description
         });
     };
 
-    const onSelectPhoto = (e, selectedPhoto) => {
-        e.preventDefault();
-
+    const onSelectPhoto = (selectedPhoto) => {
+        // Remove photo from photo pool
         setPhotos(photos.filter(photo => photo.id !== selectedPhoto.id));
+
+        // Add photo to selected photos
         setAlbumData({
             ...albumData,
             selectedPhotos: albumData.selectedPhotos.concat([selectedPhoto])
         });
     };
 
-    const onDeselectPhoto = (e, deselectedPhoto) => {
-        e.preventDefault();
-
+    const onDeselectPhoto = (deselectedPhoto) => {
+        // Remove photo from selected photos
         setAlbumData({
             ...albumData,
             selectedPhotos: albumData.selectedPhotos.filter(selectedPhoto => selectedPhoto.id !== deselectedPhoto.id)
         });
+
+        // Add photo to photo pool
         setPhotos(photos.concat([deselectedPhoto]));
+    };
+
+    const onSelectFeaturedPhoto = (id) => {
+        setAlbumData({
+            ...albumData,
+            selectedPhotos: albumData.selectedPhotos.map(selectedPhoto => {
+                selectedPhoto.isFeatured = (selectedPhoto.id === id)
+                return selectedPhoto;
+            })
+        });
 
     };
 
+    const onSuccess = (response) => {
+        setShow(false);
+        onUpsertSuccess();
+    };
+
     const onSave = (e) => {
-        e.preventDefault();
-
-        console.log(albumData);
-
         uploadPhotoAlbum(albumData, (response) => {
 
             if (_.isFunction(onSuccess)) {
@@ -206,63 +214,58 @@ const UpsertPhotoAlbumModal = () => {
         });
     };
 
-    const onSuccess = (response) => {
-        console.log('onSuccess');
-    };
-
-    const photoStyle = {
-        objectFit: "cover",
-        width: "100%",
-        height: "12vh",
-        objectPosition: "50% -0%"
-    };
-
     return (
-        <div className="modal fade" id="upsertPhotoAlbumModal" tabIndex="-1" role="dialog"
-            aria-labelledby="upsertPhotoAlbumModal" aria-hidden="true"
-        >
-            <div className="modal-dialog modal-xl" role="document">
-                <div className="modal-content">
+        <div>
+            <Modal
+                show={show}
+                onHide={() => setShow(false)}
+                dialogClassName="modal-90w"
+                aria-labelledby="example-custom-modal-styling-title"
+            >
+                <Modal.Header closeButton>
+                    <Modal.Title id="example-custom-modal-styling-title">
+                        Create Album
+                    </Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                    <div className="container-fluid">
+                        <div className="row" style={{ height: "100%" }}>
 
-                    <div className="modal-header">
-                        <h5 className="modal-title">Create Album</h5>
-                        <button className="close" type="button" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">×</span>
-                        </button>
-                    </div>
+                            <AlbumForm
+                                onAlbumNameChange={onAlbumNameChange}
+                                onAlbumDescriptionChange={onAlbumDescriptionChange}
+                            />
+                            <PhotoPool
+                                label={"selected"}
+                                photos={albumData.selectedPhotos}
+                                onPhotoSelect={onDeselectPhoto}
+                                onSelectFeaturedPhoto={onSelectFeaturedPhoto}
+                            />
+                            <PhotoPool
+                                label={"pool"}
+                                photos={photos}
+                                onPhotoSelect={onSelectPhoto}
+                            />
 
-                    <div className="modal-body">
-                        <div className="container-fluid">
-                            <div className="row" style={{height: "70vh"}}>
-
-                                <AlbumForm
-                                    onAlbumNameChange={onAlbumNameChange}
-                                    onAlbumDescriptionChange={onAlbumDescriptionChange}
-                                />
-                                <SelectedPhotos
-                                    selectedPhotos={albumData.selectedPhotos}
-                                    onDeselectPhoto={onDeselectPhoto}
-                                    photoStyle={photoStyle}
-                                />
-                                <PhotoPool
-                                    photos={photos}
-                                    onSelectPhoto={onSelectPhoto}
-                                    photoStyle={photoStyle}
-                                />
-
-                            </div>
                         </div>
                     </div>
-
-                    <div className="modal-footer">
-                        <button className="btn btn-primary" type="button" onClick={(e) => onSave(e)}  data-dismiss="modal">
+                </Modal.Body>
+                <Modal.Footer>
+                    <div className="row">
+                        <button
+                            className="btn btn-primary"
+                            type="button"
+                            onClick={(e) => onSave(e)}
+                            disabled={!albumData.name || !albumData.description || albumData.selectedPhotos.length === 0}
+                        >
                             Save
                         </button>
                     </div>
-                </div>
-            </div>
+                </Modal.Footer>
+            </Modal>
         </div>
     );
-}
+
+};
 
 export default UpsertPhotoAlbumModal;
