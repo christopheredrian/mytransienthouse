@@ -1,5 +1,4 @@
 import axios from 'axios';
-import Endpoints from "../config/Endpoints";
 import _ from 'lodash';
 
 export const API_SUCCESS = 'success';
@@ -15,6 +14,23 @@ export const API_ERROR = 'error';
  * @constructor
  */
 export const AppApiRequest = (endpoint, method, onSuccess, onError, data = {}) => {
+
+
+    if (method.toUpperCase() === 'GET' && !_.isEmpty(data)) {
+        // Convert data to query params
+        // { a: b, c: d}  -----> /endpoint?a=b&c=d
+
+        const queryParams = _.map(data, (value, key) => {
+            return `${key}=${value}`;
+        });
+
+        if (queryParams.length > 0) {
+            const queryStr = queryParams.join('&');
+            endpoint = `${endpoint}?${queryStr}`;
+            data = {};
+        }
+
+    }
 
     axios({
         url: endpoint,

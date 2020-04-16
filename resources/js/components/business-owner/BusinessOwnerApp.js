@@ -13,8 +13,10 @@ import Photos from './Photos';
 import PhotoAlbumsList from './PhotoAlbums/PhotoAlbumsList';
 import Dashboard from './Dashboard';
 import FaqsList from '../faqs/FaqsList';
+import SupportRequests from '../SupportRequests/index';
 import {
-    Camera, Activity, HelpCircle, Menu, LogOut, Book, Image
+    Camera, Activity, HelpCircle, Menu, LogOut, Book,
+    Image, Phone
 } from 'react-feather';
 
 import {logoutUser, setLoggedInUser} from "../../actions/auth";
@@ -91,6 +93,11 @@ const BusinessOwnerSideBar = () => {
                             </nav>
                         </div>
 
+                        <Link to={`${BUSINESS_OWNER_ROOT_PATH}/support_requests`} className={'nav-link'}>
+                            <div className="nav-link-icon"><Phone/></div>
+                            Support Requests
+                        </Link>
+
                         <Link to={`${BUSINESS_OWNER_ROOT_PATH}/faqs`} className={'nav-link'}>
                             <div className="nav-link-icon"><HelpCircle/></div>
                             FAQs
@@ -127,6 +134,7 @@ const BusinessOwnerApp = ({logoutUser}) => {
                             <Route path={`${BUSINESS_OWNER_ROOT_PATH}/photos`}><Photos/></Route>
                             <Route path={`${BUSINESS_OWNER_ROOT_PATH}/photo-albums`}><PhotoAlbumsList/></Route>
                             <Route path={`${BUSINESS_OWNER_ROOT_PATH}/faqs`}><FaqsList/></Route>
+                            <Route path={`${BUSINESS_OWNER_ROOT_PATH}/support_requests`}><SupportRequests/></Route>
                             <Route path={`login`}><Login/></Route>
                         </Switch>
 

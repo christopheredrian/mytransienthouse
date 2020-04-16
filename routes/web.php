@@ -115,6 +115,10 @@ Route::group([
         Route::post('/delete/{id}', 'FaqsController@delete');
     });
 
+    Route::group(['prefix' => 'support_requests'], function () {
+        Route::get('/', 'ApiSupportRequestsController@all');
+    });
+
     // test route
     Route::post('test', 'StaticController@test');
 });
