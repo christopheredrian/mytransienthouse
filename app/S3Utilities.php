@@ -2,55 +2,67 @@
 
 namespace App;
 
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
+use InvalidArgumentException;
 
 class S3Utilities
 {
     const VALID_PHOTO_EXTENSIONS = array("jpeg", "jpg", "png");
 
+    /**
+     * @param string $fileNameWithExtension
+     * @return string
+     */
     public static function generateHashToFileName(string $fileNameWithExtension)
     {
 
-        $randomString = Hash::make(time());
-        $randomHash   = substr($randomString, strlen($randomString) - 10, strlen($randomString));
+        $randomString = md5(time() . rand(0, 100));
+        $randomHash = substr($randomString, 0, 10);
 
-        $extensionPos  = strrpos($fileNameWithExtension, '.');
-        $fileName      = substr($fileNameWithExtension, 0, $extensionPos);
-        $fileExtension = substr($fileNameWithExtension, $extensionPos);
+        $parts = pathinfo($fileNameWithExtension);
+        $fileName = $parts['filename'] ?? '';
+        $extension = $parts['extension'] ?? '';
 
-        $fileNameWithHash = "{$fileName}_${randomHash}{$fileExtension}";
-
-        return $fileNameWithHash;
-
+        return "{$fileName}_${randomHash}.{$extension}";
     }
 
-    public static function generateDestinationPath(string $userId, string $subdomain)
+    /**
+     * @param Account $account
+     * @return string
+     */
+    public static function generateDestinationPath(Account $account, string $moduleName): string
     {
 
-        // Directory structures
-        // Local:  local/photos/{id}_{subdomain}/business-owner
-        // Prod:   prod/photos/{id}_{subdomain}/business-owner
-        // Dev:    prod/photos/{id}_{subdomain}/business-owner
+        $accountId = $account->id ?? null;
+        $subdomain = $account->subdomain ?? null;
 
-        $rootDirectory      = '';
-        $userPhotoDirectory = "/photos/{$userId}_{$subdomain}/business-owner";
-
-        if (!empty(env('LOCAL_DEV_USER'))) {
-            $localDevUser = env('LOCAL_DEV_USER');
-
-            $rootDirectory .= "local/dev/{$localDevUser}";
-        } else {
-            $rootDirectory .= env('APP_ENV') === 'local' ? 'local' : 'prod';
+        if (empty($accountId) || empty($subdomain)) {
+            throw new InvalidArgumentException("Invalid Account.");
         }
 
-        return ($rootDirectory . $userPhotoDirectory);
+        $localDevUser = env('LOCAL_DEV_USER') ?: 'mytransienthouse';
+        $environment = env('APP_ENV') ?: 'local';
 
+        /**
+         * Reference:
+         * Local:  local/sean/photos/1_genove/
+         * Prod:   production/mytransienthouse/photos/1_genove
+         */
+        return "{$environment}/{$localDevUser}/{$moduleName}/{$accountId}_{$subdomain}";
     }
 
-    public static function uploadPhotos(string $destinationPath, array $uploadedPhotos, string $accountId)
+    /**
+     * @param Account $account
+     * @param User $uploader
+     * @param string $destinationPath
+     * @param array $uploadedPhotos
+     */
+    public static function savePhotosOrFail(Account $account, User $uploader, string $destinationPath, array $uploadedPhotos)
     {
+
+        if (empty($uploadedPhotos)) {
+            throw new InvalidArgumentException("Empty photos passed");
+        }
 
         foreach ($uploadedPhotos as $uploadedPhoto) {
 
@@ -64,8 +76,8 @@ class S3Utilities
 
                 // Store in photos table
                 $newPhoto = new Photo;
-                $newPhoto->owner_user_id = Auth::user()->id;
-                $newPhoto->account_id = $accountId;
+                $newPhoto->owner_user_id = $uploader->id;
+                $newPhoto->account_id = $account->id;
                 $newPhoto->path = $path;
                 $newPhoto->url = $newPhoto->getUrlAttribute();
                 $newPhoto->is_active = true;

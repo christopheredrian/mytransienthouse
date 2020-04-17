@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Account;
 use Exception;
 use ErrorException;
 use App\Photo;
@@ -36,26 +35,25 @@ class ApiPhotoController extends ApiAuthController
                 throw new InvalidArgumentException(implode(' ', $errorBag));
             }
 
-            if ($request->hasFile('photos')) {
-
-                $destinationPath =
-                    S3Utilities::generateDestinationPath($this->account->id, $this->account->subdomain);
-
-                S3Utilities::uploadPhotos(
-                    $destinationPath,
-                    $request->file('photos'),
-                    $this->account->id
-                );
-
-                $photos = Photo::where('account_id', $this->account->id)
-                    ->get();
-
-                return $this->jsonApiResponse(self::STATUS_SUCCESS, 'Success', $photos);
+            if (!$request->hasFile('photos')) {
+                throw new InvalidArgumentException("Photo is required");
             }
 
+            $destinationPath = S3Utilities::generateDestinationPath($this->account, 'photos');
+
+            S3Utilities::savePhotosOrFail(
+                $this->account,
+                $this->user,
+                $destinationPath,
+                $request->file('photos')
+            );
+
+            $photos = Photo::where('account_id', $this->account->id)
+                ->get();
+
+            return $this->jsonApiResponse(self::STATUS_SUCCESS, 'Success', $photos);
 
         } catch(Exception $exception) {
-
             return $this->jsonApiResponse(self::STATUS_ERROR, $exception->getMessage());
         }
     }
