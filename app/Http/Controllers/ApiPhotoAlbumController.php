@@ -68,14 +68,13 @@ class ApiPhotoAlbumController extends ApiAuthController
             $photoAlbum = new PhotoAlbum();
             $photoAlbum->name = $request->name;
             $photoAlbum->description = $request->description;
-            $photoAlbum->is_featured = true;
+            $photoAlbum->is_featured = 1;
 
             $photoAlbum->account_id = $this->account->id;
-            $photoAlbum->user_id = Auth::user()->id;
+            $photoAlbum->user_id = $this->user->id;
 
             if (!$photoAlbum->save()) {
                 throw new ErrorException(sprintf("An error occurred while saving entry"));
-
             }
 
             foreach ($request->selectedPhotos as $selectedPhoto) {
