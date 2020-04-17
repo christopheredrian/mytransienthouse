@@ -7,19 +7,30 @@ import { uploadPhotoAlbum } from '../../../services/PhotoAlbumsServices';
 
 import './UpsertPhotoAlbumModal.css'
 
-const AlbumForm = ({ onAlbumNameChange, onAlbumDescriptionChange }) => {
+const AlbumForm = ({ name, description, onAlbumNameChange, onAlbumDescriptionChange }) => {
 
     return (
         <div className="col-lg-2">
             <div className="form-group">
-                <input className="form-control form-control-sm" id="name" type="text" placeholder="Album name"
-                    onChange={(e) => onAlbumNameChange(e.target.value)} required
+                <input
+                    id="name"
+                    type="text"
+                    placeholder="Album name"
+                    className="form-control form-control-sm"
+                    value={name}
+                    onChange={(e) => onAlbumNameChange(e.target.value)}
+                    required
                 />
             </div>
             <div className="form-group">
                 <textarea
-                    className="form-control form-control-sm" id="description" rows="3" placeholder="Description"
-                    onChange={(e) => onAlbumDescriptionChange(e.target.value)} required
+                    id="description"
+                    rows="3"
+                    placeholder="Description"
+                    className="form-control form-control-sm"
+                    value={description}
+                    onChange={(e) => onAlbumDescriptionChange(e.target.value)}
+                    required
                 />
             </div>
         </div>
@@ -27,7 +38,7 @@ const AlbumForm = ({ onAlbumNameChange, onAlbumDescriptionChange }) => {
 };
 
 const PhotoButtons = ({ label, photo, onPhotoSelect, onSelectFeaturedPhoto = null }) => {
-    
+
     return (
         <div>
             {
@@ -197,8 +208,18 @@ const UpsertPhotoAlbumModal = ({ show, setShow, onUpsertSuccess }) => {
 
     };
 
-    const onSuccess = (response) => {
+    const closeModal = () => {
+        setAlbumData({
+            name: '',
+            description: '',
+            selectedPhotos: []
+        });
+
         setShow(false);
+    };
+
+    const onSuccess = (response) => {
+        closeModal();
         onUpsertSuccess();
     };
 
@@ -218,7 +239,7 @@ const UpsertPhotoAlbumModal = ({ show, setShow, onUpsertSuccess }) => {
         <div>
             <Modal
                 show={show}
-                onHide={() => setShow(false)}
+                onHide={() => closeModal()}
                 dialogClassName="modal-90w"
                 aria-labelledby="example-custom-modal-styling-title"
             >
@@ -230,8 +251,9 @@ const UpsertPhotoAlbumModal = ({ show, setShow, onUpsertSuccess }) => {
                 <Modal.Body>
                     <div className="container-fluid">
                         <div className="row" style={{ height: "100%" }}>
-
                             <AlbumForm
+                                name={albumData.name}
+                                description={albumData.description}
                                 onAlbumNameChange={onAlbumNameChange}
                                 onAlbumDescriptionChange={onAlbumDescriptionChange}
                             />
@@ -246,7 +268,6 @@ const UpsertPhotoAlbumModal = ({ show, setShow, onUpsertSuccess }) => {
                                 photos={photos}
                                 onPhotoSelect={onSelectPhoto}
                             />
-
                         </div>
                     </div>
                 </Modal.Body>

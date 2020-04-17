@@ -7,6 +7,7 @@ import { fetchAll } from '../../../services/PhotoAlbumsServices';
 const PhotoAlbumsList = () => {
 
     const [show, setShow] = useState(false);
+    const [isCreateMode, setIsCreateMode] = useState(null);
     const [photoAlbums, setPhotoAlbums] = useState(null);
 
     const fetchAllPhotoAlbums = () => {
@@ -51,7 +52,10 @@ const PhotoAlbumsList = () => {
                                     <button
                                         className="btn btn-primary btn-sm"
                                         type="button"
-                                        onClick={() => { setShow(true) }}
+                                        onClick={() => {
+                                            setIsCreateMode(true);
+                                            setShow(true)
+                                        }}
                                     >
                                         <Plus /> Create Album
                                     </button>
@@ -117,6 +121,7 @@ const PhotoAlbumsList = () => {
                                 <UpsertPhotoAlbumModal
                                     show={show}
                                     setShow={setShow}
+                                    isCreateMode={isCreateMode}
                                     onUpsertSuccess={onUpsertSuccess}
                                 />
 
