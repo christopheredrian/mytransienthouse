@@ -20,23 +20,30 @@ class ApiPhotoAlbumController extends ApiAuthController
     public function all() {
 
         $albums = DB::table('photo_albums')
+            ->select('photo_albums.id',
+                'photo_albums.name',
+                'photo_albums.description',
+                'photos.url')
             ->join('photo_album_photos', 'photo_albums.id', '=', 'photo_album_photos.photo_album_id')
             ->join('photos', 'photo_album_photos.photo_id', '=', 'photos.id')
-            ->select('photo_albums.id', 'photo_albums.name', 'photo_albums.description', 'photos.url')
-            ->where('photo_album_photos.is_featured', true)
+            ->where('photo_album_photos.is_featured', '=', '1')
             ->get();
 
-        // Equivalent raw SQL query
-        // SELECT 	pa.id, pa.name,
-		//         pa.description, p.url
-        // FROM	photo_albums pa
-		//         INNER JOIN
-        //         photo_album_photos pap
-		//         ON pa.id = pap.photo_album_id
-        //         INNER JOIN
-        //         photos p
-        //         ON pap.photo_id = p.id
-        // WHERE   pap.is_featured = true
+        /**
+         * Reference:
+         * Equivalent raw SQL query
+         * SELECT
+         *          pa.id, pa.name,
+         *          pa.description,
+         *          p.url
+         * FROM    photo_albums pa
+         * INNER JOIN photo_album_photos pap
+         *          ON pa.id = pap.photo_album_id
+         * INNER JOIN photos p
+         *          ON pap.photo_id = p.id
+         * WHERE pap.is_featured = 1
+         */
+
 
         return $this->jsonApiResponse(self::STATUS_SUCCESS, 'Success', $albums);
 
@@ -54,40 +61,37 @@ class ApiPhotoAlbumController extends ApiAuthController
             $validator = Validator::make($request->all(), $rules);
 
             if ($validator->fails()) {
-
                 $errorBag = $validator->errors()->getMessageBag()->all();
                 throw new InvalidArgumentException(implode(' ', $errorBag));
-            } else {
-
-                $photoAlbum = new PhotoAlbum();
-                $photoAlbum->name = $request->name;
-                $photoAlbum->description = $request->description;
-                $photoAlbum->is_featured = true;
-
-                $photoAlbum->account_id = $this->account->id;
-                $photoAlbum->user_id = Auth::user()->id;
-
-                if (!$photoAlbum->save()) {
-                    throw new ErrorException(sprintf("An error occurred while saving entry"));
-                } else {
-
-                    foreach ($request->selectedPhotos as $selectedPhoto) {
-
-                        $photoAlbumPhoto = new PhotoAlbumPhoto();
-                        $photoAlbumPhoto->photo_id = $selectedPhoto['id'];
-                        $photoAlbumPhoto->is_featured = $selectedPhoto['isFeatured'];
-                        $photoAlbumPhoto->photo_album_id = $photoAlbum->id;
-
-                        $photoAlbumPhoto->save();
-                    }
-
-                    $photoAlbums = PhotoAlbum::where('account_id', $this->account->id)
-                        ->get();
-
-                    return $this->jsonApiResponse(self::STATUS_SUCCESS, 'Success', $photoAlbums);
-
-                }
             }
+
+            $photoAlbum = new PhotoAlbum();
+            $photoAlbum->name = $request->name;
+            $photoAlbum->description = $request->description;
+            $photoAlbum->is_featured = true;
+
+            $photoAlbum->account_id = $this->account->id;
+            $photoAlbum->user_id = Auth::user()->id;
+
+            if (!$photoAlbum->save()) {
+                throw new ErrorException(sprintf("An error occurred while saving entry"));
+
+            }
+
+            foreach ($request->selectedPhotos as $selectedPhoto) {
+
+                $photoAlbumPhoto = new PhotoAlbumPhoto();
+                $photoAlbumPhoto->photo_id = $selectedPhoto['id'];
+                $photoAlbumPhoto->is_featured = $selectedPhoto['isFeatured'];
+                $photoAlbumPhoto->photo_album_id = $photoAlbum->id;
+
+                $photoAlbumPhoto->save();
+            }
+
+            $photoAlbums = PhotoAlbum::where('account_id', $this->account->id)
+                ->get();
+
+            return $this->jsonApiResponse(self::STATUS_SUCCESS, 'Success', $photoAlbums);
 
         } catch(Exception $exception) {
 

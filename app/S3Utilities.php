@@ -28,6 +28,7 @@ class S3Utilities
 
     /**
      * @param Account $account
+     * @param string $moduleName
      * @return string
      */
     public static function generateDestinationPath(Account $account, string $moduleName): string
