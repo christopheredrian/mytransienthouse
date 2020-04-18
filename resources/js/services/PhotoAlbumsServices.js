@@ -10,10 +10,19 @@ export const fetchAll = (onSuccess, onFailure) => {
     AppApiRequest(Endpoints.PHOTO_ALBUMS_DATA, 'GET', onSuccess, onFailure);
 };
 
-export const uploadPhotoAlbum = (data, onSuccess, onFailure) => {
-    AppApiRequest(Endpoints.UPLOAD_PHOTO_ALBUM, 'POST', onSuccess, onFailure, data);
+export const fetchAllSelectedPhotos = (id, onSuccess, onFailure) => {
+    AppApiRequest(`${Endpoints.PHOTO_ALBUM_SELECTED_PHOTOS}/${id}`, 'GET', onSuccess, onFailure,);
+};
+
+export const fetchAllUnselectedPhotos = (id, onSuccess, onFailure) => {
+    AppApiRequest(`${Endpoints.PHOTO_ALBUM_UNSELECTED_PHOTOS}/${id}`, 'GET', onSuccess, onFailure,);
+};
+
+export const upsertPhotoAlbum = (data, onSuccess, onFailure) => {
+    AppApiRequest(Endpoints.UPSERT_PHOTO_ALBUM, 'POST', onSuccess, onFailure, data);
 };
 
 export const deletePhotoAlbum = (id, onSuccess, onFailure) => {
-    AppApiRequest(Endpoints.DELETE_PHOTO_ALBUM, 'POST', onSuccess, onFailure, { id });
+    AppApiRequest(`${Endpoints.DELETE_PHOTO_ALBUM}/${id}`, 'POST', onSuccess, onFailure);
 };
+

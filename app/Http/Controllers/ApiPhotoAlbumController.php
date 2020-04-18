@@ -2,15 +2,12 @@
 
 namespace App\Http\Controllers;
 
-
 use App\PhotoAlbum;
-
-use App\PhotoAlbumPhoto;
+use App\PhotoAlbumUtilities;
 use Exception;
 use ErrorException;
 use App\Photo;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 use InvalidArgumentException;
@@ -23,33 +20,57 @@ class ApiPhotoAlbumController extends ApiAuthController
             ->select('photo_albums.id',
                 'photo_albums.name',
                 'photo_albums.description',
-                'photos.url')
+                'photos.url',
+                'photos.updated_at')
             ->join('photo_album_photos', 'photo_albums.id', '=', 'photo_album_photos.photo_album_id')
             ->join('photos', 'photo_album_photos.photo_id', '=', 'photos.id')
+            ->where('photo_albums.account_id', '=', $this->account->id)
             ->where('photo_album_photos.is_featured', '=', '1')
+            ->where('photo_albums.deleted_at', '=', null)
             ->get();
-
-        /**
-         * Reference:
-         * Equivalent raw SQL query
-         * SELECT
-         *          pa.id, pa.name,
-         *          pa.description,
-         *          p.url
-         * FROM    photo_albums pa
-         * INNER JOIN photo_album_photos pap
-         *          ON pa.id = pap.photo_album_id
-         * INNER JOIN photos p
-         *          ON pap.photo_id = p.id
-         * WHERE pap.is_featured = 1
-         */
-
 
         return $this->jsonApiResponse(self::STATUS_SUCCESS, 'Success', $albums);
 
     }
 
-    public function upload(Request $request) {
+    public function allSelectedPhotos($albumId) {
+
+        $unselectedPhotos = DB::select("
+            SELECT
+                p.id, p.url, pap.is_featured
+            FROM
+                photos p
+            INNER JOIN photo_album_photos pap ON
+                p.id = pap.photo_id
+            WHERE
+                pap.photo_album_id = ${albumId};
+        ");
+
+        return $this->jsonApiResponse(self::STATUS_SUCCESS, 'Success', $unselectedPhotos);
+    }
+
+    public function allUnselectedPhotos($albumId) {
+
+        $unselectedPhotos = DB::select("
+            SELECT
+                *
+            FROM
+                photos p
+            WHERE
+                p.deleted_at IS NULL AND p.id NOT IN(
+                SELECT
+                    pap.photo_id
+                FROM
+                    photo_album_photos pap
+                WHERE
+                    pap.photo_album_id = ${albumId}
+            )
+        ");
+
+        return $this->jsonApiResponse(self::STATUS_SUCCESS, 'Success', $unselectedPhotos);
+    }
+
+    public function upsert(Request $request) {
 
         try {
             $rules = [
@@ -65,66 +86,49 @@ class ApiPhotoAlbumController extends ApiAuthController
                 throw new InvalidArgumentException(implode(' ', $errorBag));
             }
 
-            $photoAlbum = new PhotoAlbum();
-            $photoAlbum->name = $request->name;
-            $photoAlbum->description = $request->description;
-            $photoAlbum->is_featured = 1;
-
+            $photoAlbum = PhotoAlbumUtilities::preparePhotoAlbum($request);
             $photoAlbum->account_id = $this->account->id;
             $photoAlbum->user_id = $this->user->id;
 
             if (!$photoAlbum->save()) {
-                throw new ErrorException(sprintf("An error occurred while saving entry"));
+                throw new ErrorException(sprintf("An error occurred while saving photo album entry"));
             }
 
-            foreach ($request->selectedPhotos as $selectedPhoto) {
+            PhotoAlbumUtilities::upsertPhotoAlbumPhotos($photoAlbum->id, $request->selectedPhotos);
 
-                $photoAlbumPhoto = new PhotoAlbumPhoto();
-                $photoAlbumPhoto->photo_id = $selectedPhoto['id'];
-                $photoAlbumPhoto->is_featured = $selectedPhoto['isFeatured'];
-                $photoAlbumPhoto->photo_album_id = $photoAlbum->id;
-
-                $photoAlbumPhoto->save();
-            }
-
-            $photoAlbums = PhotoAlbum::where('account_id', $this->account->id)
-                ->get();
-
-            return $this->jsonApiResponse(self::STATUS_SUCCESS, 'Success', $photoAlbums);
+            return $this->all();
 
         } catch(Exception $exception) {
 
             return $this->jsonApiResponse(self::STATUS_ERROR, $exception->getMessage());
         }
+
     }
 
-    public function delete(Request $request) {
+    public function delete($id) {
 
         try {
 
-            if (empty($request->id)) {
+            if (empty($id)) {
                 throw new ErrorException("Id is required");
             }
 
             /** @var Photo $photo*/
-            $photo = Photo::find($request->id);
+            $photoAlbum = PhotoAlbum::find($id);
 
-            if (!$photo) {
-                throw new InvalidArgumentException("Photo not found");
+            if (!$photoAlbum) {
+                throw new InvalidArgumentException("Photo Album not found");
             }
 
-            if ($photo->account_id !== $this->account->id) {
+            if ($photoAlbum->account_id !== $this->account->id) {
                 throw new InvalidArgumentException("Forbidden.");
             }
 
-            if (!$photo->delete()) {
-                throw new ErrorException("There was a problem while deleting the photo");
+            if (!$photoAlbum->delete()) {
+                throw new ErrorException("There was a problem while deleting the photo album");
             }
 
-            $photos = Photo::where('account_id', $this->account->id)
-                ->get();
-
-            return $this->jsonApiResponse(self::STATUS_SUCCESS, 'Successfully deleted photo', $photos);
+            return $this->all();
 
         } catch (Exception $exception) {
             return $this->jsonApiResponse(self::STATUS_ERROR, $exception->getMessage());

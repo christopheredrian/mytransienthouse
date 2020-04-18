@@ -12,8 +12,10 @@ const Endpoints = {
     DELETE_PHOTO: '/api/photos/delete_photo',
 
     PHOTO_ALBUMS_DATA: '/api/photo_albums',
-    UPLOAD_PHOTO_ALBUM: '/api/photo_albums/upload_photo_album',
-    DELETE_PHOTO_ALBUM: '/api/photo_albums/delete_photo_album',
+    UPSERT_PHOTO_ALBUM: '/api/photo_albums/upsert',
+    DELETE_PHOTO_ALBUM: '/api/photo_albums/delete',
+    PHOTO_ALBUM_SELECTED_PHOTOS: '/api/photo_albums/selected_photos',
+    PHOTO_ALBUM_UNSELECTED_PHOTOS: '/api/photo_albums/unselected_photos',
 
     // FAQs
     FAQS_ALL: '/api/faqs/',
