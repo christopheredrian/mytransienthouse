@@ -9,8 +9,8 @@ import {
 
 
 import Login from "../Login";
-import Photos from './Photos';
-import PhotoAlbumsList from './PhotoAlbums/PhotoAlbumsList';
+import Photos from '../photos/Photos';
+import PhotoAlbumsList from '../photo-albums/PhotoAlbumsList';
 import Dashboard from './Dashboard';
 import FaqsList from '../faqs/FaqsList';
 import SupportRequests from '../SupportRequests/index';
