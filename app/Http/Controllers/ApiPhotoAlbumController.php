@@ -27,6 +27,7 @@ class ApiPhotoAlbumController extends ApiAuthController
             ->where('photo_albums.account_id', '=', $this->account->id)
             ->where('photo_album_photos.is_featured', '=', '1')
             ->where('photo_albums.deleted_at', '=', null)
+            ->orderBy('photo_albums.created_at', 'desc')
             ->get();
 
         return $this->jsonApiResponse(self::STATUS_SUCCESS, 'Success', $albums);

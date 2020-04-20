@@ -15,6 +15,7 @@ class ApiPhotoController extends ApiAuthController
     public function all() {
 
         $photos = Photo::where('account_id', $this->account->id)
+            ->orderBy('created_at', 'desc')
             ->get();
 
         return $this->jsonApiResponse(self::STATUS_SUCCESS, 'Success', $photos);
