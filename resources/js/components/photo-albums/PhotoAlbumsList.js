@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Book, Plus } from 'react-feather';
 
-import UpsertPhotoAlbumModal from './UpsertPhotoAlbumModal';
+import UpsertPhotoAlbumModal from './modal/UpsertPhotoAlbumModal';
 import { fetchAll } from '../../services/PhotoAlbumsServices';
 import { deletePhotoAlbum } from '../../services/PhotoAlbumsServices';
 

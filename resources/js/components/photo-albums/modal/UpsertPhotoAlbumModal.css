@@ -1,0 +1,14 @@
+.modal-90w {
+    width: 90vw;
+    max-width: none!important;
+}
+
+.modal-dialog > .modal-content {
+    height: 95vh;
+    max-height: none!important;
+}
+
+button:disabled {
+  cursor: not-allowed;
+  pointer-events: all !important;
+}
