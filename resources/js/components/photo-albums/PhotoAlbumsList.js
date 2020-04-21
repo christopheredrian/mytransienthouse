@@ -1,9 +1,11 @@
-import React, { useState, useEffect } from 'react';
-import { Book, Plus } from 'react-feather';
+import React, {useState, useEffect} from 'react';
+import {Book, Plus} from 'react-feather';
+
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 import UpsertPhotoAlbumModal from './modal/UpsertPhotoAlbumModal';
-import { fetchAll } from '../../services/PhotoAlbumsServices';
-import { deletePhotoAlbum } from '../../services/PhotoAlbumsServices';
+import {fetchAll} from '../../services/PhotoAlbumsServices';
+import {deletePhotoAlbum, updateFeaturedPhotoAlbum} from '../../services/PhotoAlbumsServices';
 
 const PhotoAlbumsList = () => {
 
@@ -30,7 +32,7 @@ const PhotoAlbumsList = () => {
 
     const onDeletePhotoAlbum = (photoAlbum) => {
 
-        const confirmDelete = confirm(`Are you sure you want to delete ${photoAlbum.name} photo album?`);
+        const confirm = confirm(`Are you sure you want to delete ${photoAlbum.name} photo album?`);
 
         if (confirmDelete) {
             deletePhotoAlbum(photoAlbum.id, (response) => {
@@ -43,6 +45,27 @@ const PhotoAlbumsList = () => {
 
     const onUpsertSuccess = () => {
         fetchAllPhotoAlbums();
+    };
+
+    const toggleIsFeatured = (photoAlbum) => {
+        const confirmToggle =
+            confirm(`Do you want to ${photoAlbum.is_featured ? 'remove' : 'feature'} the album "${photoAlbum.name}" to your website?`);
+
+        if (confirmToggle) {
+            updateFeaturedPhotoAlbum(photoAlbum.id, (photoAlbums) => {
+                fetchAllPhotoAlbums();
+            }, (error) => {
+                // todo: handle
+            })
+        }
+    };
+
+
+    const photoStyle = {
+        width: "100%",
+        height: "300px",
+        objectFit: "cover",
+        objectPosition: "50% -0%"
     };
 
     return (
@@ -64,7 +87,7 @@ const PhotoAlbumsList = () => {
             <div className="container-fluid mt-n10">
                 <div className="row">
                     <div className="col-lg-12">
-                        <div id="default ">
+                        <div id="default">
                             <div className="card card-header-actions">
                                 <div className="card-header">
                                     Albums
@@ -77,77 +100,85 @@ const PhotoAlbumsList = () => {
                                     </button>
                                 </div>
                                 <div className="card-body">
-                                    <div className="comntainer">
-                                        <div className="row">
-                                            {
-                                                !Array.isArray(photoAlbums) || photoAlbums.length === 0 ? (
-                                                    <div className="justify-content-center">
-                                                        <p colSpan="3">No Photo Albums</p>
-                                                    </div>
-                                                ) : (
-                                                    photoAlbums.map((photoAlbum) => {
-                                                        return (
-                                                            <div className="col-lg-3 d-flex align-items-stretch"
-                                                                 key={photoAlbum.id}>
-                                                                <div className="card mb-4 box-shadow">
-                                                                    <img className="card-img-top"
-                                                                         src={photoAlbum.url}
-                                                                         alt="Card image cap"
-                                                                         style={{
-                                                                             width: "100%",
-                                                                             height: "15vw",
-                                                                             objectFit: "cover",
-                                                                             objectPosition: "50% -0%"
-                                                                         }}
-                                                                    />
-                                                                    <div className="card-body px-3 py-3">
-                                                                        <div className="text-dark  mb-2">
-                                                                            {photoAlbum.name}
-                                                                            <div className="text-xs text-muted">
-                                                                                {
-                                                                                    photoAlbum.description.length <= 90 ? (
-                                                                                        photoAlbum.description
-                                                                                    ) : (
-                                                                                        `${photoAlbum.description.substring(0, 90)}...`
-                                                                                    )
-                                                                                }
-                                                                            </div>
+                                    <div className="row">
+                                        {
+                                            !Array.isArray(photoAlbums) || photoAlbums.length === 0 ? (
+                                                <div className="justify-content-center">
+                                                    <p colSpan="3">No Photo Albums</p>
+                                                </div>
+                                            ) : (
+                                                photoAlbums.map((photoAlbum) => {
+                                                    return (
+                                                        <div className="col-lg-3 d-flex align-items-stretch"
+                                                             key={photoAlbum.id}>
+                                                            <div className="card mb-4 box-shadow">
+                                                                <img
+                                                                    className="card-img-top"
+                                                                    src={photoAlbum.url}
+                                                                    alt="Card image cap"
+                                                                    style={photoStyle}
+                                                                />
+
+                                                                <div className="card-img-overlay p-2">
+                                                                    <button
+                                                                        className={
+                                                                            `btn btn-Add to md btn-${photoAlbum.is_featured ? 'yellow': 'blue'} btn-icon`
+                                                                        }
+                                                                        title={photoAlbum.is_featured ? 'Featured' : 'Add to featured'}
+                                                                        onClick={(e) => toggleIsFeatured(photoAlbum)}
+                                                                        key={photoAlbum.id}
+                                                                    >
+                                                                        <FontAwesomeIcon icon={photoAlbum.is_featured ? 'star' : 'plus'} />
+
+                                                                    </button>
+                                                                </div>
+
+                                                                <div className="card-body px-3 py-3">
+                                                                    <div className="text-dark">{photoAlbum.name}</div>
+                                                                    <div className="text-xs text-muted mb-2">
+                                                                        {
+                                                                            photoAlbum.description.length <= 90 ? (
+                                                                                photoAlbum.description
+                                                                            ) : (
+                                                                                `${photoAlbum.description.substring(0, 90)}...`
+                                                                            )
+                                                                        }
+                                                                    </div>
+                                                                    <div
+                                                                        className="d-flex justify-content-between align-items-end">
+                                                                        <div>
+                                                                            <button
+                                                                                type="button"
+                                                                                className="btn btn-xs btn-outline-primary mr-1"
+                                                                                disabled
+                                                                            >
+                                                                                View
+                                                                            </button>
+                                                                            <button
+                                                                                type="button"
+                                                                                className="btn btn-xs btn-outline-warning mr-1"
+                                                                                onClick={() => showUpsertModal(photoAlbum)}
+                                                                            >
+                                                                                Edit
+                                                                            </button>
+                                                                            <button
+                                                                                type="button"
+                                                                                className="btn btn-xs btn-outline-danger mr-1"
+                                                                                onClick={() => onDeletePhotoAlbum(photoAlbum)}
+                                                                            >
+                                                                                Delete
+                                                                            </button>
                                                                         </div>
-                                                                        <div className="d-flex justify-content-between align-items-end">
-                                                                            <div>
-                                                                                <button
-                                                                                    type="button"
-                                                                                    className="btn btn-xs btn-outline-primary mr-1"
-                                                                                    disabled
-                                                                                >
-                                                                                    View
-                                                                                </button>
-                                                                                <button
-                                                                                    type="button"
-                                                                                    className="btn btn-xs btn-outline-warning mr-1"
-                                                                                    onClick={() => showUpsertModal(photoAlbum)}
-                                                                                >
-                                                                                    Edit
-                                                                                </button>
-                                                                                <button
-                                                                                    type="button"
-                                                                                    className="btn btn-xs btn-outline-danger mr-1"
-                                                                                    onClick={() => onDeletePhotoAlbum(photoAlbum)}
-                                                                                >
-                                                                                    Delete
-                                                                                </button>
-                                                                            </div>
-                                                                            <small
-                                                                                className="text-xs text-muted">{photoAlbum.updated_at}</small>
-                                                                        </div>
+                                                                        <small
+                                                                            className="text-xs text-muted">{photoAlbum.updated_at}</small>
                                                                     </div>
                                                                 </div>
                                                             </div>
-                                                        );
-                                                    })
-                                                )
-                                            }
-                                        </div>
+                                                        </div>
+                                                    );
+                                                })
+                                            )
+                                        }
                                     </div>
                                 </div>
 

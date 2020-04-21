@@ -9,7 +9,7 @@ import {
 
 
 import Login from "../Login";
-import Photos from '../photos/Photos';
+import PhotosList from '../photos/PhotosList';
 import PhotoAlbumsList from '../photo-albums/PhotoAlbumsList';
 import Dashboard from './Dashboard';
 import FaqsList from '../faqs/FaqsList';
@@ -131,7 +131,7 @@ const BusinessOwnerApp = ({logoutUser}) => {
 
                         <Switch>
                             <Route path={`${BUSINESS_OWNER_ROOT_PATH}`} exact={true}><Dashboard/></Route>
-                            <Route path={`${BUSINESS_OWNER_ROOT_PATH}/photos`}><Photos/></Route>
+                            <Route path={`${BUSINESS_OWNER_ROOT_PATH}/photos`}><PhotosList/></Route>
                             <Route path={`${BUSINESS_OWNER_ROOT_PATH}/photo-albums`}><PhotoAlbumsList/></Route>
                             <Route path={`${BUSINESS_OWNER_ROOT_PATH}/faqs`}><FaqsList/></Route>
                             <Route path={`${BUSINESS_OWNER_ROOT_PATH}/support_requests`}><SupportRequests/></Route>

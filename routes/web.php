@@ -104,6 +104,7 @@ Route::group([
         Route::get('/', 'ApiPhotoAlbumController@all');
         Route::post('/upsert', 'ApiPhotoAlbumController@upsert');
         Route::post('/delete/{id}', 'ApiPhotoAlbumController@delete');
+        Route::post('/update_featured/{id}', 'ApiPhotoAlbumController@updateFeatured');
         Route::get('/selected_photos/{albumId}', 'ApiPhotoAlbumController@allSelectedPhotos');
         Route::get('/unselected_photos/{albumId}', 'ApiPhotoAlbumController@allUnselectedPhotos');
 

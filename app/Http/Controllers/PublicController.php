@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Faq;
+use App\PhotoAlbumUtilities;
 use App\SupportRequest;
 use Exception;
 use Illuminate\Contracts\View\Factory;
@@ -18,8 +19,11 @@ class PublicController extends ApplicationController
         $faqs = Faq::where('account_id', $this->account->id)
             ->get();
 
+        $photoAlbums = PhotoAlbumUtilities::getPhotoAlbums($this->account->id, true);
+
         return view('public.index', [
-            'faqs' => $faqs
+            'faqs' => $faqs,
+            'photoAlbums' => $photoAlbums
         ]);
     }
 

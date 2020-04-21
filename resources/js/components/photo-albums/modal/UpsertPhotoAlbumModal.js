@@ -173,12 +173,14 @@ const UpsertPhotoAlbumModal = ({show, setShow, setPhotoAlbumForEdit, photoAlbumF
                                 onAlbumNameChange={onAlbumNameChange}
                                 onAlbumDescriptionChange={onAlbumDescriptionChange}
                             />
+
                             <PhotoPool
                                 label={"selected"}
                                 photos={albumData.selectedPhotos}
                                 onPhotoSelect={onDeselectPhoto}
                                 onSelectFeaturedPhoto={onSelectFeaturedPhoto}
                             />
+
                             <PhotoPool
                                 label={"pool"}
                                 photos={photos}

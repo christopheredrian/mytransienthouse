@@ -1,4 +1,5 @@
 import React from 'react';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 const PhotoButtons = ({label, photo, onPhotoSelect, onSelectFeaturedPhoto = null}) => {
 
@@ -12,14 +13,14 @@ const PhotoButtons = ({label, photo, onPhotoSelect, onSelectFeaturedPhoto = null
                             title="Make cover photo"
                             onClick={() => onSelectFeaturedPhoto(photo.id)}
                         >
-                            <i className="fas fa-star"/>
+                            <FontAwesomeIcon icon={photo.is_featured ? 'star' : 'plus'} />
                         </button>
 
                         <button
                             className="btn btn-xs btn-red btn-icon" type="button" title="Remove from photo album"
                             onClick={(e) => onPhotoSelect({id: photo.id, url: photo.url, is_featured: false})}
                         >
-                            <i className="fas fa-minus"/>
+                            <FontAwesomeIcon icon="minus" />
                         </button>
                     </div>
                 ) : (
@@ -28,7 +29,7 @@ const PhotoButtons = ({label, photo, onPhotoSelect, onSelectFeaturedPhoto = null
                             className="btn btn-xs btn-green btn-icon" type="button" title="Add to photo album"
                             onClick={(e) => onPhotoSelect({id: photo.id, url: photo.url, is_featured: false})}
                         >
-                            <i className="fas fa-plus"/>
+                            <FontAwesomeIcon icon="plus" />
                         </button>
                     </div>
                 )

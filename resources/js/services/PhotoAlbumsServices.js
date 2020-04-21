@@ -22,6 +22,10 @@ export const upsertPhotoAlbum = (data, onSuccess, onFailure) => {
     AppApiRequest(Endpoints.UPSERT_PHOTO_ALBUM, 'POST', onSuccess, onFailure, data);
 };
 
+export const updateFeaturedPhotoAlbum = (id, onSuccess, onFailure) => {
+    AppApiRequest(`${Endpoints.UPDATE_FEATURED_PHOTO_ALBUM}/${id}`, 'POST', onSuccess, onFailure);
+};
+
 export const deletePhotoAlbum = (id, onSuccess, onFailure) => {
     AppApiRequest(`${Endpoints.DELETE_PHOTO_ALBUM}/${id}`, 'POST', onSuccess, onFailure);
 };

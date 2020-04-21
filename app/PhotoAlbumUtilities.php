@@ -7,6 +7,40 @@ use Illuminate\Support\Facades\DB;
 
 class PhotoAlbumUtilities
 {
+    public static function getPhotoAlbumCollection($accountId)
+    {
+
+        $photoAlbumCollection = DB::table('photo_albums')
+            ->select(
+                'photo_albums.id',
+                'photo_albums.name',
+                'photo_albums.is_featured',
+                'photo_albums.description',
+                'photos.url',
+                'photos.updated_at')
+            ->join('photo_album_photos', 'photo_albums.id', '=', 'photo_album_photos.photo_album_id')
+            ->join('photos', 'photo_album_photos.photo_id', '=', 'photos.id')
+            ->where('photo_albums.account_id', '=', $accountId)
+            ->where('photo_albums.deleted_at', '=', null)
+            ->where('photo_album_photos.is_featured', '=', '1')
+            ->orderBy('photo_albums.is_featured', 'desc')
+            ->orderBy('photo_albums.created_at', 'desc');
+
+        return $photoAlbumCollection;
+    }
+
+    public static function getPhotoAlbums($accountId, $featured = null)
+    {
+
+        $albums = self::getPhotoAlbumCollection($accountId);
+
+        if ($featured) {
+            $albums->where('photo_albums.is_featured', '=', $featured);
+        }
+
+        return $albums->get();
+    }
+
     public static function preparePhotoAlbum(Request $request)
     {
 
@@ -46,12 +80,7 @@ class PhotoAlbumUtilities
     {
 
         $deletedPhotoAlbumPhotos = DB::table('photo_album_photos')
-            ->where('photo_album_id', "=",$albumId)
+            ->where('photo_album_id', "=", $albumId)
             ->delete();
-
-//        dd($deletedPhotoAlbumPhotos);
-
     }
-
-
 }

@@ -20,7 +20,7 @@ const CustomToggle = React.forwardRef(({children, onClick}, ref) => (
     </button>
 ));
 
-const Photos = ({loggedInUser = null}) => {
+const PhotosList = ({loggedInUser = null}) => {
 
     const [photos, setPhotos] = useState([]);
     const [photoFiles, setPhotoFiles] = useState('');
@@ -224,4 +224,4 @@ const Photos = ({loggedInUser = null}) => {
     );
 };
 
-export default Photos;
+export default PhotosList;

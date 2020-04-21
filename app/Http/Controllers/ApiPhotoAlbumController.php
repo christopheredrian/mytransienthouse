@@ -16,22 +16,9 @@ class ApiPhotoAlbumController extends ApiAuthController
 {
     public function all() {
 
-        $albums = DB::table('photo_albums')
-            ->select('photo_albums.id',
-                'photo_albums.name',
-                'photo_albums.description',
-                'photos.url',
-                'photos.updated_at')
-            ->join('photo_album_photos', 'photo_albums.id', '=', 'photo_album_photos.photo_album_id')
-            ->join('photos', 'photo_album_photos.photo_id', '=', 'photos.id')
-            ->where('photo_albums.account_id', '=', $this->account->id)
-            ->where('photo_album_photos.is_featured', '=', '1')
-            ->where('photo_albums.deleted_at', '=', null)
-            ->orderBy('photo_albums.created_at', 'desc')
-            ->get();
+        $albums = PhotoAlbumUtilities::getPhotoAlbums($this->account->id, null);
 
         return $this->jsonApiResponse(self::STATUS_SUCCESS, 'Success', $albums);
-
     }
 
     public function allSelectedPhotos($albumId) {
@@ -69,6 +56,39 @@ class ApiPhotoAlbumController extends ApiAuthController
         ");
 
         return $this->jsonApiResponse(self::STATUS_SUCCESS, 'Success', $unselectedPhotos);
+    }
+
+    public function updateFeatured($id) {
+
+        try {
+
+            if (empty($id)) {
+                throw new ErrorException("Id is required");
+            }
+
+            /** @var Photo $photo*/
+            $photoAlbum = PhotoAlbum::find($id);
+
+            if (!$photoAlbum) {
+                throw new InvalidArgumentException("Photo Album not found");
+            }
+
+            if ($photoAlbum->account_id !== $this->account->id) {
+                throw new InvalidArgumentException("Forbidden.");
+            }
+
+            $photoAlbum->is_featured = !$photoAlbum->is_featured;
+
+            if (!$photoAlbum->save()) {
+                throw new ErrorException("There was a problem while deleting the photo album");
+            }
+
+            return $this->all();
+
+        } catch (Exception $exception) {
+            return $this->jsonApiResponse(self::STATUS_ERROR, $exception->getMessage());
+        }
+
     }
 
     public function upsert(Request $request) {

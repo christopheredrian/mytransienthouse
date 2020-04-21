@@ -1,5 +1,22 @@
 @extends('layouts.public.app')
 
+@section('styles')
+    <style>
+        .photo-album {
+            width: 100%;
+            height: 220px;
+            object-fit: cover;
+            object-position: 50% 0%;
+        }
+
+        @media (max-width: 45rem) {
+            .photo-album {
+                height: 260px;
+            }
+        }
+    </style>
+@endsection
+
 @section('content')
     <header class="page-header page-header-light bg-img-cover overlay overlay-light overlay-80"
             style='background-image: url("{{$ui['main_image_url'] ?? ''}}")'>
@@ -9,8 +26,8 @@
                     <div class="col-xl-8 col-lg-10 text-center">
                         <h1 class="page-header-title">{{$ui['main_title'] ?? ''}}</h1>
                         <p class="page-header-text mb-5">{{$ui['main_subtitle'] ?? ''}}</p>
-{{--                        <a class="btn btn-marketing rounded-pill btn-primary" href="#!">Get Started</a><a--}}
-{{--                            class="btn btn-link btn-marketing rounded-pill" href="#!">Learn More</a>--}}
+                        {{--                        <a class="btn btn-marketing rounded-pill btn-primary" href="#!">Get Started</a><a--}}
+                        {{--                            class="btn btn-link btn-marketing rounded-pill" href="#!">Learn More</a>--}}
                     </div>
                 </div>
             </div>
@@ -25,53 +42,31 @@
     <section class="bg-white py-10">
         <div class="container">
             <div class="row mb-5">
-                <div class="col-lg-4 mb-5">
-                    <a class="card lift h-100" href="#!"
-                    ><img class="card-img-top" src="https://source.unsplash.com/2d4lAQAlbDA/800x500" alt="..."/>
-                        <div class="card-body">
-                            <h4 class="card-title mb-2">Outdoor Patio</h4>
-                            <p class="card-text">Our property features a beautiful, private outdoor area with
-                                seating and a pool.</p>
+
+                @if(isset($photoAlbums) && !empty($photoAlbums))
+                    @foreach($photoAlbums as $photoAlbum)
+
+                        <div class="col-lg-4 mb-5">
+                            <a class="card lift h-100" href="/gallery">
+                                <img class="card-img-top photo-album" src={{ $photoAlbum->url  }} alt="..."/
+                                        {{--style="width: 100%; height: 220px; object-fit: cover; object-position: 50% -0%;"--}}
+                                >
+                                <div class="card-body">
+                                    <h4 class="card-title mb-2">{{ $photoAlbum->name  }}</h4>
+                                    <p class="card-text">{{ $photoAlbum->description }}</p>
+                                </div>
+                                <div
+                                        class="card-footer bg-transparent border-top d-flex align-items-center justify-content-between">
+                                    <div class="small text-primary">See more</div>
+                                    <div class="small text-primary"><i data-feather="arrow-right"></i></div>
+                                </div
+                                >
+                            </a>
                         </div>
-                        <div
-                            class="card-footer bg-transparent border-top d-flex align-items-center justify-content-between">
-                            <div class="small text-primary">See more</div>
-                            <div class="small text-primary"><i data-feather="arrow-right"></i></div>
-                        </div>
-                    </a>
-                </div>
-                <div class="col-lg-4 mb-5">
-                    <a class="card lift h-100" href="#!"
-                    ><img class="card-img-top" src="https://source.unsplash.com/MP0bgaS_d1c/800x500" alt="..."/>
-                        <div class="card-body">
-                            <h4 class="card-title mb-2">Full Kitchen</h4>
-                            <p class="card-text">A fully stocked kitchen with all modern amenities provides a
-                                peaceful cooking environment.</p>
-                        </div>
-                        <div
-                            class="card-footer bg-transparent border-top d-flex align-items-center justify-content-between">
-                            <div class="small text-primary">See more</div>
-                            <div class="small text-primary"><i data-feather="arrow-right"></i></div>
-                        </div
-                        >
-                    </a>
-                </div>
-                <div class="col-lg-4 mb-5">
-                    <a class="card lift h-100" href="#!"
-                    ><img class="card-img-top" src="https://source.unsplash.com/iAftdIcgpFc/800x500" alt="..."/>
-                        <div class="card-body">
-                            <h4 class="card-title mb-2">Comfortable Bedding</h4>
-                            <p class="card-text">With three newly updated bedrooms you will be sleeping soundly
-                                during your stay.</p>
-                        </div>
-                        <div
-                            class="card-footer bg-transparent border-top d-flex align-items-center justify-content-between">
-                            <div class="small text-primary">See more</div>
-                            <div class="small text-primary"><i data-feather="arrow-right"></i></div>
-                        </div
-                        >
-                    </a>
-                </div>
+
+                    @endforeach
+                @endif
+
             </div>
 
             @if(isset($faqs) && !empty($faqs))
