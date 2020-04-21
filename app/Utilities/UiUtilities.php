@@ -9,7 +9,7 @@ class UiUtilities
 
     public static function getForAccount(Account $account)
     {
-        $default = [
+        $uiMatrix = [
             'main_title' => 'Rent home or rooms',
             'main_subtitle' => "Our home is open for all vacationers! Staying with us is a great way to start your ideal vacation. Let's get started and book your stay with us!",
             'main_image_url' => "https://source.unsplash.com/R-LK3sqLiBw/1600x1200",
@@ -38,15 +38,15 @@ class UiUtilities
         switch ($account->subdomain) {
             case 'testing':
             case 'espiritu':
-                $default['main_image_url'] = "//pix6.agoda.net/geo/city/17196/1_17196_02.jpg?s=1920x822";
-                $default['bg_primary'] = "#64b96a";
-                $default['footer'] = "#ffffff94";
-                return $default;
+                $uiMatrix['main_image_url'] = "//pix6.agoda.net/geo/city/17196/1_17196_02.jpg?s=1920x822";
+                $uiMatrix['bg_primary'] = "#64b96a";
+                $uiMatrix['footer'] = "#ffffff94";
+                return $uiMatrix;
 
                 break;
 
             default:
-                return $default;
+                return $uiMatrix;
         }
 
     }
