@@ -42,10 +42,10 @@ Route::domain("{subdomain}.{$appDomain}")->group(function () {
     // todo: Add protected routes via middleware (auth/business owners)
 
     // START: Public
-    Route::get('/gallery', 'PhotoController@index');
-    Route::get('/', 'PublicController@index');
     Route::get('contact', 'PublicController@contact');
     Route::post('contact', 'PublicController@submit');
+    Route::get('gallery', 'PhotoController@index');
+    Route::get('/', 'PublicController@index');
     // END: Public
 
     Route::group(['middleware' => 'auth', 'prefix' => 'bo'], function (\Illuminate\Routing\Router $router) {

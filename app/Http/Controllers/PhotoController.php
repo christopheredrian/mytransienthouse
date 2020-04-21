@@ -11,25 +11,19 @@ namespace App\Http\Controllers;
 use App\Account;
 use Illuminate\Support\Facades\DB;
 
-class PhotoController
+class PhotoController extends ApplicationController
 {
 
     public function index($subdomain) {
 
-        $account = Account::where('subdomain', '=', $subdomain)
-            ->first();
-
-        $ownerUserId = $account->owner_user_id;
-        $businessName = $account->business_name;
-
         $photoURLs = DB::table('photos')
-            ->where('owner_user_id','=', $ownerUserId)
+            ->where('account_id','=', $this->account->id)
             ->whereNull('deleted_at')
             ->pluck('url');
 
         return view('public.gallery', [
             'photoURLs' => $photoURLs,
-            'businessName' => $businessName
+            'businessName' => $this->account->business_name
         ]);
     }
 

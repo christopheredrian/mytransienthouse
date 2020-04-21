@@ -3,8 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Account;
+use App\Utilities\UiUtilities;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\View;
 
 abstract class ApplicationController extends Controller
@@ -34,6 +34,7 @@ abstract class ApplicationController extends Controller
          * Add account variable to all views
          */
         View::share('account', $this->account);
+        View::share('ui', UiUtilities::getForAccount($this->account));
     }
 
 }

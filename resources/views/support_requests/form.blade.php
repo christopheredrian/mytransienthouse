@@ -27,7 +27,7 @@
                                    id="fullName"
                                    type="text"
                                    name="full_name"
-                                   placeholder="Your Name"
+                                   placeholder="Enter your name"
                                    value="{{old('full_name')}}"
                             />
                         </div>
@@ -39,7 +39,7 @@
                                    class="form-control py-4"
                                    id="phone"
                                    type="text"
-                                   placeholder="0926.." required value="{{old('phone')}}"/>
+                                   placeholder="Enter Phone Number" required value="{{old('phone')}}"/>
                         </div>
                         <div class="form-group col-md-4">
                             <label class="text-dark" for="email">
@@ -49,7 +49,7 @@
                                    class="form-control py-4"
                                    id="email"
                                    type="email"
-                                   placeholder="name@example.com" value="{{old('email')}}"
+                                   placeholder="Enter Email Address" value="{{old('email')}}"
                             />
                         </div>
                     </div>
@@ -62,7 +62,7 @@
                                     name="subject"
                                     type="text"
                                     class="form-control"
-                                    placeholder="Inquring for.."
+                                    placeholder="Inquring for..."
                                 />
                             </div>
                         </div>

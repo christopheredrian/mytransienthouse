@@ -2,17 +2,15 @@
 
 @section('content')
     <header class="page-header page-header-light bg-img-cover overlay overlay-light overlay-80"
-            style='background-image: url("https://source.unsplash.com/R-LK3sqLiBw/1600x1200")'>
+            style='background-image: url("{{$ui['main_image_url'] ?? ''}}")'>
         <div class="page-header-content py-5">
             <div class="container">
                 <div class="row justify-content-center">
                     <div class="col-xl-8 col-lg-10 text-center">
-                        <h1 class="page-header-title">Rent home or rooms</h1>
-                        <p class="page-header-text mb-5">Our home is open for all vacationers!
-                            Staying with us is a great way to start your ideal vacation. Let's get started and book your
-                            stay with us!</p>
-                        <a class="btn btn-marketing rounded-pill btn-primary" href="#!">Get Started</a><a
-                            class="btn btn-link btn-marketing rounded-pill" href="#!">Learn More</a>
+                        <h1 class="page-header-title">{{$ui['main_title'] ?? ''}}</h1>
+                        <p class="page-header-text mb-5">{{$ui['main_subtitle'] ?? ''}}</p>
+{{--                        <a class="btn btn-marketing rounded-pill btn-primary" href="#!">Get Started</a><a--}}
+{{--                            class="btn btn-link btn-marketing rounded-pill" href="#!">Learn More</a>--}}
                     </div>
                 </div>
             </div>

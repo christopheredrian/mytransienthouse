@@ -4,8 +4,11 @@ namespace App\Http\Controllers;
 
 use App\Faq;
 use App\SupportRequest;
+use Exception;
+use Illuminate\Contracts\View\Factory;
 use Illuminate\Http\Request;
 use Illuminate\Validation\ValidationException;
+use Illuminate\View\View;
 
 class PublicController extends ApplicationController
 {
@@ -20,6 +23,10 @@ class PublicController extends ApplicationController
         ]);
     }
 
+    /**
+     * Contact form
+     * @return Factory|View
+     */
     public function contact()
     {
         return view('support_requests.form');
@@ -28,18 +35,19 @@ class PublicController extends ApplicationController
 
     /**
      * @param Request $request
+     * @return Factory|View
      * @throws ValidationException
-     * @throws \Exception
+     * @throws Exception
      */
     public function submit(Request $request)
     {
 
         $this->validate($request, [
             'phone' => 'min:10|max:15|required',
-            'email' => 'email',
             'full_name' => 'required|max:255',
-            'subject' => 'max:255',
-            'body' => 'max:1000'
+            'subject' => 'required|max:255',
+            'body' => 'required|max:1000',
+            'email' => 'email',
         ]);
 
         $supportRequest = new SupportRequest();

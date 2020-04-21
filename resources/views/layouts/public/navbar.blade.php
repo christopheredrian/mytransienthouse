@@ -1,6 +1,6 @@
-<nav class="navbar navbar-marketing navbar-expand-lg bg-white navbar-light">
+<nav class="navbar navbar-marketing navbar-expand-lg bg-white navbar-light bg-primary">
     <div class="container">
-        <a class="navbar-brand text-dark" href="/">My Transient House</a>
+        <a class="navbar-brand text-dark" href="/">{{ $account->business_name ?? 'My Transient House' }}</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse"
                 data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
                 aria-expanded="false" aria-label="Toggle navigation"><i data-feather="menu"></i></button>
