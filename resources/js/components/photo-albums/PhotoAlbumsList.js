@@ -3,6 +3,7 @@ import {Book, Plus} from 'react-feather';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
+
 import UpsertPhotoAlbumModal from './modal/UpsertPhotoAlbumModal';
 import {fetchAll} from '../../services/PhotoAlbumsServices';
 import {deletePhotoAlbum, updateFeaturedPhotoAlbum} from '../../services/PhotoAlbumsServices';
@@ -119,31 +120,35 @@ const PhotoAlbumsList = () => {
                                                                     style={photoStyle}
                                                                 />
 
-                                                                <div className="card-img-overlay p-2">
-                                                                    <button
-                                                                        className={
-                                                                            `btn btn-Add to md btn-${photoAlbum.is_featured ? 'yellow': 'blue'} btn-icon`
-                                                                        }
-                                                                        title={photoAlbum.is_featured ? 'Featured' : 'Add to featured'}
-                                                                        onClick={(e) => toggleIsFeatured(photoAlbum)}
-                                                                        key={photoAlbum.id}
-                                                                    >
-                                                                        <FontAwesomeIcon icon={photoAlbum.is_featured ? 'star' : 'plus'} />
-
-                                                                    </button>
-                                                                </div>
-
                                                                 <div className="card-body px-3 py-3">
-                                                                    <div className="text-dark">{photoAlbum.name}</div>
-                                                                    <div className="text-xs text-muted mb-2">
-                                                                        {
-                                                                            photoAlbum.description.length <= 90 ? (
-                                                                                photoAlbum.description
-                                                                            ) : (
-                                                                                `${photoAlbum.description.substring(0, 90)}...`
-                                                                            )
-                                                                        }
+
+                                                                    <div className="d-flex justify-content-between">
+                                                                        <div>
+                                                                            <div className="text-dark">{photoAlbum.name}</div>
+                                                                            <div className="text-xs text-muted mb-2">
+                                                                                {
+                                                                                    photoAlbum.description.length <= 90 ? (
+                                                                                        photoAlbum.description
+                                                                                    ) : (
+                                                                                        `${photoAlbum.description.substring(0, 90)}...`
+                                                                                    )
+                                                                                }
+                                                                            </div>
+                                                                        </div>
+
+                                                                        <button
+                                                                            className={
+                                                                                `btn btn-sm btn-${photoAlbum.is_featured ? 'yellow': 'blue'} btn-icon`
+                                                                            }
+                                                                            title={photoAlbum.is_featured ? 'Featured' : 'Add to featured'}
+                                                                            onClick={(e) => toggleIsFeatured(photoAlbum)}
+                                                                            key={photoAlbum.id}
+                                                                        >
+                                                                            <FontAwesomeIcon icon={photoAlbum.is_featured ? 'star' : 'plus'} />
+                                                                        </button>
                                                                     </div>
+
+
                                                                     <div
                                                                         className="d-flex justify-content-between align-items-end">
                                                                         <div>
