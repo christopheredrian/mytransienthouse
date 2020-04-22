@@ -11,7 +11,7 @@ class UiUtilities
     {
         $uiMatrix = [
             'main_title' => 'Rent home or rooms',
-            'main_subtitle' => "Our home is open for all vacationers! Staying with us is a great way to start your ideal vacation. Let's get started and book your stay with us!",
+            'main_subtitle' => "Our home is open for all vacationers! Staying with us is a great way to start your ideal vacation. Get started and book your stay with us!",
             'main_image_url' => "https://source.unsplash.com/R-LK3sqLiBw/1600x1200",
 
             // disabled for now

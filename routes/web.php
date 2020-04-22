@@ -44,7 +44,8 @@ Route::domain("{subdomain}.{$appDomain}")->group(function () {
     // START: Public
     Route::get('contact', 'PublicController@contact');
     Route::post('contact', 'PublicController@submit');
-    Route::get('gallery', 'PhotoController@index');
+    Route::get('gallery', 'PublicController@gallery');
+    Route::get('photo-album/{id}', 'PublicController@photoAlbum');
     Route::get('/', 'PublicController@index');
     // END: Public
 

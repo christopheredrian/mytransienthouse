@@ -2,6 +2,8 @@
 
 namespace App\Utilities;
 
+use App\PhotoAlbum;
+use App\PhotoAlbumPhoto;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -10,8 +12,7 @@ class PhotoAlbumUtilities
     public static function getPhotoAlbumCollection($accountId)
     {
 
-        $photoAlbumCollection = DB::table('photo_albums')
-            ->select(
+        $photoAlbumCollection = PhotoAlbum::select(
                 'photo_albums.id',
                 'photo_albums.name',
                 'photo_albums.is_featured',
@@ -29,13 +30,17 @@ class PhotoAlbumUtilities
         return $photoAlbumCollection;
     }
 
-    public static function getPhotoAlbums($accountId, $featured = null)
+    public static function getPhotoAlbums($accountId, $featured = null, $extract = null)
     {
 
         $albums = self::getPhotoAlbumCollection($accountId);
 
         if ($featured) {
             $albums->where('photo_albums.is_featured', '=', $featured);
+        }
+
+        if($extract) {
+            $albums->where('photo_albums.id', '!=', $extract);
         }
 
         return $albums->get();
@@ -54,7 +59,7 @@ class PhotoAlbumUtilities
 
         $photoAlbum->name = $request->name;
         $photoAlbum->description = $request->description;
-        $photoAlbum->is_featured = null; // default value for now
+//        $photoAlbum->is_featured = null; // default value for now
 
         return $photoAlbum;
     }

@@ -23,4 +23,9 @@ class PhotoAlbum extends Model
     {
         return Photo::where($this->id)->get();
     }
+
+    public function getPhotoAlbumPhotosCount() {
+
+        return PhotoAlbumPhoto::where('photo_album_id', '=', $this->id)->count();
+    }
 }

@@ -23,7 +23,7 @@ class ApiPhotoAlbumController extends ApiAuthController
 
     public function allSelectedPhotos($albumId) {
 
-        $unselectedPhotos = DB::select("
+        $selectedPhotos = DB::select("
             SELECT
                 p.id, p.url, pap.is_featured
             FROM
@@ -34,7 +34,7 @@ class ApiPhotoAlbumController extends ApiAuthController
                 pap.photo_album_id = ${albumId};
         ");
 
-        return $this->jsonApiResponse(self::STATUS_SUCCESS, 'Success', $unselectedPhotos);
+        return $this->jsonApiResponse(self::STATUS_SUCCESS, 'Success', $selectedPhotos);
     }
 
     public function allUnselectedPhotos($albumId) {

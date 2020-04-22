@@ -4,14 +4,26 @@
     <style>
         .photo-album {
             width: 100%;
-            height: 220px;
+            height: 210px;
             object-fit: cover;
             object-position: 50% 0%;
         }
 
-        @media (max-width: 45rem) {
+        @media (max-width: 400px) {
             .photo-album {
-                height: 260px;
+                height: 180px;
+            }
+        }
+
+        @media (min-width: 760px) {
+            .photo-album {
+                height: 290px;
+            }
+        }
+
+        @media (min-width: 990px) {
+            .photo-album {
+                height: 180px;
             }
         }
     </style>
@@ -25,9 +37,9 @@
                 <div class="row justify-content-center">
                     <div class="col-xl-8 col-lg-10 text-center">
                         <h1 class="page-header-title">{{$ui['main_title'] ?? ''}}</h1>
-                        <p class="page-header-text mb-5">{{$ui['main_subtitle'] ?? ''}}</p>
-                        {{--                        <a class="btn btn-marketing rounded-pill btn-primary" href="#!">Get Started</a><a--}}
-                        {{--                            class="btn btn-link btn-marketing rounded-pill" href="#!">Learn More</a>--}}
+                        <p class="page-header-text mb-4">{{$ui['main_subtitle'] ?? ''}}</p>
+                        <a class="btn btn-marketing rounded-pill btn-primary" href="#">Get Started</a>
+                        <a class="btn btn-link btn-marketing rounded-pill" href="#!">Learn More</a>
                     </div>
                 </div>
             </div>
@@ -47,10 +59,8 @@
                     @foreach($photoAlbums as $photoAlbum)
 
                         <div class="col-lg-4 mb-5">
-                            <a class="card lift h-100" href="/gallery">
-                                <img class="card-img-top photo-album" src={{ $photoAlbum->url  }} alt="..."/
-                                        {{--style="width: 100%; height: 220px; object-fit: cover; object-position: 50% -0%;"--}}
-                                >
+                            <a class="card lift h-100" href="/photo-album/{{ $photoAlbum->id }}">
+                                <img class="card-img-top photo-album" src={{ $photoAlbum->url  }} alt="..."/>
                                 <div class="card-body">
                                     <h4 class="card-title mb-2">{{ $photoAlbum->name  }}</h4>
                                     <p class="card-text">{{ $photoAlbum->description }}</p>
@@ -111,7 +121,7 @@
                 <a class="btn btn-primary btn-marketing rounded-pill" href="/contact">Book Now</a>
             </div>
         </div>
-        <div class="svg-border-angled text-white">
+        <div class="svg-border-angled text-light">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" preserveAspectRatio="none"
                  fill="currentColor">
                 <polygon points="0,100 100,0 100,100"></polygon>

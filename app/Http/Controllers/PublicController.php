@@ -3,13 +3,17 @@
 namespace App\Http\Controllers;
 
 use App\Faq;
-use App\PhotoAlbumUtilities;
+use App\Photo;
+use App\PhotoAlbum;
+use App\Utilities\PhotoAlbumUtilities;
 use App\SupportRequest;
 use Exception;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Validation\ValidationException;
 use Illuminate\View\View;
+use InvalidArgumentException;
 
 class PublicController extends ApplicationController
 {
@@ -69,5 +73,51 @@ class PublicController extends ApplicationController
 
         return view('support_requests.create_success', ['reference_number' => $supportRequest->reference_number]);
 
+    }
+
+    public function gallery()
+    {
+
+        $photoURLs = DB::table('photos')
+            ->where('account_id', '=', $this->account->id)
+            ->whereNull('deleted_at')
+            ->pluck('url');
+
+        $allPhotosCount = Photo::where('account_id', $this->account->id)->count();
+        $otherAlbums = PhotoAlbumUtilities::getPhotoAlbums($this->account->id, true);
+
+        return view('public.gallery', [
+            'photoURLs' => $photoURLs,
+            'businessName' => $this->account->business_name,
+            'otherAlbums' => $otherAlbums,
+            'allPhotosCount' => $allPhotosCount
+        ]);
+    }
+
+    public function photoAlbum($subdomain, $albumId)
+    {
+
+        $photoAlbum = PhotoAlbum::findOrFail($albumId);
+
+        if ($photoAlbum->is_featured === null || $photoAlbum->is_featured === 0) {
+            throw new InvalidArgumentException("Forbidden.");
+        }
+
+        $allPhotosCount = Photo::where('account_id', $this->account->id)->count();
+//        $otherAlbums = PhotoAlbumUtilities::getPhotoAlbums($this->account->id, true, $albumId);
+        $otherAlbums = PhotoAlbumUtilities::getPhotoAlbums($this->account->id, true);
+
+        $photos = DB::table('photos')
+            ->join('photo_album_photos', 'photos.id', '=', 'photo_album_photos.photo_id')
+            ->where('photo_album_photos.photo_album_id', '=', $albumId)
+            ->select('photos.*')
+            ->get();
+
+        return view('public.photo-album', [
+            'photos' => $photos,
+            'photoAlbum' => $photoAlbum,
+            'otherAlbums' => $otherAlbums,
+            'allPhotosCount' => $allPhotosCount
+        ]);
     }
 }
