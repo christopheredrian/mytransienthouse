@@ -1,6 +1,6 @@
 <?php
 
-namespace App;
+namespace App\Utilities;
 
 use Illuminate\Support\Facades\Storage;
 use InvalidArgumentException;

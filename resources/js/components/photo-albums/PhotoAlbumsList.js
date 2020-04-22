@@ -148,9 +148,7 @@ const PhotoAlbumsList = () => {
                                                                         </button>
                                                                     </div>
 
-
-                                                                    <div
-                                                                        className="d-flex justify-content-between align-items-end">
+                                                                    <div className="d-flex justify-content-between align-items-end">
                                                                         <div>
                                                                             <button
                                                                                 type="button"

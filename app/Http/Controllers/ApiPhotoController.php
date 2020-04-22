@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Exception;
 use ErrorException;
 use App\Photo;
-use App\S3Utilities;
+use App\Utilities\S3Utilities;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use InvalidArgumentException;

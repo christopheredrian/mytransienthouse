@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\PhotoAlbum;
-use App\PhotoAlbumUtilities;
+use App\Utilities\PhotoAlbumUtilities;
 use Exception;
 use ErrorException;
 use App\Photo;
