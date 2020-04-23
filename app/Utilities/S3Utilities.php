@@ -2,6 +2,7 @@
 
 namespace App\Utilities;
 
+use App\Photo;
 use Illuminate\Support\Facades\Storage;
 use InvalidArgumentException;
 
