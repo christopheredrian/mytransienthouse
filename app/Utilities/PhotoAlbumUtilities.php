@@ -25,6 +25,7 @@ class PhotoAlbumUtilities
             ->where('photo_albums.deleted_at', '=', null)
             ->where('photo_album_photos.is_featured', '=', '1')
             ->orderBy('photo_albums.is_featured', 'desc')
+            ->orderBy('photo_albums.rank', 'asc')
             ->orderBy('photo_albums.created_at', 'desc');
 
         return $photoAlbumCollection;

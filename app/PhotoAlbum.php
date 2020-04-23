@@ -16,7 +16,7 @@ class PhotoAlbum extends Model
      * @var array
      */
     protected $fillable = [
-        'name', 'description'
+        'name', 'description',
     ];
 
     public function getPhotos()
