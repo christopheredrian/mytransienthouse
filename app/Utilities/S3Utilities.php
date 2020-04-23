@@ -2,6 +2,7 @@
 
 namespace App\Utilities;
 
+use App\Account;
 use Illuminate\Support\Facades\Storage;
 use InvalidArgumentException;
 
