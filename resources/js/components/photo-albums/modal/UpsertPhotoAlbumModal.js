@@ -6,8 +6,6 @@ import PhotoPool from './PhotoPool'
 
 import './UpsertPhotoAlbumModal.css'
 
-import { fetchAll } from "../../../services/PhotosServices"
-
 import {
     upsertPhotoAlbum,
     fetchAllSelectedPhotos,
@@ -28,7 +26,7 @@ const UpsertPhotoAlbumModal = ({show, setShow, setPhotoAlbumForEdit, photoAlbumF
     });
 
     const fetchAllPhotos = () => {
-        fetchAll((photos) => {
+        fetchAllUnselectedPhotos((photos) => {
             setPhotos(photos);
         }, (error) => {
             // todo: handle
