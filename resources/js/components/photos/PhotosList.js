@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from 'react';
 import {Camera, MoreVertical} from 'react-feather';
 import {Dropdown, ButtonGroup} from 'react-bootstrap';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
 
 import {
     fetchAll, uploadPhoto, deletePhoto
@@ -118,7 +118,7 @@ const PhotosList = ({loggedInUser = null}) => {
                     <div className="col-xl-3">
                         <div className="row">
                             <div id="default" className="w-100">
-                                <div className="card mb-4 ">
+                                <div className="card mb-4">
                                     <div className="card-header">Upload Photo/s</div>
                                     <div className="card-body">
                                         <div className="sbp-preview">
@@ -141,7 +141,7 @@ const PhotosList = ({loggedInUser = null}) => {
                                                         disabled={isUploading}
                                                     >
                                                         { isUploading ? (
-                                                            <FontAwesomeIcon className="mr-2" icon="spinner" spin />
+                                                            <FontAwesomeIcon className="mr-2" icon="spinner" spin/>
                                                         ) : (
                                                             <FontAwesomeIcon className="mr-2" icon="upload"/>
                                                         )
@@ -229,7 +229,6 @@ const PhotosList = ({loggedInUser = null}) => {
                             </div>
                         </div>
                     </div>
-
                 </div>
             </div>
         </main>

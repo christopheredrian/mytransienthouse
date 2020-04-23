@@ -19,6 +19,7 @@ import {
 const UpsertPhotoAlbumModal = ({show, setShow, setPhotoAlbumForEdit, photoAlbumForEdit = null, onUpsertSuccess}) => {
 
     const [photos, setPhotos] = useState(null);
+    const [hasFeaturedPhoto, setHasFeaturedPhoto] = useState(false);
     const [albumData, setAlbumData] = useState({
         id: null,
         name: '',
@@ -52,6 +53,8 @@ const UpsertPhotoAlbumModal = ({show, setShow, setPhotoAlbumForEdit, photoAlbumF
         }, (error) => {
             // todo: handle
         })
+
+        setHasFeaturedPhoto(true);
     };
 
     useEffect(() => {
@@ -65,6 +68,10 @@ const UpsertPhotoAlbumModal = ({show, setShow, setPhotoAlbumForEdit, photoAlbumF
         }
 
     }, [photoAlbumForEdit]);
+
+    useEffect(() => {
+        console.log('hasFeaturedPhoto: ', hasFeaturedPhoto)
+    }, [hasFeaturedPhoto]);
 
 
     const onAlbumNameChange = (name) => {
@@ -96,7 +103,14 @@ const UpsertPhotoAlbumModal = ({show, setShow, setPhotoAlbumForEdit, photoAlbumF
         // Remove photo from selected photos
         setAlbumData({
             ...albumData,
-            selectedPhotos: albumData.selectedPhotos.filter(selectedPhoto => selectedPhoto.id !== deselectedPhoto.id)
+            selectedPhotos: albumData.selectedPhotos.filter(selectedPhoto =>  {
+                if(selectedPhoto.id === deselectedPhoto.id && selectedPhoto.is_featured) {
+                    console.log(deselectedPhoto.is_featured);
+                    setHasFeaturedPhoto(false);
+                }
+
+                return (selectedPhoto.id !== deselectedPhoto.id);
+            })
         });
 
         // Add photo to photo pool
@@ -108,10 +122,12 @@ const UpsertPhotoAlbumModal = ({show, setShow, setPhotoAlbumForEdit, photoAlbumF
             ...albumData,
             selectedPhotos: albumData.selectedPhotos.map(selectedPhoto => {
                 selectedPhoto.is_featured = (selectedPhoto.id === id)
+
                 return selectedPhoto;
             })
         });
 
+        setHasFeaturedPhoto(true);
     };
 
     const closeModal = () => {
@@ -133,6 +149,7 @@ const UpsertPhotoAlbumModal = ({show, setShow, setPhotoAlbumForEdit, photoAlbumF
             selectedPhotos: []
         });
 
+        setHasFeaturedPhoto(false);
         setShow(false);
     };
 
@@ -195,7 +212,11 @@ const UpsertPhotoAlbumModal = ({show, setShow, setPhotoAlbumForEdit, photoAlbumF
                             className="btn btn-primary"
                             type="button"
                             onClick={(e) => onSave(e)}
-                            disabled={!albumData.name || !albumData.description || albumData.selectedPhotos.length === 0}
+                            disabled={!albumData.name ||
+                            !albumData.description ||
+                            albumData.selectedPhotos.length === 0 ||
+                            hasFeaturedPhoto === false
+                            }
                         >
                             Save
                         </button>

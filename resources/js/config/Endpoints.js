@@ -13,6 +13,7 @@ const Endpoints = {
 
     PHOTO_ALBUMS_DATA: '/api/photo_albums',
     UPSERT_PHOTO_ALBUM: '/api/photo_albums/upsert',
+    DELETE_PHOTO_ALBUM: '/api/photo_albums/delete',
     UPDATE_FEATURED_PHOTO_ALBUM: '/api/photo_albums/update_featured',
     PHOTO_ALBUM_SELECTED_PHOTOS: '/api/photo_albums/selected_photos',
     PHOTO_ALBUM_UNSELECTED_PHOTOS: '/api/photo_albums/unselected_photos',

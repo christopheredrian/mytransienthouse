@@ -122,18 +122,18 @@ const PhotoAlbumsList = () => {
                                                                     style={photoStyle}
                                                                 />
 
-                                                                <div className="card-body px-3 py-3">
+                                                                <div className="card-body px-3 pt-3 pb-2">
 
                                                                     <div className="d-flex justify-content-between">
                                                                         <div>
                                                                             <div
                                                                                 className="text-dark">{photoAlbum.name}</div>
-                                                                            <div className="text-xs text-muted mb-2">
+                                                                            <div className="text-xs text-muted">
                                                                                 {
-                                                                                    photoAlbum.description.length <= 60 ? (
+                                                                                    photoAlbum.description.length <= 75 ? (
                                                                                         photoAlbum.description
                                                                                     ) : (
-                                                                                        `${photoAlbum.description.substring(0, 60)}...`
+                                                                                        `${photoAlbum.description.substring(0, 75)}...`
                                                                                     )
                                                                                 }
                                                                             </div>
@@ -153,7 +153,7 @@ const PhotoAlbumsList = () => {
                                                                     </div>
 
                                                                 </div>
-                                                                <div className="card-footer small text-muted">
+                                                                <div className="card-footer small text-muted px-3">
                                                                     <div className="d-flex justify-content-between align-items-end">
                                                                         <div>
                                                                             <button
