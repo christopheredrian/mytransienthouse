@@ -32,6 +32,7 @@ class UiUtilities
             'navbar_brand' => 'black',
 
             'footer' => '#a2acba',
+            'footer_bg' => 'white',
 
         ];
 
@@ -40,7 +41,8 @@ class UiUtilities
             case 'espiritu':
                 $uiMatrix['main_image_url'] = "//pix6.agoda.net/geo/city/17196/1_17196_02.jpg?s=1920x822";
                 $uiMatrix['bg_primary'] = "#64b96a";
-                $uiMatrix['footer'] = "#ffff94";
+                $uiMatrix['footer'] = "#000000b8";
+                $uiMatrix['footer_bg'] = "#64b96a";
                 return $uiMatrix;
 
                 break;

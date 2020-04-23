@@ -53,6 +53,7 @@
             --nav-link: {{$ui['nav_link'] ?? 'white'}};
             --navbar-brand: {{$ui['navbar_brand'] ?? ''}};
             --footer: {{$ui['footer'] ?? ''}};
+            --footer-bg: {{$ui['footer_bg'] ?? ''}};
 
         }
 
@@ -109,6 +110,10 @@
 
         .footer {
             color: var(--footer) !important;
+        }
+
+        .footer-bg {
+            background-color: var(--footer-bg) !important;
         }
     </style>
 

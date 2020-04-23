@@ -1,5 +1,5 @@
 <div id="layoutDefault_footer">
-    <footer class="footer pt-10 pb-5 mt-auto bg-light footer-white bg-light">
+    <footer class="footer pt-10 pb-5 mt-auto bg-light footer-white bg-light footer-bg">
         <div class="container">
             <div class="row">
                 <div class="col-lg-3">
