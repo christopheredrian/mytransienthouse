@@ -2,7 +2,9 @@
 
 namespace App\Utilities;
 
+use App\Account;
 use App\Photo;
+use App\User;
 use Illuminate\Support\Facades\Storage;
 use InvalidArgumentException;
 
@@ -77,7 +79,7 @@ class S3Utilities
                 );
 
                 // Store in photos table
-                $newPhoto = new Photo;
+                $newPhoto = new Photo();
                 $newPhoto->owner_user_id = $uploader->id;
                 $newPhoto->account_id = $account->id;
                 $newPhoto->path = $path;
