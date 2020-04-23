@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from 'react';
 import {Book, Plus} from 'react-feather';
 
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
 
 import UpsertPhotoAlbumModal from './modal/UpsertPhotoAlbumModal';
 import {fetchAll} from '../../services/PhotoAlbumsServices';
@@ -32,7 +32,7 @@ const PhotoAlbumsList = () => {
 
     const onDeletePhotoAlbum = (photoAlbum) => {
 
-        const confirm = confirm(`Are you sure you want to delete ${photoAlbum.name} photo album?`);
+        const confirmDelete = confirm(`Are you sure you want to delete ${photoAlbum.name} photo album?`);
 
         if (confirmDelete) {
             deletePhotoAlbum(photoAlbum.id, (response) => {
@@ -63,7 +63,7 @@ const PhotoAlbumsList = () => {
 
     const photoStyle = {
         width: "100%",
-        height: "300px",
+        height: "250px",
         objectFit: "cover",
         objectPosition: "50% -0%"
     };
@@ -109,9 +109,12 @@ const PhotoAlbumsList = () => {
                                             ) : (
                                                 photoAlbums.map((photoAlbum) => {
                                                     return (
-                                                        <div className="col-lg-3 d-flex align-items-stretch"
+                                                        <div className="col-xl-3 col-lg-6 col-md-6  d-flex align-items-stretch"
                                                              key={photoAlbum.id}>
                                                             <div className="card mb-4 box-shadow">
+                                                                {/*<div className="card-flag card-flag-dark card-flag-top-right card-flag-lg">*/}
+                                                                    {/*10 photos */}
+                                                                {/*</div>*/}
                                                                 <img
                                                                     className="card-img-top"
                                                                     src={photoAlbum.url}
@@ -123,13 +126,14 @@ const PhotoAlbumsList = () => {
 
                                                                     <div className="d-flex justify-content-between">
                                                                         <div>
-                                                                            <div className="text-dark">{photoAlbum.name}</div>
+                                                                            <div
+                                                                                className="text-dark">{photoAlbum.name}</div>
                                                                             <div className="text-xs text-muted mb-2">
                                                                                 {
-                                                                                    photoAlbum.description.length <= 90 ? (
+                                                                                    photoAlbum.description.length <= 60 ? (
                                                                                         photoAlbum.description
                                                                                     ) : (
-                                                                                        `${photoAlbum.description.substring(0, 90)}...`
+                                                                                        `${photoAlbum.description.substring(0, 60)}...`
                                                                                     )
                                                                                 }
                                                                             </div>
@@ -137,16 +141,19 @@ const PhotoAlbumsList = () => {
 
                                                                         <button
                                                                             className={
-                                                                                `btn btn-sm btn-${photoAlbum.is_featured ? 'yellow': 'blue'} btn-icon`
+                                                                                `btn btn-sm btn-${photoAlbum.is_featured ? 'yellow' : 'blue'} btn-icon`
                                                                             }
                                                                             title={photoAlbum.is_featured ? 'Featured' : 'Add to featured'}
                                                                             onClick={(e) => toggleIsFeatured(photoAlbum)}
                                                                             key={photoAlbum.id}
                                                                         >
-                                                                            <FontAwesomeIcon icon={photoAlbum.is_featured ? 'star' : 'plus'} />
+                                                                            <FontAwesomeIcon
+                                                                                icon={photoAlbum.is_featured ? 'star' : 'plus'}/>
                                                                         </button>
                                                                     </div>
 
+                                                                </div>
+                                                                <div className="card-footer small text-muted">
                                                                     <div className="d-flex justify-content-between align-items-end">
                                                                         <div>
                                                                             <button
@@ -171,8 +178,9 @@ const PhotoAlbumsList = () => {
                                                                                 Delete
                                                                             </button>
                                                                         </div>
-                                                                        <small
-                                                                            className="text-xs text-muted">{photoAlbum.updated_at}</small>
+                                                                        <small className="text-xs text-muted">
+                                                                            {photoAlbum.updated_at.substring(0, photoAlbum.updated_at.indexOf("T"))}
+                                                                        </small>
                                                                     </div>
                                                                 </div>
                                                             </div>
