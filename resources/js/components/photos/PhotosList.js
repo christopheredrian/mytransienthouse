@@ -1,6 +1,7 @@
 import React, {useState, useEffect} from 'react';
 import {Camera, MoreVertical} from 'react-feather';
 import {Dropdown, ButtonGroup} from 'react-bootstrap';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 import {
     fetchAll, uploadPhoto, deletePhoto
@@ -22,6 +23,7 @@ const CustomToggle = React.forwardRef(({children, onClick}, ref) => (
 
 const PhotosList = ({loggedInUser = null}) => {
 
+    const [isUploading, setIsUploading] = useState(false);
     const [photos, setPhotos] = useState([]);
     const [photoFiles, setPhotoFiles] = useState('');
     const [errorMessage, setErrorMessage] = useState(null);
@@ -45,11 +47,14 @@ const PhotosList = ({loggedInUser = null}) => {
 
     const onSuccess = (response) => {
         console.log('boom');
+        setIsUploading(false);
         fetchAllPhotos();
     };
 
     const onUpload = (e) => {
         e.preventDefault();
+
+        setIsUploading(true);
 
         const data = new FormData();
         Array.from(photoFiles).forEach(photoFile => data.append('photos[]', photoFile));
@@ -133,8 +138,15 @@ const PhotosList = ({loggedInUser = null}) => {
                                                     <button
                                                         className="btn btn-primary"
                                                         type="submit"
+                                                        disabled={isUploading}
                                                     >
-                                                        Upload
+                                                        { isUploading ? (
+                                                            <FontAwesomeIcon className="mr-2" icon="spinner" spin />
+                                                        ) : (
+                                                            <FontAwesomeIcon className="mr-2" icon="upload"/>
+                                                        )
+                                                        }
+                                                        {isUploading ? " Uploading" : " Upload"}
                                                     </button>
                                                 </form>
                                             </div>

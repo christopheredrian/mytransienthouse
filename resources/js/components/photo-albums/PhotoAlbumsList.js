@@ -3,7 +3,6 @@ import {Book, Plus} from 'react-feather';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
-
 import UpsertPhotoAlbumModal from './modal/UpsertPhotoAlbumModal';
 import {fetchAll} from '../../services/PhotoAlbumsServices';
 import {deletePhotoAlbum, updateFeaturedPhotoAlbum} from '../../services/PhotoAlbumsServices';
