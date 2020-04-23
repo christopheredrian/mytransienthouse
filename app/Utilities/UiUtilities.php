@@ -40,7 +40,7 @@ class UiUtilities
             case 'espiritu':
                 $uiMatrix['main_image_url'] = "//pix6.agoda.net/geo/city/17196/1_17196_02.jpg?s=1920x822";
                 $uiMatrix['bg_primary'] = "#64b96a";
-                $uiMatrix['footer'] = "#ffffff94";
+                $uiMatrix['footer'] = "#ffff94";
                 return $uiMatrix;
 
                 break;
