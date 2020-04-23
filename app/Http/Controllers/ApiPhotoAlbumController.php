@@ -31,7 +31,7 @@ class ApiPhotoAlbumController extends ApiAuthController
             INNER JOIN photo_album_photos pap ON
                 p.id = pap.photo_id
             WHERE
-                pap.photo_album_id = ${albumId};
+                pap.photo_album_id = ${albumId} ;
         ");
 
         return $this->jsonApiResponse(self::STATUS_SUCCESS, 'Success', $selectedPhotos);
@@ -39,13 +39,15 @@ class ApiPhotoAlbumController extends ApiAuthController
 
     public function allUnselectedPhotos($albumId) {
 
+        $accountId = $this->account->id;
+
         $unselectedPhotos = DB::select("
             SELECT
                 *
             FROM
                 photos p
             WHERE
-                p.deleted_at IS NULL AND p.id NOT IN(
+                p.deleted_at IS NULL AND p.account_id = ${$accountId} AND p.id NOT IN(
                 SELECT
                     pap.photo_id
                 FROM
