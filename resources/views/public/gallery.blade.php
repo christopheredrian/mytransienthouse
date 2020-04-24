@@ -115,7 +115,7 @@
 
     <section class="bg-white py-4">
         <div class="container">
-            <h2 class="mb-4">Albums</h2>
+            <h2 class="mb-4">{{$ui['album_alias_label'] ?? 'Albums' }}</h2>
             <div class="row">
                 <div class="col-xl-3 col-lg-4 col-md-6 mb-5">
                     <a class="card lift h-100" href="/gallery">

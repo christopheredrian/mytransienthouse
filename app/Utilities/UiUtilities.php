@@ -34,7 +34,10 @@ class UiUtilities
             'footer' => '#a2acba',
             'footer_bg' => 'white',
 
-            'gallery_bg' => '#0061f2'
+            'gallery_bg' => '#0061f2',
+
+            // Gallery alias label
+            'album_alias_label' => 'Albums',
 
         ];
 
@@ -46,6 +49,9 @@ class UiUtilities
                 $uiMatrix['footer'] = "#000000b8";
                 $uiMatrix['footer_bg'] = "#64b96a";
                 $uiMatrix['gallery_bg'] = '#6764b9';
+
+                $uiMatrix['album_alias_label'] = 'Units';
+
                 return $uiMatrix;
 
                 break;
