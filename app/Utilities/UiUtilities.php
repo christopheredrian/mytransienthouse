@@ -34,6 +34,8 @@ class UiUtilities
             'footer' => '#a2acba',
             'footer_bg' => 'white',
 
+            'gallery_bg' => '#0061f2'
+
         ];
 
         switch ($account->subdomain) {
@@ -43,6 +45,7 @@ class UiUtilities
                 $uiMatrix['bg_primary'] = "#64b96a";
                 $uiMatrix['footer'] = "#000000b8";
                 $uiMatrix['footer_bg'] = "#64b96a";
+                $uiMatrix['gallery_bg'] = '#6764b9';
                 return $uiMatrix;
 
                 break;

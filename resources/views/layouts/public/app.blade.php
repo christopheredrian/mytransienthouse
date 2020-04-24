@@ -55,6 +55,8 @@
             --footer: {{$ui['footer'] ?? ''}};
             --footer-bg: {{$ui['footer_bg'] ?? ''}};
 
+            --gallery-bg: {{$ui['gallery_bg'] ?? ''}}
+
         }
 
         /* Buttons */
@@ -114,6 +116,10 @@
 
         .footer-bg {
             background-color: var(--footer-bg) !important;
+        }
+
+        .bg-img-cover .svg-border-angled polygon{
+            color: var(--footer-bg) !important;
         }
     </style>
 

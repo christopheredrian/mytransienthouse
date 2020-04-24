@@ -53,7 +53,7 @@
 @endsection
 
 @section('content')
-    <header class="page-header page-header-dark bg-gradient-primary-to-secondary">
+    <header class="page-header page-header-dark" style="background-color: var(--gallery-bg)">
         <div class="page-header-content">
             <div class="container text-center">
                 <div class="row justify-content-center">
