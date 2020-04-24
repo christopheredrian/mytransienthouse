@@ -53,7 +53,7 @@
     </header>
     <section class="bg-white py-10">
         <div class="container">
-            <div class="row mb-5">
+            <div class="row d-flex justify-content-center mb-5">
 
                 @if(isset($photoAlbums) && !empty($photoAlbums))
                     @foreach($photoAlbums as $photoAlbum)
