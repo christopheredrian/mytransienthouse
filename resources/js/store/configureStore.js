@@ -14,6 +14,7 @@ export default () => {
         combineReducers({
             users: usersReducer,
             loggedInUser: authReducer,
+            account: accountReducer,
         }),
         persistedState,
         composeEnhancers(applyMiddleware(thunkMiddleware)),

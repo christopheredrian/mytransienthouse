@@ -12,6 +12,7 @@ axios.defaults.withCredentials = true;
 import ReactDOM from "react-dom";
 import React from "react";
 import MainApp from "./components/MainApp";
+import PublicApp from "./components/public/PublicApp";
 import {Provider} from 'react-redux';
 // import {startSetUsers} from './actions/users'
 import configureStore from './store/configureStore';
@@ -36,4 +37,9 @@ if (document.getElementById('admin-app')) {
     );
 
     ReactDOM.render(jsx, document.getElementById('admin-app'));
+} else {
+    const store = configureStore();
+    store.dispatch(initializeUser());
+
+    ReactDOM.render(<PublicApp />, document.getElementById('public-app'));
 }
