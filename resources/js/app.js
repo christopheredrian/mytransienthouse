@@ -4,6 +4,7 @@
  * building robust, powerful web applications using React + Laravel.
  */
 import {initializeUser} from "./actions/auth";
+import {initializeAccount} from "./actions/account";
 
 require('./bootstrap');
 
@@ -25,9 +26,10 @@ import configureStore from './store/configureStore';
 // store.dispatch(startSetUsers()).then(() => {
 // });
 
-if (document.getElementById('admin-app')) {
+const store = configureStore();
 
-    const store = configureStore();
+if (document.getElementById('admin-app')) {
+    
     store.dispatch(initializeUser());
 
     const jsx = (
@@ -38,8 +40,14 @@ if (document.getElementById('admin-app')) {
 
     ReactDOM.render(jsx, document.getElementById('admin-app'));
 } else {
-    const store = configureStore();
-    store.dispatch(initializeUser());
+    
+    store.dispatch(initializeAccount());
 
-    ReactDOM.render(<PublicApp />, document.getElementById('public-app'));
+    const jsx = (
+        <Provider store={store}>
+            <PublicApp />
+        </Provider>
+    );
+
+    ReactDOM.render(jsx, document.getElementById('public-app'));
 }

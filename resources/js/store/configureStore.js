@@ -3,6 +3,8 @@ import thunkMiddleware from 'redux-thunk';
 
 import usersReducer from '../reducers/users';
 import authReducer from '../reducers/auth';
+import accountReducer from '../reducers/account';
+import uiReducer from '../reducers/ui';
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
@@ -15,6 +17,7 @@ export default () => {
             users: usersReducer,
             loggedInUser: authReducer,
             account: accountReducer,
+            ui: uiReducer,
         }),
         persistedState,
         composeEnhancers(applyMiddleware(thunkMiddleware)),

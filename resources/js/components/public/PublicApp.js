@@ -1,24 +1,24 @@
 import React from 'react';
+import {connect} from 'react-redux';
+import {Menu} from "react-feather";
 
 import Home from './Home'
 
 import {
     BrowserRouter as Router,
     Switch,
-    Route,
-    Link
+    Route
 } from "react-router-dom";
 
 
-const PublicNavBar = () => {
+const PublicNavBar = ({ businessName = 'MTH' }) => {
     return (
         <nav className="navbar navbar-marketing navbar-expand-lg bg-white navbar-light bg-primary">
             <div className="container">
-                {/*<a className="navbar-brand text-dark" href="/">{{$account->business_name ?? 'My Transient House' }}</a>*/}
-                <a className="navbar-brand text-dark" href="/">MTH</a>
+                <a className="navbar-brand text-dark" href="/">{ businessName }</a>
                 <button className="navbar-toggler" type="button" data-toggle="collapse"
                         data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation"><i data-feather="menu" /></button>
+                        aria-expanded="false" aria-label="Toggle navigation"><Menu /></button>
                 <div className="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul className="navbar-nav ml-auto mr-lg-5">
                         <li className="nav-item"><a className="nav-link" href="/">Home</a></li>
@@ -45,20 +45,24 @@ const PublicFooter = () => {
                             <div className="footer-brand">TrenchDev</div>
                             <div className="mb-3">Build better websites</div>
                             <div className="icon-list-social mb-5">
-                                <a className="icon-list-social-link" href="javascript:void(0);"><i
-                                    className="fab fa-instagram"></i></a><a
-                                className="icon-list-social-link" href="javascript:void(0);"><i
-                                className="fab fa-facebook"></i></a><a className="icon-list-social-link"
-                                                                       href="javascript:void(0);"><i
-                                className="fab fa-github"></i></a><a className="icon-list-social-link"
-                                                                     href="javascript:void(0);"><i
-                                className="fab fa-twitter"></i></a>
+                                <a className="icon-list-social-link" href="#">
+                                    <i className="fab fa-instagram" />
+                                </a>
+                                <a className="icon-list-social-link" href="#">
+                                    <i className="fab fa-facebook" />
+                                </a>
+                                <a className="icon-list-social-link" href="#">
+                                    <i className="fab fa-github" />
+                                </a>
+                                <a className="icon-list-social-link" href="#">
+                                    <i className="fab fa-twitter" />
+                                </a>
                             </div>
                         </div>
                         <div className="col-lg-9 float-right">
                             <div className="row">
-                                <div className="col-lg-3 col-md-6 mb-5 mb-lg-0"></div>
-                                <div className="col-lg-3 col-md-6 mb-5 mb-lg-0"></div>
+                                <div className="col-lg-3 col-md-6 mb-5 mb-lg-0" />
+                                <div className="col-lg-3 col-md-6 mb-5 mb-lg-0" />
                                 <div className="col-lg-3 col-md-6 mb-5 mb-lg-0">
                                     <div className="text-uppercase-expanded text-xs mb-4">Products</div>
                                     <ul className="list-unstyled mb-0">
@@ -94,9 +98,9 @@ const PublicFooter = () => {
                     <div className="row align-items-center">
                         <div className="col-md-6 small">Copyright &copy; My Transient House 2020</div>
                         <div className="col-md-6 text-md-right small">
-                            <a href="javascript:void(0);">Privacy Policy</a>
+                            <a href="#">Privacy Policy</a>
                             &middot;
-                            <a href="javascript:void(0);">Terms &amp; Conditions</a>
+                            <a href="#">Terms &amp; Conditions</a>
                         </div>
                     </div>
                 </div>
@@ -105,9 +109,7 @@ const PublicFooter = () => {
     )
 };
 
-const PublicApp = () => {
-
-    const [isUploading, setIsUploading] = useState(false);
+const PublicApp = ({ account = null }) => {
 
     return (
         <Router>
@@ -115,7 +117,9 @@ const PublicApp = () => {
                 <div id="layoutDefault_content">
                     <main className="bg-light">
 
-                        <PublicNavBar/>
+                        <PublicNavBar
+                            businessName={account.business_name}
+                        />
 
                         <Switch>
                             <Route path={'/'} exact={true}><Home/></Route>
@@ -131,4 +135,11 @@ const PublicApp = () => {
 
 };
 
-export default PublicApp;
+const mapStateToProps = (state) => {
+    return {
+        account: state.account ? state.account : null,
+    }
+};
+
+export default connect(mapStateToProps)(PublicApp);
+

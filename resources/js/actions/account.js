@@ -1,51 +1,32 @@
 import axios from "axios";
 import Endpoints from "../config/Endpoints";
-import configureStore from "../store/configureStore";
 
-export const setAccount = account => {
+export const setAccount = accountData => {
 
     console.log("Action: INITIALIZE_ACCOUNT");
-    console.log(account);
+    console.log(accountData);
 
     return {
-        type: 'INITIALIZE_USER',
-        account,
+        type: 'INITIALIZE_ACCOUNT',
+        ui: accountData['ui'],
+        account: accountData['account'],
     }
-};
-
-export const logoutUser = () => {
-
-    console.log("Action: LOGOUT_USER");
-    return {
-        type: 'LOGOUT_USER',
-        user: {},
-    }
-
 };
 
 /**
  * @returns {function(*): Promise<AxiosResponse<T>>}
  */
-export const initializeUser = () => {
-
-    const store = configureStore();
-    const state = store.getState();
-
-    let apiToken = '';
-
-    if (state.loggedInUser && state.loggedInUser.api_token) {
-        apiToken = state.loggedInUser.api_token;
-    }
+export const initializeAccount = () => {
 
     return (dispatch) => {
 
-        return axios.get(`${Endpoints.INIT_USER}?api_token=${apiToken}`)
+        return axios.get(`${Endpoints.INIT_ACCOUNT}`)
             .then(({data}) => {
                 /**
                  * Success response
                  * set state data
                  */
-                dispatch(setLoggedInUser(data));
+                dispatch(setAccount(data.data));
             })
             .catch(error => {
                 console.error(error);

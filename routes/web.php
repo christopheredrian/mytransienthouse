@@ -70,6 +70,14 @@ Route::domain("{subdomain}.{$appDomain}")->group(function () {
 Route::get('espr2', 'StaticController@espr2');
 
 Route::group([
+    'prefix' => 'api',
+    // todo: add middleware for admin
+], function () {
+
+    Route::get('initialize_account', 'ApiPublicController@account');
+});
+
+Route::group([
     'middleware' => 'auth',
     'prefix' => 'api',
     // todo: add middleware for admin
@@ -80,6 +88,8 @@ Route::group([
     Route::get('initialize_user', function () {
         return Auth::user();
     });
+
+//    Route::get('initialize_account', 'ApiPublicController@account');
     Route::group(['prefix' => 'users'], function () {
         /**
          * Users

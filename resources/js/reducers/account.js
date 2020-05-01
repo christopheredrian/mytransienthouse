@@ -2,21 +2,14 @@ export default (state = [], action) => {
 
     switch (action.type) {
         case 'INITIALIZE_ACCOUNT':
-            console.log("Reducer: INITIALIZE_USER");
+            console.log("Reducer: INITIALIZE_ACCOUNT");
+            console.log(action.account);
+
             return {
                 ...state,
-                ...action.user,
+                ...action.account,
             };
 
-
-        case 'LOGOUT_USER':
-            console.log("Reducer: LOGOUT_USER");
-
-            const newState = {};
-
-            console.log(newState);
-            console.log("end");
-            return newState;
         default:
             return state
     }

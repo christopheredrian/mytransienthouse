@@ -21,9 +21,9 @@
     {{--<link href="{{ asset('css/app.css') }}" rel="stylesheet">--}}
     {{--<link href="{{ asset('css/test.css') }}" rel="stylesheet">--}}
 
-    @yield('styles')
+    {{--@yield('styles')--}}
 
-    @yield('scripts')
+    {{--@yield('scripts')--}}
 
 </head>
 <body>

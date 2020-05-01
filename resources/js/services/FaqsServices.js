@@ -10,7 +10,6 @@ export const fetchAll = (onSuccess, onFailure) => {
     AppApiRequest(Endpoints.FAQS_ALL, 'GET', onSuccess, onFailure);
 };
 
-
 export const fetchOne = (id, onSuccess, onFailure) => {
     AppApiRequest(`/api/faqs/${id}`, 'GET', onSuccess, onFailure);
 };

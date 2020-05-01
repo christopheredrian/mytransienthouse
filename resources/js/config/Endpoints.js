@@ -2,6 +2,7 @@ const Endpoints = {
     LOGIN: '/api/login',
     TEST_DATA: '/api/test',
     INIT_USER: '/api/initialize_user',
+    INIT_ACCOUNT: '/api/initialize_account',
 
     USERS_DATA: '/api/users',
     USER_DATA: '/api/users/',
