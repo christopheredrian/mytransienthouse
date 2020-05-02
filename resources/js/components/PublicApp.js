@@ -2,15 +2,17 @@ import React from 'react';
 import {connect} from 'react-redux';
 
 import Home from './public/Home'
+import Gallery from './public/Gallery'
 
 import {Menu} from "react-feather";
 import {
     BrowserRouter as Router,
     Switch,
-    Route
+    Route,
+    Link
 } from "react-router-dom";
 
-const PublicApp = ({ account = null }) => {
+const PublicApp = ({account = null}) => {
     return (
         <Router>
             <div id="layoutDefault">
@@ -21,6 +23,8 @@ const PublicApp = ({ account = null }) => {
 
                         <Switch>
                             <Route path={'/'} exact={true}><Home/></Route>
+                            <Route path={`/gallery`} exact={true}><Gallery/></Route>
+                            <Route path={`/gallery/:id`}><Gallery/></Route>
                         </Switch>
 
                     </main>
@@ -32,7 +36,7 @@ const PublicApp = ({ account = null }) => {
     );
 };
 
-const PublicNavBar = ({ businessName = 'MTH' }) => {
+const PublicNavBar = ({businessName = 'MTH'}) => {
     return (
         <nav className="navbar navbar-marketing navbar-expand-lg bg-white navbar-light bg-primary">
             <div className="container">
@@ -42,8 +46,19 @@ const PublicNavBar = ({ businessName = 'MTH' }) => {
                         aria-expanded="false" aria-label="Toggle navigation"><Menu /></button>
                 <div className="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul className="navbar-nav ml-auto mr-lg-5">
-                        <li className="nav-item"><a className="nav-link" href="/">Home</a></li>
-                        <li className="nav-item"><a className="nav-link" href="/gallery">Gallery</a></li>
+                        <li className="nav-item">
+                            <Link to={"/"} className={'nav-link'}>
+                                Home
+                            </Link>
+                        </li>
+
+                        <li className="nav-item">
+                            <Link to={"/gallery"} className={'nav-link'}>
+                                Gallery
+                            </Link>
+                        </li>
+
+                        {/*<li className="nav-item"><a className="nav-link" href="/gallery">Gallery</a></li>*/}
                     </ul>
                     <a className="btn-primary btn rounded-pill px-4 ml-lg-4" href="/contact">
                         Book Now
@@ -67,23 +82,23 @@ const PublicFooter = () => {
                             <div className="mb-3">Build better websites</div>
                             <div className="icon-list-social mb-5">
                                 <a className="icon-list-social-link" href="#">
-                                    <i className="fab fa-instagram" />
+                                    <i className="fab fa-instagram"/>
                                 </a>
                                 <a className="icon-list-social-link" href="#">
-                                    <i className="fab fa-facebook" />
+                                    <i className="fab fa-facebook"/>
                                 </a>
                                 <a className="icon-list-social-link" href="#">
-                                    <i className="fab fa-github" />
+                                    <i className="fab fa-github"/>
                                 </a>
                                 <a className="icon-list-social-link" href="#">
-                                    <i className="fab fa-twitter" />
+                                    <i className="fab fa-twitter"/>
                                 </a>
                             </div>
                         </div>
                         <div className="col-lg-9 float-right">
                             <div className="row">
-                                <div className="col-lg-3 col-md-6 mb-5 mb-lg-0" />
-                                <div className="col-lg-3 col-md-6 mb-5 mb-lg-0" />
+                                <div className="col-lg-3 col-md-6 mb-5 mb-lg-0"/>
+                                <div className="col-lg-3 col-md-6 mb-5 mb-lg-0"/>
                                 <div className="col-lg-3 col-md-6 mb-5 mb-lg-0">
                                     <div className="text-uppercase-expanded text-xs mb-4">Products</div>
                                     <ul className="list-unstyled mb-0">

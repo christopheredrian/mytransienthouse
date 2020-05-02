@@ -1,7 +1,7 @@
 import React from 'react';
 import {ChevronDown} from "react-feather";
 
-const FaqsList = ({ faqs }) => {
+const FaqsList = ({faqs}) => {
     return (
         <div>
             {

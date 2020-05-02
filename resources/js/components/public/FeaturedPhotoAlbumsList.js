@@ -15,7 +15,6 @@ const FeaturedPhotoAlbumsList = ({ photoAlbums }) => {
                             photoAlbums.map(({id, url, name, description}) => {
                                 return (
                                     <div className="col-lg-4 mb-5" key={id}>
-                                        {/*<a className="card lift h-100" href="/photo-album/{{ $photoAlbum->id }}">*/}
                                         <a className="card lift h-100" href={`/photo_album/${id}`}>
                                             <img className="card-img-top photo-album" src={ url } alt="..."/>
                                             <div className="card-body">

@@ -1,0 +1,46 @@
+.photo {
+    width: 100% !important;
+    height: 210px !important;
+    object-fit: cover !important;
+    object-position: 50% 0% !important;
+}
+
+.mini-photo {
+    height: 140px !important;
+}
+
+@media (min-width: 599px) {
+    .photo {
+        height: 230px !important;
+    }
+}
+
+@media (max-width: 600px) {
+    .mini-photo {
+        height: 174px !important;
+    }
+}
+
+@media (min-width: 790px) {
+    .mini-photo {
+        height: 180px !important;
+    }
+}
+
+@media (min-width: 990px) {
+    .mini-photo {
+        height: 142px !important;
+    }
+}
+
+@media (min-width: 1000px) {
+    .mini-photo {
+        height: 160px !important;
+    }
+}
+
+@media (min-width: 1200px) {
+    .mini-photo {
+        height: 140px !important;
+    }
+}

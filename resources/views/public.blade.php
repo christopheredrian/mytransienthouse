@@ -15,15 +15,11 @@
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
-    <link href={{ asset('sb-kit-ui-pro/css/styles.css') }}  rel="stylesheet"/>
 
     <!-- Styles -->
     {{--<link href="{{ asset('css/app.css') }}" rel="stylesheet">--}}
     {{--<link href="{{ asset('css/test.css') }}" rel="stylesheet">--}}
-
-    {{--@yield('styles')--}}
-
-    {{--@yield('scripts')--}}
+    <link href={{ asset('sb-kit-ui-pro/css/styles.css') }}  rel="stylesheet"/>
 
 </head>
 <body>

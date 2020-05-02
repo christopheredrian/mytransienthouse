@@ -1,6 +1,5 @@
 @extends('layouts.spa')
 
-
 @section('styles')
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/lightgallery/1.6.12/css/lightgallery.min.css">
 @endsection

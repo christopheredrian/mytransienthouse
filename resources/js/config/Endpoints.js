@@ -8,7 +8,7 @@ const Endpoints = {
     USER_DATA: '/api/users/',
     UPSERT_USER: '/api/users/upsert',
 
-    PHOTOS_DATA: '/api/photos',
+    PHOTOS_ALL: '/api/photos',
     UPLOAD_PHOTO: '/api/photos/upload_photo',
     DELETE_PHOTO: '/api/photos/delete_photo',
 
@@ -24,7 +24,9 @@ const Endpoints = {
 
     // Public
     PUBLIC_FAQS_ALL: '/api/public/faqs',
+    PUBLIC_PHOTOS_ALL: '/api/public/photos',
     PUBLIC_FEATURED_PHOTO_ALBUMS: '/api/public/featured_photo_albums',
+    PUBLIC_PHOTO_ALBUM_PHOTOS: '/api/public/photo_album_photos',
 };
 
 export default Endpoints;
