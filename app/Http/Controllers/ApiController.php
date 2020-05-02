@@ -2,7 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Account;
+use App\Utilities\URLUtilities;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Request;
 use InvalidArgumentException;
 
 class ApiController extends Controller
@@ -10,6 +13,20 @@ class ApiController extends Controller
 
     const STATUS_SUCCESS = 'success';
     const STATUS_ERROR = 'error';
+
+    /** @var Account */
+    protected $account;
+
+    public function __construct(Request $request)
+    {
+
+        $this->middleware(function ($request, $next) {
+            $subdomain = URLUtilities::getSubdomain($request->url());
+            $this->account = Account::findOrThrowBySubdomain($subdomain);
+
+            return $next($request);
+        });
+    }
 
     public function getValidApiStatuses()
     {
