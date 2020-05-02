@@ -3,7 +3,9 @@ import {ArrowRight} from "react-feather";
 
 import './FeaturedPhotoAlbumsList.css'
 
-const FeaturedPhotoAlbumsList = ({ photoAlbums }) => {
+import {Link} from "react-router-dom";
+
+const FeaturedPhotoAlbumsList = ({photoAlbums}) => {
     return (
         <div>
             {
@@ -15,7 +17,7 @@ const FeaturedPhotoAlbumsList = ({ photoAlbums }) => {
                             photoAlbums.map(({id, url, name, description}) => {
                                 return (
                                     <div className="col-lg-4 mb-5" key={id}>
-                                        <a className="card lift h-100" href={`/photo_album/${id}`}>
+                                        <Link to={`/photo_album/${id}`} className={'card lift h-100'}>
                                             <img className="card-img-top photo-album" src={ url } alt="..."/>
                                             <div className="card-body">
                                                 <h4 className="card-title mb-2">{ name }</h4>
@@ -27,7 +29,7 @@ const FeaturedPhotoAlbumsList = ({ photoAlbums }) => {
                                                 <div className="small text-primary"><ArrowRight /></div>
                                             </div
                                             >
-                                        </a>
+                                        </Link>
                                     </div>
                                 )
                             })

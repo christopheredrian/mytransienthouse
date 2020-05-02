@@ -24,13 +24,14 @@ const PublicApp = ({account = null}) => {
                         <Switch>
                             <Route path={'/'} exact={true}><Home/></Route>
                             <Route path={`/gallery`} exact={true}><Gallery/></Route>
-                            <Route path={`/gallery/:id`}><Gallery/></Route>
+                            <Route path={`/photo_album/:id`} exact={true}><Gallery/></Route>
                         </Switch>
 
                     </main>
                 </div>
 
                 <PublicFooter />
+
             </div>
         </Router>
     );
@@ -38,9 +39,11 @@ const PublicApp = ({account = null}) => {
 
 const PublicNavBar = ({businessName = 'MTH'}) => {
     return (
-        <nav className="navbar navbar-marketing navbar-expand-lg bg-white navbar-light bg-primary">
+        <nav className="navbar navbar-marketing navbar-expand-lg bg-white navbar-light bg-primary fixed-top">
             <div className="container">
-                <a className="navbar-brand text-dark" href="/">{ businessName }</a>
+                <Link to={"/"} className={'navbar-brand text-dark'}>
+                    { businessName }
+                </Link>
                 <button className="navbar-toggler" type="button" data-toggle="collapse"
                         data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation"><Menu /></button>

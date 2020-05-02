@@ -72,24 +72,22 @@ class ApiPublicController extends ApiController
 
         $photoAlbum = PhotoAlbum::findOrFail($photoAlbumId);
 
-        if ($photoAlbum->is_featured === null || $photoAlbum->is_featured === 0) {
+        if (!$photoAlbum->is_featured || $photoAlbum->account_id !== $this->account->id) {
             throw new InvalidArgumentException("Forbidden.");
         }
 
-        $allPhotosCount = Photo::where('account_id', $this->account->id)->count();
         $otherAlbums = PhotoAlbumUtilities::getPhotoAlbums($this->account->id, true);
 
         $photos = DB::table('photos')
             ->join('photo_album_photos', 'photos.id', '=', 'photo_album_photos.photo_id')
-            ->where('photo_album_photos.photo_album_id', '=', $albumId)
+            ->where('photo_album_photos.photo_album_id', '=', $photoAlbumId)
             ->select('photos.*')
             ->get();
 
-        return view('public.photo-album', [
+        return $this->jsonApiResponse(self::STATUS_SUCCESS, 'Success', [
             'photos' => $photos,
             'photoAlbum' => $photoAlbum,
-            'otherAlbums' => $otherAlbums,
-            'allPhotosCount' => $allPhotosCount
+            'otherAlbums' => $otherAlbums
         ]);
     }
 

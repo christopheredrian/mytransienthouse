@@ -28,7 +28,7 @@ const PhotoAlbumsList = ({albumAliasLabel, photoAlbums}) => {
                         photoAlbums.map(({id, url, name, description}) => {
                             return (
                                 <div className="col-xl-3 col-lg-4 col-md-6 mb-5" key={id}>
-                                    <Link to={"/gallery"} className={'card lift h-100'}>
+                                    <Link to={`/photo_album/${id}`} className={'card lift h-100'}>
                                         <img className="card-img-top photo mini-photo" src={`${url}`}
                                              alt="..."/>
                                         <div className="card-body p-3">

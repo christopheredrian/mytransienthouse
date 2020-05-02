@@ -2,37 +2,58 @@ import React, {useState, useEffect} from 'react';
 import {connect} from 'react-redux';
 import {useParams} from "react-router-dom";
 
-import {publicFetchAll} from "../../services/PhotosServices";
+import { publicFetchAll as fetchAllPhotos} from "../../services/PhotosServices";
+import {publicFetchPhotoAlbumWithPhotos as fetchPhotoAlbumWithPhotos} from "../../services/PhotoAlbumsServices";
 
-import PhotosList from './PhotosList';
-import PhotoAlbumsList from './PhotoAlbumsList';
+import PhotosList from './subcomponents/PhotosList';
+import PhotoAlbumsList from './subcomponents/PhotoAlbumsList';
 
-import './PhotosList.css'
+import './subcomponents/PhotosList.css'
 
 const Gallery = ({ albumAliasLabel, businessName }) => {
 
     let { id } = useParams();
 
+    const [photoAlbum, setPhotoAlbum] = useState(null);
     const [photos, setPhotos] = useState([]);
     const [otherAlbums, setOtherAlbums] = useState([]);
 
-    const fetchAllPhotos = () => {
-        publicFetchAll(({photos, otherAlbums, allPhotosCount, }) => {
-            setPhotos(photos);
-            setOtherAlbums(otherAlbums);
-        }, (error) => {
-            // todo: handle
-        })
+    const fetchPhotos = () => {
+        if (id) {
+            fetchPhotoAlbumWithPhotos(id, ({photos, photoAlbum, otherAlbums}) => {
+                setPhotos(photos);
+                setOtherAlbums(otherAlbums);
+                setPhotoAlbum(photoAlbum);
+            }, (error) => {
+                // todo: handle
+            })
+        } else {
+            fetchAllPhotos(({photos, otherAlbums}) => {
+                setPhotos(photos);
+                setOtherAlbums(otherAlbums);
+                setPhotoAlbum(null);
+            }, (error) => {
+                // todo: handle
+            })
+        }
     };
 
     useEffect(() => {
-        fetchAllPhotos();
-    }, []);
+        fetchPhotos();
+    }, [id]);
+
+    // useEffect(() => {
+    //     fetchPhotos();
+    // }, [id]);
 
     return (
         <div>
-            <Header businessName={businessName} />
-            <PhotosList photos={photos}/>
+            <Header
+                photoAlbum={photoAlbum}
+                businessName={businessName}
+            />
+            <PhotosList
+                photos={photos}/>
             <PhotoAlbumsList
                 albumAliasLabel={albumAliasLabel}
                 photoAlbums={otherAlbums}
@@ -42,7 +63,7 @@ const Gallery = ({ albumAliasLabel, businessName }) => {
     )
 };
 
-const Header = ({ businessName, photoAlbum = null }) => {
+const Header = ({ photoAlbum = null, businessName,  }) => {
     return(
         <header className="page-header page-header-dark bg-gradient-primary-to-secondary">
             <div className="page-header-content">

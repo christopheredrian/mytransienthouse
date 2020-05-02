@@ -4,8 +4,8 @@ import {connect} from 'react-redux';
 import {publicFetchAll as fetchAllFaqs} from "../../services/FaqsServices";
 import {publicFetchAll as fetchAllPhotoAlbums} from "../../services/PhotoAlbumsServices";
 
-import FaqsList from './FaqsList';
-import FeaturedPhotoAlbumsList from './FeaturedPhotoAlbumsList';
+import FaqsList from './subcomponents/FaqsList';
+import FeaturedPhotoAlbumsList from './subcomponents/FeaturedPhotoAlbumsList';
 
 const Home = ({ui = null}) => {
 

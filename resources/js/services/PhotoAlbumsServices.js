@@ -14,8 +14,8 @@ export const publicFetchAll = (onSuccess, onFailure) => {
     AppApiRequest(Endpoints.PUBLIC_FEATURED_PHOTO_ALBUMS, 'GET', onSuccess, onFailure);
 };
 
-export const publicFetchPhotoAlbumWithPhotos = (onSuccess, onFailure) => {
-    AppApiRequest(Endpoints.PUBLIC_PHOTO_ALBUM_PHOTOS, 'GET', onSuccess, onFailure);
+export const publicFetchPhotoAlbumWithPhotos = (id, onSuccess, onFailure) => {
+    AppApiRequest(`${Endpoints.PUBLIC_PHOTO_ALBUM_PHOTOS}/${id}`, 'GET', onSuccess, onFailure);
 };
 
 export const fetchAllSelectedPhotos = (id, onSuccess, onFailure) => {
