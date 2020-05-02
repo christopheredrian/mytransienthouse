@@ -13,7 +13,7 @@ axios.defaults.withCredentials = true;
 import ReactDOM from "react-dom";
 import React from "react";
 import MainApp from "./components/MainApp";
-import PublicApp from "./components/public/PublicApp";
+import PublicApp from "./components/PublicApp";
 import {Provider} from 'react-redux';
 // import {startSetUsers} from './actions/users'
 import configureStore from './store/configureStore';

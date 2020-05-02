@@ -21,6 +21,10 @@ const Endpoints = {
 
     // FAQs
     FAQS_ALL: '/api/faqs/',
+
+    // Public
+    PUBLIC_FAQS_ALL: '/api/public/faqs',
+    PUBLIC_FEATURED_PHOTO_ALBUMS: '/api/public/featured_photo_albums',
 };
 
 export default Endpoints;
