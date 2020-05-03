@@ -1,4 +1,5 @@
 import React, {useState, useEffect} from 'react';
+import {Link} from "react-router-dom";
 import {connect} from 'react-redux';
 
 import {publicFetchAll as fetchAllFaqs} from "../../services/FaqsServices";
@@ -6,6 +7,8 @@ import {publicFetchAll as fetchAllPhotoAlbums} from "../../services/PhotoAlbumsS
 
 import FaqsList from './subcomponents/FaqsList';
 import FeaturedPhotoAlbumsList from './subcomponents/FeaturedPhotoAlbumsList';
+
+
 
 const Home = ({ui = null}) => {
 
@@ -56,6 +59,7 @@ const Home = ({ui = null}) => {
 
 const Header = ({ui}) => {
 
+
     return (
         <header
             className="page-header page-header-light bg-img-cover overlay overlay-light overlay-80 mt-10"
@@ -67,9 +71,12 @@ const Header = ({ui}) => {
                         <div className="col-xl-8 col-lg-10 text-center">
                             <h1 className="page-header-title">{ ui.main_title ? ui.main_title : 'MTH' }</h1>
                             <p className="page-header-text mb-4">{ ui.main_subtitle ? ui.main_subtitle : 'MTH' }</p>
-                            <a className="btn btn-marketing rounded-pill btn-primary" href="#">Get Started</a>
+                            <Link to={"/contact"} className={'btn btn-marketing rounded-pill btn-primary'}>
+                                Get Started
+                            </Link>
                             <a className="btn btn-link btn-marketing rounded-pill" href="#!">Learn More</a>
                         </div>
+
                     </div>
                 </div>
             </div>

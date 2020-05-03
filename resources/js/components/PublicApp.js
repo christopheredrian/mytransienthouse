@@ -102,10 +102,10 @@ const PublicFooter = () => {
                                     <div className="text-uppercase-expanded text-xs mb-4">Products</div>
                                     <ul className="list-unstyled mb-0">
                                         <li className="mb-2">
-                                            <a target="_blank" href="https://researchbaguio.herokuapp.com/">Lengua</a>
+                                            <a target="_blank" href="https://project-lengua.herokuapp.com/">Lengua</a>
                                         </li>
                                         <li className="mb-2">
-                                            <a target="_blank" href="http://project-lengua.herokuapp.com/">
+                                            <a target="_blank" href="http://researchbaguio.herokuapp.com/">
                                                 Research Baguio
                                             </a>
                                         </li>
