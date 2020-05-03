@@ -102,7 +102,9 @@ const BookNow = () => {
             <div className="container z-1">
                 <div className="mt-5">
                     <div className="display-4 mb-3 text-dark">Ready to book?</div>
-                    <a className="btn btn-primary btn-marketing rounded-pill" href="/contact">Book Now</a>
+                    <Link to={"/contact"} className={'btn btn-primary btn-marketing rounded-pill'}>
+                        Book Now
+                    </Link>
                 </div>
             </div>
             <div className="svg-border-angled text-light">
