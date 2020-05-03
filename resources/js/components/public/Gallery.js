@@ -84,7 +84,7 @@ const Gallery = ({albumAliasLabel, businessName}) => {
 
 const Header = ({photoAlbum = null, businessName,}) => {
     return (
-        <header className="page-header page-header-dark bg-gradient-primary-to-secondary">
+        <header className="page-header page-header-dark bg-gradient-primary-to-secondary mt-5">
             <div className="page-header-content">
                 <div className="container text-center">
                     <div className="row justify-content-center">

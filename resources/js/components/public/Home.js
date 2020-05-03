@@ -58,7 +58,7 @@ const Header = ({ui}) => {
 
     return (
         <header
-            className="page-header page-header-light bg-img-cover overlay overlay-light overlay-80"
+            className="page-header page-header-light bg-img-cover overlay overlay-light overlay-80 mt-10"
             style={{backgroundImage: `url("${ui.main_image_url}")`}}
         >
             <div className="page-header-content py-5">
