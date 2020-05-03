@@ -27,6 +27,7 @@ const Endpoints = {
     PUBLIC_PHOTOS_ALL: '/api/public/photos',
     PUBLIC_FEATURED_PHOTO_ALBUMS: '/api/public/featured_photo_albums',
     PUBLIC_PHOTO_ALBUM_PHOTOS: '/api/public/photo_album_photos',
+    PUBLIC_UPSERT_SUPPORT_REQUEST: '/api/public/support_request',
 };
 
 export default Endpoints;

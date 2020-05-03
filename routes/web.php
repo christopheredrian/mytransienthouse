@@ -42,6 +42,7 @@ Route::group([
         Route::get('/featured_photo_albums', 'ApiPublicController@featuredPhotoAlbums');
         Route::get('/photos', 'ApiPublicController@allPhotos');
         Route::get('/photo_album_photos/{id}', 'ApiPublicController@photoAlbumPhotos');
+        Route::post('/support_request', 'ApiPublicController@supportRequest');
     });
 
     Route::group([

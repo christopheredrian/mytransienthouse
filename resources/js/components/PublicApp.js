@@ -3,6 +3,7 @@ import {connect} from 'react-redux';
 
 import Home from './public/Home'
 import Gallery from './public/Gallery'
+import SupportRequest from './public/SupportRequest'
 
 import {Menu} from "react-feather";
 import {
@@ -23,8 +24,8 @@ const PublicApp = ({account = null}) => {
                             <Route path={'/'} exact={true}><Home/></Route>
                             <Route path={`/gallery`} exact={true}><Gallery/></Route>
                             <Route path={`/photo_album/:id`} exact={true}><Gallery/></Route>
+                            <Route path={`/contact`} exact={true}><SupportRequest /></Route>
                         </Switch>
-
                     </main>
                 </div>
                 <PublicFooter />
@@ -56,13 +57,11 @@ const PublicNavBar = ({businessName = 'MTH'}) => {
                                 Gallery
                             </Link>
                         </li>
-
-                        {/*<li className="nav-item"><a className="nav-link" href="/gallery">Gallery</a></li>*/}
                     </ul>
-                    <a className="btn-primary btn rounded-pill px-4 ml-lg-4" href="/contact">
+                    <Link to={"/contact"} className={'btn-primary btn rounded-pill px-4 ml-lg-4'}>
                         Book Now
-                        <i className="fas fa-arrow-right ml-1"/>
-                    </a>
+                        <i className="fas fa-arrow-right ml-2"/>
+                    </Link>
                 </div>
             </div>
         </nav>

@@ -3,11 +3,13 @@
 namespace App\Http\Controllers;
 
 use App\Photo;
+use App\SupportRequest;
 use Exception;
 use App\Faq;
 use App\PhotoAlbum;
 use App\Utilities\PhotoAlbumUtilities;
 use App\Utilities\UiUtilities;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use InvalidArgumentException;
 
@@ -36,6 +38,44 @@ class ApiPublicController extends ApiController
         }
 
         return $this->jsonApiResponse(self::STATUS_SUCCESS, 'Success', $faqs);
+
+    }
+
+    public function supportRequest(Request $request)
+    {
+
+        try {
+
+            $this->validate($request, [
+                'phone' => 'min:10|max:15|required',
+                'full_name' => 'required|max:255',
+                'subject' => 'required|max:255',
+                'body' => 'required|max:1000',
+                'email' => 'email',
+            ]);
+
+            $supportRequest = new SupportRequest();
+            $supportRequest->account_id = $this->account->id;
+            $supportRequest->email = $request->email;
+            $supportRequest->status = SupportRequest::STATUS_PENDING;
+            $supportRequest->full_name = $request->full_name;
+            $supportRequest->phone = $request->phone;
+
+            $supportRequest->subject = $request->subject;
+            $supportRequest->body = $request->body;
+            $supportRequest->reference_number = SupportRequest::generateReferenceNumber($this->account);
+
+            if (!$supportRequest->save()) {
+                throw new InvalidArgumentException("There was a problem saving the support request");
+            }
+
+            return $this->jsonApiResponse(self::STATUS_SUCCESS, 'Success', [
+                'referenceNumber' => $supportRequest->reference_number
+            ]);
+
+        } catch (Exception $exception) {
+            return $this->jsonApiResponse(self::STATUS_ERROR, $exception->getMessage());
+        }
 
     }
 
