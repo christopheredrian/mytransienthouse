@@ -18,7 +18,9 @@ class PhotoAlbumUtilities
                 'photo_albums.is_featured',
                 'photo_albums.description',
                 'photos.url',
-                'photos.updated_at')
+                'photos.updated_at',
+                DB::raw('(select count(id) from photo_album_photos where photo_album_id = photo_albums.id) as photosCount')
+            )
             ->join('photo_album_photos', 'photo_albums.id', '=', 'photo_album_photos.photo_album_id')
             ->join('photos', 'photo_album_photos.photo_id', '=', 'photos.id')
             ->where('photo_albums.account_id', '=', $accountId)

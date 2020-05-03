@@ -7,7 +7,11 @@ import {AppApiRequest} from "./index";
  * @param onFailure
  */
 export const fetchAll = (onSuccess, onFailure) => {
-    AppApiRequest(Endpoints.PHOTOS_DATA, 'GET', onSuccess, onFailure);
+    AppApiRequest(Endpoints.PHOTOS_ALL, 'GET', onSuccess, onFailure);
+};
+
+export const publicFetchAll = (onSuccess, onFailure) => {
+    AppApiRequest(Endpoints.PUBLIC_PHOTOS_ALL, 'GET', onSuccess, onFailure);
 };
 
 export const uploadPhoto = (data, onSuccess, onFailure) => {

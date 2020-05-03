@@ -26,6 +26,96 @@ Route::get('admin', 'Auth\LoginController@showLoginForm'); // alias for BO login
 Route::get('home', 'StaticController@home');
 Route::get('greetings/{handle}', 'EcardController@handle');
 
+Route::group([
+    'prefix' => 'api',
+    // todo: add middleware for admin
+], function () {
+
+    Route::get('initialize_account', 'ApiPublicController@account');
+
+    Route::group(['prefix' => 'public'], function () {
+        /**
+         * Public
+         * /api/public/
+         */
+        Route::get('/faqs', 'ApiPublicController@faqs');
+        Route::get('/featured_photo_albums', 'ApiPublicController@featuredPhotoAlbums');
+        Route::get('/photos', 'ApiPublicController@allPhotos');
+        Route::get('/photo_album_photos/{id}', 'ApiPublicController@photoAlbumPhotos');
+        Route::post('/support_request', 'ApiPublicController@supportRequest');
+    });
+
+    Route::group([
+        'middleware' => 'auth',
+        // todo: add middleware for admin
+    ], function () {
+
+        /**
+         * Authenticated routes
+         */
+
+        Route::get('initialize_user', function () {
+            return Auth::user();
+        });
+
+        Route::group(['prefix' => 'users'], function () {
+            /**
+             * Users
+             * /api/users/
+             */
+            Route::get('/', 'UserController@users');
+            Route::get('/{id}', 'UserController@user');
+            Route::post('/upsert', 'UserController@upsert');
+        });
+
+        Route::group(['prefix' => 'photos'], function () {
+            /**
+             * Photos
+             * /api/photos/
+             */
+            Route::get('/', 'ApiPhotoController@all');
+            Route::post('/upload_photo', 'ApiPhotoController@upload');
+            Route::post('/delete_photo', 'ApiPhotoController@delete');
+
+        });
+
+        Route::group(['prefix' => 'photo_albums'], function () {
+            /**
+             * Photo Albums
+             * /api/photos_albums/
+             */
+            Route::get('/', 'ApiPhotoAlbumController@all');
+            Route::post('/upsert', 'ApiPhotoAlbumController@upsert');
+            Route::post('/delete/{id}', 'ApiPhotoAlbumController@delete');
+            Route::post('/update_featured/{id}', 'ApiPhotoAlbumController@updateFeatured');
+            Route::get('/selected_photos/{albumId}', 'ApiPhotoAlbumController@allSelectedPhotos');
+            Route::get('/unselected_photos/{albumId}', 'ApiPhotoAlbumController@allUnselectedPhotos');
+
+        });
+
+        Route::group(['prefix' => 'faqs'], function () {
+            /**
+             * Faqs
+             * /api/faqs/
+             */
+            Route::get('/', 'FaqsController@all');
+            Route::get('/{id}', 'FaqsController@one');
+            Route::post('/upsert', 'FaqsController@upsert');
+            Route::post('/delete/{id}', 'FaqsController@delete');
+        });
+
+        Route::group(['prefix' => 'support_requests'], function () {
+            /**
+             * Faqs
+             * /api/support_requests/
+             */
+            Route::get('/', 'ApiSupportRequestsController@all');
+        });
+
+        // test route
+        Route::post('test', 'StaticController@test');
+    });
+});
 
 Route::domain("admin.{$appDomain}")->group(function () {
     // START: Admin Routes
@@ -41,87 +131,20 @@ Route::domain("{subdomain}.{$appDomain}")->group(function () {
      */
     // todo: Add protected routes via middleware (auth/business owners)
 
-    // START: Public
-    Route::get('contact', 'PublicController@contact');
-    Route::post('contact', 'PublicController@submit');
-    Route::get('gallery', 'PublicController@gallery');
-    Route::get('photo-album/{id}', 'PublicController@photoAlbum');
-    Route::get('/', 'PublicController@index');
-    // END: Public
-
-    Route::group(['middleware' => 'auth', 'prefix' => 'bo'], function (\Illuminate\Routing\Router $router) {
-
+    /**
+     * Business Owner App
+     */
+    Route::group(['middleware' => 'auth', 'prefix' => 'bo'], function () {
         Route::get('/{path?}', function () {
             return view('business-owner');
         });
-
     });
 
-    // START: Public Routes
-
-    // END: Public Routes
+    /**
+     * Public App
+     */
+    Route::get('/{any}', 'PublicController@newIndex')->where('any', '.*');
 
 });
 
 Route::get('espr2', 'StaticController@espr2');
-
-Route::group([
-    'middleware' => 'auth',
-    'prefix' => 'api',
-    // todo: add middleware for admin
-], function () {
-    /**
-     * Authenticated routes
-     */
-    Route::get('initialize_user', function () {
-        return Auth::user();
-    });
-    Route::group(['prefix' => 'users'], function () {
-        /**
-         * Users
-         * /api/users/
-         */
-        Route::get('/', 'UserController@users');
-        Route::get('/{id}', 'UserController@user');
-        Route::post('/upsert', 'UserController@upsert');
-    });
-
-    Route::group(['prefix' => 'photos'], function () {
-        /**
-         * Users
-         * /api/photos/
-         */
-        Route::get('/', 'ApiPhotoController@all');
-        Route::post('/upload_photo', 'ApiPhotoController@upload');
-        Route::post('/delete_photo', 'ApiPhotoController@delete');
-
-    });
-
-    Route::group(['prefix' => 'photo_albums'], function () {
-        /**
-         * Users
-         * /api/photos/
-         */
-        Route::get('/', 'ApiPhotoAlbumController@all');
-        Route::post('/upsert', 'ApiPhotoAlbumController@upsert');
-        Route::post('/delete/{id}', 'ApiPhotoAlbumController@delete');
-        Route::post('/update_featured/{id}', 'ApiPhotoAlbumController@updateFeatured');
-        Route::get('/selected_photos/{albumId}', 'ApiPhotoAlbumController@allSelectedPhotos');
-        Route::get('/unselected_photos/{albumId}', 'ApiPhotoAlbumController@allUnselectedPhotos');
-
-    });
-
-    Route::group(['prefix' => 'faqs'], function () {
-        Route::get('/', 'FaqsController@all');
-        Route::get('/{id}', 'FaqsController@one');
-        Route::post('/upsert', 'FaqsController@upsert');
-        Route::post('/delete/{id}', 'FaqsController@delete');
-    });
-
-    Route::group(['prefix' => 'support_requests'], function () {
-        Route::get('/', 'ApiSupportRequestsController@all');
-    });
-
-    // test route
-    Route::post('test', 'StaticController@test');
-});
