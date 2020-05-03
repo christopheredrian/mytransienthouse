@@ -18,9 +18,7 @@ const PublicApp = ({account = null}) => {
             <div id="layoutDefault">
                 <div id="layoutDefault_content">
                     <main className="bg-light">
-
                         <PublicNavBar businessName={account.business_name}/>
-
                         <Switch>
                             <Route path={'/'} exact={true}><Home/></Route>
                             <Route path={`/gallery`} exact={true}><Gallery/></Route>
@@ -29,9 +27,7 @@ const PublicApp = ({account = null}) => {
 
                     </main>
                 </div>
-
                 <PublicFooter />
-
             </div>
         </Router>
     );

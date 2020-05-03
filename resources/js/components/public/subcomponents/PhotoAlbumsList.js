@@ -3,7 +3,7 @@ import {Link} from "react-router-dom";
 
 import './FeaturedPhotoAlbumsList.css'
 
-const PhotoAlbumsList = ({albumAliasLabel, photoAlbums}) => {
+const PhotoAlbumsList = ({albumAliasLabel, photoAlbums, allPhotosCount}) => {
     return (
         <section className="bg-white py-4">
             <div className="container">
@@ -11,10 +11,10 @@ const PhotoAlbumsList = ({albumAliasLabel, photoAlbums}) => {
                 <div className="row">
                     <div className="col-xl-3 col-lg-4 col-md-6 mb-5">
                         <Link to={"/gallery"} className={'card lift h-100'}>
-                            {/*<div className="card-flag card-flag-dark card-flag-top-right card-flag-lg">*/}
-                            {/*{{ $allPhotosCount }}*/}
-                            {/*{{ $allPhotosCount === 1 ? ' photo' : ' photos' }}*/}
-                            {/*</div>*/}
+                            <div className="card-flag card-flag-dark card-flag-top-right card-flag-lg">
+                            { allPhotosCount }
+                            { allPhotosCount === 1 ? ' photo' : ' photos' }
+                            </div>
                             <img className="card-img-top" src="https://source.unsplash.com/tG36rvCeqng/800x500"
                                  alt="..."/>
                             <div className="card-body p-3">
@@ -25,10 +25,14 @@ const PhotoAlbumsList = ({albumAliasLabel, photoAlbums}) => {
                     </div>
 
                     {
-                        photoAlbums.map(({id, url, name, description}) => {
+                        photoAlbums.map(({id, url, name, description, photosCount}) => {
                             return (
                                 <div className="col-xl-3 col-lg-4 col-md-6 mb-5" key={id}>
                                     <Link to={`/photo_album/${id}`} className={'card lift h-100'}>
+                                        <div className="card-flag card-flag-dark card-flag-top-right card-flag-lg">
+                                        { photosCount }
+                                        { photosCount === 1 ? ' photo' : ' photos' }
+                                        </div>
                                         <img className="card-img-top photo mini-photo" src={`${url}`}
                                              alt="..."/>
                                         <div className="card-body p-3">

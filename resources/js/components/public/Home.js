@@ -33,26 +33,29 @@ const Home = ({ui = null}) => {
         fetchPhotoAlbums();
     }, []);
 
+    window.scrollTo({
+        left:0,
+        top: 0,
+        behavior: "smooth"
+    });
+
     return (
         <div>
             <Header ui={ui}/>
-
             <section className="bg-white py-10">
                 <div className="container">
-
                     <FeaturedPhotoAlbumsList photoAlbums={photoAlbums} />
                     <FaqsList faqs={faqs}/>
-
                 </div>
             </section>
-
             <BookNow />
-
         </div>
     )
+
 };
 
 const Header = ({ui}) => {
+
     return (
         <header
             className="page-header page-header-light bg-img-cover overlay overlay-light overlay-80"
@@ -79,15 +82,16 @@ const Header = ({ui}) => {
             </div>
         </header>
     )
+
 };
 
 const BookNow = () => {
+
     return (
         <section
             className="bg-img-cover overlay overlay-light overlay-80 py-15"
             style={{backgroundImage: `url("https://source.unsplash.com/BlIhVfXbi9s/1600x800")`}}
         >
-
             <div className="container z-1">
                 <div className="mt-5">
                     <div className="display-4 mb-3 text-dark">Ready to book?</div>
@@ -102,6 +106,7 @@ const BookNow = () => {
             </div>
         </section>
     )
+
 };
 
 const mapStateToProps = (state) => {

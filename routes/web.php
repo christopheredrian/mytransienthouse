@@ -26,51 +26,6 @@ Route::get('admin', 'Auth\LoginController@showLoginForm'); // alias for BO login
 Route::get('home', 'StaticController@home');
 Route::get('greetings/{handle}', 'EcardController@handle');
 
-
-Route::domain("admin.{$appDomain}")->group(function () {
-    // START: Admin Routes
-    Route::get('/{path?}', function () {
-        return view('admin');
-    })->middleware('auth');
-    // END: Admin Routes
-});
-
-Route::domain("{subdomain}.{$appDomain}")->group(function () {
-    /**
-     * Handle subdomain routing
-     */
-    // todo: Add protected routes via middleware (auth/business owners)
-
-    // START: Public
-//    Route::get('contact', 'PublicController@contact');
-//    Route::post('contact', 'PublicController@submit');
-//    Route::get('gallery', 'PublicController@gallery');
-//    Route::get('photo-album/{id}', 'PublicController@photoAlbum');
-//    Route::get('/', 'PublicController@index');
-    // END: Public
-
-    /**
-     * Business Owner App
-     */
-    Route::group(['middleware' => 'auth', 'prefix' => 'bo'], function (\Illuminate\Routing\Router $router) {
-
-        Route::get('/{path?}', function () {
-            return view('business-owner');
-        });
-
-    });
-
-    /**
-     * Public App
-     */
-    Route::get('/{path?}', function () {
-        return view('public');
-    });
-
-});
-
-Route::get('espr2', 'StaticController@espr2');
-
 Route::group([
     'prefix' => 'api',
     // todo: add middleware for admin
@@ -160,3 +115,46 @@ Route::group([
         Route::post('test', 'StaticController@test');
     });
 });
+
+Route::domain("admin.{$appDomain}")->group(function () {
+    // START: Admin Routes
+    Route::get('/{path?}', function () {
+        return view('admin');
+    })->middleware('auth');
+    // END: Admin Routes
+});
+
+Route::domain("{subdomain}.{$appDomain}")->group(function () {
+    /**
+     * Handle subdomain routing
+     */
+    // todo: Add protected routes via middleware (auth/business owners)
+
+    // START: Public
+//    Route::get('contact', 'PublicController@contact');
+//    Route::post('contact', 'PublicController@submit');
+//    Route::get('gallery', 'PublicController@gallery');
+//    Route::get('photo-album/{id}', 'PublicController@photoAlbum');
+//    Route::get('/', 'PublicController@index');
+    // END: Public
+
+    /**
+     * Business Owner App
+     */
+    Route::group(['middleware' => 'auth', 'prefix' => 'bo'], function () {
+        Route::get('/{path?}', function () {
+            return view('business-owner');
+        });
+    });
+
+    /**
+     * Public App
+     */
+    Route::get('/{any}', function () {
+
+        return view('public');
+    })->where('any', '.*');
+
+});
+
+Route::get('espr2', 'StaticController@espr2');
