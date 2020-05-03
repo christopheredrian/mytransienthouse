@@ -14,6 +14,7 @@ import {
 } from "react-router-dom";
 
 const PublicApp = ({account = null}) => {
+
     return (
         <Router>
             <div id="layoutDefault">

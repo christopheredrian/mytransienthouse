@@ -151,10 +151,7 @@ Route::domain("{subdomain}.{$appDomain}")->group(function () {
     /**
      * Public App
      */
-    Route::get('/{any}', function () {
-
-        return view('public');
-    })->where('any', '.*');
+    Route::get('/{any}', 'PublicController@newIndex')->where('any', '.*');
 
 });
 

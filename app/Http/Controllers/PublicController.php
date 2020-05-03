@@ -17,6 +17,11 @@ use InvalidArgumentException;
 
 class PublicController extends ApplicationController
 {
+    public function newIndex()
+    {
+        return view('public');
+    }
+
     public function index()
     {
 
