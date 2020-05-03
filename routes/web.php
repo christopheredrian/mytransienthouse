@@ -131,14 +131,6 @@ Route::domain("{subdomain}.{$appDomain}")->group(function () {
      */
     // todo: Add protected routes via middleware (auth/business owners)
 
-    // START: Public
-//    Route::get('contact', 'PublicController@contact');
-//    Route::post('contact', 'PublicController@submit');
-//    Route::get('gallery', 'PublicController@gallery');
-//    Route::get('photo-album/{id}', 'PublicController@photoAlbum');
-//    Route::get('/', 'PublicController@index');
-    // END: Public
-
     /**
      * Business Owner App
      */

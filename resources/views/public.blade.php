@@ -123,6 +123,7 @@
         .bg-img-cover .svg-border-angled polygon{
             color: var(--footer-bg) !important;
         }
+
     </style>
 
 </head>
