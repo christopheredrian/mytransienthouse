@@ -6,6 +6,7 @@ import {Redirect} from "react-router-dom";
 import {publicFetchAll as fetchAllPhotos} from "../../services/PhotosServices";
 import {publicFetchPhotoAlbumWithPhotos as fetchPhotoAlbumWithPhotos} from "../../services/PhotoAlbumsServices";
 
+import Loading from './../ingredients/Loading';
 import PhotosList from './subcomponents/PhotosList';
 import PhotoAlbumsList from './subcomponents/PhotoAlbumsList';
 
@@ -14,6 +15,7 @@ import './subcomponents/PhotosList.css'
 const Gallery = ({albumAliasLabel, businessName}) => {
 
     let {id} = useParams();
+    const [loading, setLoading] = useState(true);
     const [redirect, setRedirect] = useState(null);
     const [galleryData, setGalleryData] = useState({
         photos: [],
@@ -23,6 +25,8 @@ const Gallery = ({albumAliasLabel, businessName}) => {
     });
 
     const fetchPhotos = () => {
+        setLoading(true);
+
         if (id) {
             fetchPhotoAlbumWithPhotos(id, ({photos, photoAlbum, otherAlbums, allPhotosCount}) => {
                 setGalleryData({
@@ -32,6 +36,8 @@ const Gallery = ({albumAliasLabel, businessName}) => {
                     otherAlbums,
                     allPhotosCount
                 });
+
+                setLoading(false);
             }, (error) => {
                 setRedirect('/');
             })
@@ -44,6 +50,8 @@ const Gallery = ({albumAliasLabel, businessName}) => {
                     otherAlbums,
                     allPhotosCount
                 });
+
+                setLoading(false);
             }, (error) => {
                 setRedirect('/');
             })
@@ -61,24 +69,25 @@ const Gallery = ({albumAliasLabel, businessName}) => {
     });
 
     if (redirect) {
-        return <Redirect to={redirect} />;
+        return <Redirect to={redirect}/>;
     }
 
-    return (
-        <div>
-            <Header
-                photoAlbum={galleryData.photoAlbum}
-                businessName={businessName}
-            />
-            <PhotosList
-                photos={galleryData.photos}/>
-            <PhotoAlbumsList
-                allPhotosCount={galleryData.allPhotosCount}
-                albumAliasLabel={albumAliasLabel}
-                photoAlbums={galleryData.otherAlbums}
-            />
-            <GetStarted />
-        </div>
+    return ( loading ? (<Loading />) : (
+            <div>
+                <Header
+                    photoAlbum={galleryData.photoAlbum}
+                    businessName={businessName}
+                />
+                <PhotosList
+                    photos={galleryData.photos}/>
+                <PhotoAlbumsList
+                    allPhotosCount={galleryData.allPhotosCount}
+                    albumAliasLabel={albumAliasLabel}
+                    photoAlbums={galleryData.otherAlbums}
+                />
+                <GetStarted />
+            </div>
+        )
     )
 };
 

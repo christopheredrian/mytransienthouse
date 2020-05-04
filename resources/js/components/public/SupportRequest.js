@@ -1,8 +1,11 @@
 import React, {useState} from 'react';
 import {upsert as upsertSupportRequest} from '../../services/SupportRequestsServices'
 
+import Loading from './../ingredients/Loading';
+
 const SupportRequest = () => {
 
+    const [loading, setLoading] = useState(false);
     const [referenceNumber, setReferenceNumber] = useState(null);
 
     window.scrollTo({
@@ -11,19 +14,24 @@ const SupportRequest = () => {
         behavior: "smooth"
     });
 
-    return (
-        <div className="container bg-light">
-            <div className="row pt-10 pb-5 mt-10">
-                { !referenceNumber ? (
-                    <Form setReferenceNumber={setReferenceNumber}/>
-                ) : (
-                    <SupportRequestSuccess
-                        referenceNumber={referenceNumber}
-                        setReferenceNumber={setReferenceNumber}
-                    />
-                )}
+    return ( loading ? (<Loading />) : (
+            <div className="container bg-light">
+                <div className="row pt-10 pb-5 mt-10">
+                    { !referenceNumber ? (
+                        <Form
+                            setReferenceNumber={setReferenceNumber}
+                            setLoading={setLoading}
+                        />
+                    ) : (
+                        <SupportRequestSuccess
+                            referenceNumber={referenceNumber}
+                            setReferenceNumber={setReferenceNumber}
+                        />
+                    )}
+                </div>
             </div>
-        </div>
+        )
+
     );
 
 };
@@ -52,7 +60,7 @@ const SupportRequestSuccess = ({referenceNumber, setReferenceNumber}) => {
     )
 };
 
-const Form = ({setReferenceNumber}) => {
+const Form = ({setReferenceNumber, setLoading}) => {
 
     const [error, setError] = useState('');
     const [formData, setFormData] = useState({
@@ -65,20 +73,21 @@ const Form = ({setReferenceNumber}) => {
 
     const onSubmit = (e) => {
         e.preventDefault();
+        setLoading(true);
         console.log('onSubmit', formData);
 
         if (!formData.full_name || !formData.phone || !formData.email || !formData.subject || !formData.body) {
             setError('Please provide data for all fields.');
         } else {
-
             upsertSupportRequest(formData, ({referenceNumber}) => {
                 setError('');
+
                 setReferenceNumber(referenceNumber);
+                setLoading(false);
             }, (error) => {
                 alert(error);
                 setError(error);
             });
-
         }
     };
 

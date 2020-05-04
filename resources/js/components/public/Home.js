@@ -5,13 +5,13 @@ import {connect} from 'react-redux';
 import {publicFetchAll as fetchAllFaqs} from "../../services/FaqsServices";
 import {publicFetchAll as fetchAllPhotoAlbums} from "../../services/PhotoAlbumsServices";
 
+import Loading from './../ingredients/Loading';
 import FaqsList from './subcomponents/FaqsList';
 import FeaturedPhotoAlbumsList from './subcomponents/FeaturedPhotoAlbumsList';
 
-
-
 const Home = ({ui = null}) => {
 
+    const [loading, setLoading] = useState(true);
     const [faqs, setFaqs] = useState([]);
     const [photoAlbums, setPhotoAlbums] = useState([]);
 
@@ -26,6 +26,8 @@ const Home = ({ui = null}) => {
     const fetchPhotoAlbums = () => {
         fetchAllPhotoAlbums((photoAlbums) => {
             setPhotoAlbums(photoAlbums);
+
+            setLoading(false);
         }, (error) => {
             // todo: handle
         });
@@ -37,29 +39,28 @@ const Home = ({ui = null}) => {
     }, []);
 
     window.scrollTo({
-        left:0,
+        left: 0,
         top: 0,
         behavior: "smooth"
     });
 
-    return (
-        <div>
-            <Header ui={ui}/>
-            <section className="bg-white py-10">
-                <div className="container">
-                    <FeaturedPhotoAlbumsList photoAlbums={photoAlbums} />
-                    <FaqsList faqs={faqs}/>
-                </div>
-            </section>
-            <BookNow />
-        </div>
+    return ( loading ? (<Loading />) : (
+            <div>
+                <Header ui={ui}/>
+                <section className="bg-white py-10">
+                    <div className="container">
+                        <FeaturedPhotoAlbumsList photoAlbums={photoAlbums}/>
+                        <FaqsList faqs={faqs}/>
+                    </div>
+                </section>
+                <BookNow />
+            </div>
+        )
     )
 
 };
 
 const Header = ({ui}) => {
-
-
     return (
         <header
             className="page-header page-header-light bg-img-cover overlay overlay-light overlay-80 mt-10"
@@ -84,7 +85,7 @@ const Header = ({ui}) => {
             <div className="svg-border-rounded text-white">
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 144.54 17.34" preserveAspectRatio="none"
                      fill="currentColor">
-                    <path d="M144.54,17.34H0V0H144.54ZM0,0S32.36,17.34,72.27,17.34,144.54,0,144.54,0" />
+                    <path d="M144.54,17.34H0V0H144.54ZM0,0S32.36,17.34,72.27,17.34,144.54,0,144.54,0"/>
                 </svg>
             </div>
         </header>
