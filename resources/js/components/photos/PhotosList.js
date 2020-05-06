@@ -7,30 +7,22 @@ import {
     fetchAll, uploadPhoto, deletePhoto
 } from "../../services/PhotosServices";
 
-const CustomToggle = React.forwardRef(({children, onClick}, ref) => (
-    <button
-        className="btn btn-transparent-dark btn-icon"
-        ref={ref}
-        onClick={e => {
-            e.preventDefault();
-            onClick(e);
-        }}
-    >
-        <MoreVertical />
-        {children}
-    </button>
-));
+import Loading from './../ingredients/Loading';
 
 const PhotosList = ({loggedInUser = null}) => {
 
-    const [isUploading, setIsUploading] = useState(false);
+    const [loading, setLoading] = useState(true);
     const [photos, setPhotos] = useState([]);
     const [photoFiles, setPhotoFiles] = useState('');
+    const [isUploading, setIsUploading] = useState(false);
     const [errorMessage, setErrorMessage] = useState(null);
 
     const fetchAllPhotos = () => {
+        setLoading(true);
+
         fetchAll((photos) => {
             setPhotos(photos);
+            setLoading(false);
         }, (error) => {
             // todo: handle
         })
@@ -46,7 +38,6 @@ const PhotosList = ({loggedInUser = null}) => {
     };
 
     const onSuccess = (response) => {
-        console.log('boom');
         setIsUploading(false);
         fetchAllPhotos();
     };
@@ -60,11 +51,9 @@ const PhotosList = ({loggedInUser = null}) => {
         Array.from(photoFiles).forEach(photoFile => data.append('photos[]', photoFile));
 
         uploadPhoto(data, (response) => {
-
             if (_.isFunction(onSuccess)) {
                 onSuccess(response);
             }
-
         }, (message) => {
             setErrorMessage(message);
         });
@@ -78,11 +67,9 @@ const PhotosList = ({loggedInUser = null}) => {
 
         if (confirmDelete) {
             deletePhoto(id, (response) => {
-
                 if (_.isFunction(onSuccess)) {
                     onSuccess(response);
                 }
-
             }, (message) => {
                 setErrorMessage(message);
             });
@@ -97,58 +84,121 @@ const PhotosList = ({loggedInUser = null}) => {
         objectPosition: "50% -0%"
     };
 
-    return (
-        <main>
-            <div className="page-header pb-10 page-header-dark bg-gradient-primary-to-secondary">
-                <div className="container-fluid">
-                    <div className="page-header-content">
-                        <h1 className="page-header-title">
-                            <div className="page-header-icon">
-                                <Camera />
-                            </div>
-                            <span>Photos</span>
-                        </h1>
-                        <div className="page-header-subtitle">Photo overview and management of your residence</div>
-                    </div>
-                </div>
-            </div>
+    return ( loading ? (<Loading />) : (
+            <main>
+                <Header />
 
-            <div className="container-fluid mt-n10">
-                <div className="row">
-                    <div className="col-xl-3">
-                        <div className="row">
-                            <div id="default" className="w-100">
-                                <div className="card mb-4">
-                                    <div className="card-header">Upload Photo/s</div>
+                <div className="container-fluid mt-n10">
+                    <div className="row">
+                        <div className="col-xl-3">
+                            <div className="row">
+                                <div id="default" className="w-100">
+                                    <div className="card mb-4">
+                                        <div className="card-header">Upload Photo/s</div>
+                                        <div className="card-body">
+                                            <div className="sbp-preview">
+                                                <div className="sbp-preview-content">
+                                                    <form onSubmit={(e) => onUpload(e)} encType="multipart/form-data">
+                                                        <div className="form-group">
+                                                            <input
+                                                                type="file"
+                                                                name="photos[]"
+                                                                accept=".jpeg, .jpg, .png"
+                                                                className="form-control-file"
+                                                                onChange={(e) => onFileSelectChange(e)}
+                                                                multiple
+                                                                required
+                                                            />
+                                                        </div>
+                                                        <button
+                                                            className="btn btn-primary"
+                                                            type="submit"
+                                                            disabled={isUploading}
+                                                        >
+                                                            { isUploading ? (
+                                                                <FontAwesomeIcon className="mr-2" icon="spinner" spin/>
+                                                            ) : (
+                                                                <FontAwesomeIcon className="mr-2" icon="upload"/>
+                                                            )
+                                                            }
+                                                            {isUploading ? " Uploading" : " Upload"}
+                                                        </button>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div className="col-xl-9">
+                            <div id="default" className="h-100">
+                                <div className="card mb-4 h-100">
+                                    <div className="card-header">
+                                        <ul className="nav nav-tabs card-header-tabs">
+                                            <li className="nav-item">
+                                                <a className="nav-link active" href="#">
+                                                    All Photos <span
+                                                    className="badge badge-warning">{photos.length}</span>
+                                                </a>
+                                            </li>
+                                            <li className="nav-item">
+                                                <a className="nav-link disabled" href="#">Albums</a>
+                                            </li>
+                                        </ul>
+                                    </div>
+
                                     <div className="card-body">
-                                        <div className="sbp-preview">
-                                            <div className="sbp-preview-content">
-                                                <form onSubmit={(e) => onUpload(e)} encType="multipart/form-data">
-                                                    <div className="form-group">
-                                                        <input
-                                                            type="file"
-                                                            name="photos[]"
-                                                            accept=".jpeg, .jpg, .png"
-                                                            className="form-control-file"
-                                                            onChange={(e) => onFileSelectChange(e)}
-                                                            multiple
-                                                            required
-                                                        />
-                                                    </div>
-                                                    <button
-                                                        className="btn btn-primary"
-                                                        type="submit"
-                                                        disabled={isUploading}
-                                                    >
-                                                        { isUploading ? (
-                                                            <FontAwesomeIcon className="mr-2" icon="spinner" spin/>
-                                                        ) : (
-                                                            <FontAwesomeIcon className="mr-2" icon="upload"/>
-                                                        )
-                                                        }
-                                                        {isUploading ? " Uploading" : " Upload"}
-                                                    </button>
-                                                </form>
+                                        <div
+                                            className="sbp-preview p-2"
+                                            style={{overflowY: "auto", maxHeight: "calc(100vh - 400px)"}}
+                                        >
+                                            <div className="row">
+                                                {
+                                                    !Array.isArray(photos) || photos.length === 0 ? (
+                                                        <div className="justify-content-center">
+                                                            <p colSpan="3">No Photos</p>
+                                                        </div>
+                                                    ) : (
+                                                        photos.map((photo) => {
+                                                            return (
+                                                                <div className=" col-xl-3" key={photo.id}>
+                                                                    <div className="card mb-3 box-shadow">
+                                                                        <img
+                                                                            className="card-img"
+                                                                            src={photo.url}
+                                                                            style={photoStyle}
+                                                                        />
+                                                                        <div
+                                                                            className="card-img-overlay p-1"
+                                                                            style={{height: "200px"}}
+                                                                        >
+                                                                            <div className="d-flex justify-content-end">
+
+                                                                                <Dropdown as={ButtonGroup}>
+                                                                                    <Dropdown.Toggle
+                                                                                        as={CustomToggle}
+                                                                                        variant="success"
+                                                                                        id="dropdown-split-basic"
+                                                                                    />
+
+                                                                                    <Dropdown.Menu>
+                                                                                        <Dropdown.Item
+                                                                                            onClick={(e) => onDelete(e, photo.id)}
+                                                                                        >
+                                                                                            Delete
+                                                                                        </Dropdown.Item>
+                                                                                    </Dropdown.Menu>
+                                                                                </Dropdown>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            );
+                                                        })
+                                                    )
+                                                }
                                             </div>
                                         </div>
                                     </div>
@@ -156,83 +206,43 @@ const PhotosList = ({loggedInUser = null}) => {
                             </div>
                         </div>
                     </div>
-
-                    <div className="col-xl-9">
-                        <div id="default" className="h-100">
-                            <div className="card mb-4 h-100">
-                                <div className="card-header">
-                                    <ul className="nav nav-tabs card-header-tabs">
-                                        <li className="nav-item">
-                                            <a className="nav-link active" href="#">
-                                                All Photos <span className="badge badge-warning">{photos.length}</span>
-                                            </a>
-                                        </li>
-                                        <li className="nav-item">
-                                            <a className="nav-link disabled" href="#">Albums</a>
-                                        </li>
-                                    </ul>
-                                </div>
-
-                                <div className="card-body">
-                                    <div
-                                        className="sbp-preview p-2"
-                                        style={{overflowY: "auto", maxHeight: "calc(100vh - 400px)"}}
-                                    >
-                                        <div className="row">
-                                            {
-                                                !Array.isArray(photos) || photos.length === 0 ? (
-                                                    <div className="justify-content-center">
-                                                        <p colSpan="3">No Photos</p>
-                                                    </div>
-                                                ) : (
-                                                    photos.map((photo) => {
-                                                        return (
-                                                            <div className=" col-xl-3" key={photo.id}>
-                                                                <div className="card mb-3 box-shadow">
-                                                                    <img
-                                                                        className="card-img"
-                                                                        src={photo.url}
-                                                                        style={photoStyle}
-                                                                    />
-                                                                    <div
-                                                                        className="card-img-overlay p-1"
-                                                                        style={{height: "200px"}}
-                                                                    >
-                                                                        <div className="d-flex justify-content-end">
-
-                                                                            <Dropdown as={ButtonGroup}>
-                                                                                <Dropdown.Toggle
-                                                                                    as={CustomToggle}
-                                                                                    variant="success"
-                                                                                    id="dropdown-split-basic"
-                                                                                />
-
-                                                                                <Dropdown.Menu>
-                                                                                    <Dropdown.Item
-                                                                                        onClick={(e) => onDelete(e, photo.id)}
-                                                                                    >
-                                                                                        Delete
-                                                                                    </Dropdown.Item>
-                                                                                </Dropdown.Menu>
-                                                                            </Dropdown>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        );
-                                                    })
-                                                )
-                                            }
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
                 </div>
-            </div>
-        </main>
+            </main>
+        )
+
     );
 };
+
+const Header = () => {
+    return (
+        <div className="page-header pb-10 page-header-dark bg-gradient-primary-to-secondary">
+            <div className="container-fluid">
+                <div className="page-header-content">
+                    <h1 className="page-header-title">
+                        <div className="page-header-icon">
+                            <Camera />
+                        </div>
+                        <span>Photos</span>
+                    </h1>
+                    <div className="page-header-subtitle">Photo overview and management of your residence</div>
+                </div>
+            </div>
+        </div>
+    )
+}
+
+const CustomToggle = React.forwardRef(({children, onClick}, ref) => (
+    <button
+        className="btn btn-transparent-dark btn-icon"
+        ref={ref}
+        onClick={e => {
+            e.preventDefault();
+            onClick(e);
+        }}
+    >
+        <MoreVertical />
+        {children}
+    </button>
+));
 
 export default PhotosList;
