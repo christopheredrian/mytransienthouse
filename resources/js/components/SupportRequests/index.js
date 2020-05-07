@@ -4,8 +4,11 @@ import _ from 'lodash';
 import {fetchAll} from "../../services/SupportRequestsServices";
 import Ingredients from '../ingredients';
 
+import Loading from './../ingredients/Loading';
+
 const SupportRequests = () => {
 
+    const [loading, setLoading] = useState(true);
     const [supportRequests, setSupportRequests] = useState([]);
     const [errorMessage, setErrorMessage] = useState(null);
     const [filters, setFilters] = useState({
@@ -13,8 +16,13 @@ const SupportRequests = () => {
     });
 
     useEffect(() => {
+        setLoading(true);
+
         fetchAll(
-            data => setSupportRequests(data),
+            data => {
+                setSupportRequests(data)
+                setLoading(false);
+            },
             error => setErrorMessage(error),
             filters
         );
@@ -22,69 +30,71 @@ const SupportRequests = () => {
 
     const onFilterClicked = status => setFilters({status});
 
-    return (
-        <div className={'container mt-5'}>
+    return ( loading ? (<Loading />) : (
+            <div className={'container mt-5'}>
 
-            <div className={'row'}>
-                {
-                    errorMessage &&
-                    <div className="col">
-                        <Ingredients.Info infoClass={'danger'}>
-                            {errorMessage}
-                        </Ingredients.Info>
-                    </div>
-                }
+                <div className={'row'}>
+                    {
+                        errorMessage &&
+                        <div className="col">
+                            <Ingredients.Info infoClass={'danger'}>
+                                {errorMessage}
+                            </Ingredients.Info>
+                        </div>
+                    }
 
-                <div className="col-lg-4 col-xl-3 mb-5">
-                    <div className="card">
-                        <div className="list-group list-group-flush small">
-                            <button
-                                className="list-group-item list-group-item-action"
-                                onClick={() => onFilterClicked('pending')}
-                            >
-                                <i className="fas fa-envelope fa-fw mr-2 text-gray-400"/>
-                                Pending
-                            </button>
-                            <button
-                                className="list-group-item list-group-item-action"
-                                onClick={() => onFilterClicked('marked_as_read')}
-                            >
-                                <i className="fas fa-envelope-open fa-fw mr-2 text-gray-400"/>
-                                Marked as Read
-                            </button>
+                    <div className="col-lg-4 col-xl-3 mb-5">
+                        <div className="card">
+                            <div className="list-group list-group-flush small">
+                                <button
+                                    className="list-group-item list-group-item-action"
+                                    onClick={() => onFilterClicked('pending')}
+                                >
+                                    <i className="fas fa-envelope fa-fw mr-2 text-gray-400"/>
+                                    Pending
+                                </button>
+                                <button
+                                    className="list-group-item list-group-item-action"
+                                    onClick={() => onFilterClicked('marked_as_read')}
+                                >
+                                    <i className="fas fa-envelope-open fa-fw mr-2 text-gray-400"/>
+                                    Marked as Read
+                                </button>
+                            </div>
                         </div>
                     </div>
+                    <div className="col-lg-8 col-xl-9">
+                        {
+                            (
+                                supportRequests &&
+                                !_.isEmpty(supportRequests)
+                            )
+                                ?
+                                supportRequests.map((data, index) => {
+                                    return (
+                                        <SupportRequestCard
+                                            key={data.id || index}
+                                            supportRequest={data}
+                                        />
+                                    );
+                                })
+
+                                :
+
+                                <div className="col">
+                                    <Ingredients.Info infoClass={'info'}>
+                                        There are no entries found
+                                    </Ingredients.Info>
+                                </div>
+
+                        }
+                    </div>
+
+
                 </div>
-                <div className="col-lg-8 col-xl-9">
-                    {
-                        (
-                            supportRequests &&
-                            !_.isEmpty(supportRequests)
-                        )
-                            ?
-                            supportRequests.map((data, index) => {
-                                return (
-                                    <SupportRequestCard
-                                        key={data.id || index}
-                                        supportRequest={data}
-                                    />
-                                );
-                            })
-
-                            :
-
-                            <div className="col">
-                                <Ingredients.Info infoClass={'info'}>
-                                    There are no entries found
-                                </Ingredients.Info>
-                            </div>
-
-                    }
-                </div>
-
-
             </div>
-        </div>
+        )
+
     );
 };
 
