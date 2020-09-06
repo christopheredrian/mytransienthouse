@@ -5,5 +5,5 @@ My Transient House is:
 -  An additional marketing and booking platform for resident owners
 -  Implemented using React.js, Redux, Laravel, the LAMP stack, and integrated with Amazon S3.
 
-It is currently deployed on https://espiritu.mytransienthouse.com/ 
+It is currently deployed on https://xxx.mytransienthouse.com (eg. tenant: https://testing.mytransienthouse.com)
 
